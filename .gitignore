@@ -1,0 +1,9 @@
+node_modules
+
+/log
+/logs
+.env
+.idea
+.env.production
+.env.development
+dist
