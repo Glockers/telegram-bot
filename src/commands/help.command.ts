@@ -7,6 +7,8 @@ export class HelpCommand extends Command {
   }
 
   handle(): void {
-    this.bot.help((ctx) => ctx.reply('Help message'));
+    this.bot.help((ctx) => {
+      ctx.reply('Help message');
+    });
   }
 }

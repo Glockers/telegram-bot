@@ -6,13 +6,15 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/app.js",
-    "dev": "ts-node -r tsconfig-paths/register src/app.ts"
+    "dev": "ts-node -r tsconfig-paths/register src/app.ts",
+    "commit": "git cz"
   },
   "author": "maxim",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.4.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "cz-customizable": "^7.0.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.44.0",
     "eslint-config-standard-with-typescript": "^36.0.0",
@@ -28,7 +30,16 @@
   "dependencies": {
     "axios": "^1.4.0",
     "inversify": "^6.0.1",
+    "log4js": "^6.9.1",
     "reflect-metadata": "^0.1.13",
     "telegraf": "^4.12.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "commitizen.js"
+    }
   }
 }
