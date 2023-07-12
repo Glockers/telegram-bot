@@ -1,11 +1,17 @@
 import 'reflect-metadata';
-import { IBot } from 'bot/bot';
-import { TYPES } from 'container/types';
-import { myContainer } from 'container/inversify.config';
+import { IBot } from 'bot';
+import { TYPES } from 'container/typeContainers';
+import { InversifyContainer as inversifyContainer } from 'container/inversifyContainer';
+import { Logger } from 'utils/logger';
 
-const bot = myContainer.get<IBot>(TYPES.Bot);
+const bot = inversifyContainer.get<IBot>(TYPES.Bot);
 
-bot.init();
+try {
+  bot.init();
+  Logger.getLogger().info('Телеграм бот успешно запущен');
+} catch (err) {
+  Logger.getLogger().error('Ошибка при запуске: ', err);
+}
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
