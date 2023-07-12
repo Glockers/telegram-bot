@@ -34,9 +34,11 @@ export class Bot implements IBot {
     }
   }
 
+  // TODO изменить
   private handleError() {
-    this.bot.catch((error) => {
+    this.bot.catch((error, ctx) => {
       console.error('Произошла ошибка:', error);
+      ctx.reply('Произошла ошибка. Пожалуйста, попробуйте еще раз позже.');
     });
   }
 }
