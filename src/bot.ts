@@ -1,6 +1,6 @@
 import { getInstanceCommands } from '@commands/commands';
 import { ConfigService } from '@config/config.service';
-import { TYPES } from 'container/typeContainers';
+import { TYPE_CONTAINERS } from 'container/typeContainers';
 import { inject, injectable } from 'inversify';
 import { Telegraf } from 'telegraf';
 import { Logger } from 'utils/logger';
@@ -14,14 +14,14 @@ export interface IBot {
 export class Bot implements IBot {
   bot: Telegraf; // TODO добавить типизацию
 
-  constructor(@inject(TYPES.ConfigService) configService: ConfigService) {
+  constructor(@inject(TYPE_CONTAINERS.ConfigService) configService: ConfigService) {
     this.bot = new Telegraf(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
   }
 
   public init(): void {
-    this.handleError();
     this.initCommands();
     this.bot.launch();
+    this.handleError();
   }
 
   public stop(error: string): void {

@@ -1,13 +1,15 @@
 import { Telegraf } from 'telegraf';
-import { StartCommand } from './start.command';
-import { HelpCommand } from './help.command';
+import { GreetingCommand } from './greeting.command';
 import { UnknownCommand } from './unknown.command';
+import { AnimalCommand } from './animal.command';
 
 // TODO Добавить типизацию
+// TODO поменять DI
 export const getInstanceCommands = (bot: Telegraf) => {
-  return [
-    new StartCommand(bot),
-    new HelpCommand(bot),
-    new UnknownCommand(bot)
+  const commands = [
+    new GreetingCommand(bot),
+    new AnimalCommand(bot)
   ];
+
+  return [...commands, new UnknownCommand(bot)];
 };
