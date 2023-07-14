@@ -1,8 +1,8 @@
 import { IConfigService } from '@config/config.service';
-import { TYPE_CONTAINERS } from 'container/typeContainers';
-import { inject, injectable } from 'inversify';
+import { API } from 'infra/api/api.class';
 import axios, { AxiosInstance } from 'axios';
-import { API } from 'api/api.class';
+import { inject, injectable } from 'inversify';
+import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 
 @injectable()
 export class PixelsAPI extends API {
@@ -12,7 +12,7 @@ export class PixelsAPI extends API {
 
   axiosInstance: AxiosInstance;
 
-  constructor(@inject(TYPE_CONTAINERS.ConfigService) configService: IConfigService) {
+  constructor(@inject(TYPE_BOT_CONTAINERS.ConfigService) configService: IConfigService) {
     super(configService);
     this.configService = configService;
     this.axiosInstance = axios.create({

@@ -1,7 +1,7 @@
-import { TYPE_CONTAINERS } from 'container/typeContainers';
 import { getRandomNumber } from 'utils/random';
 import { PixelsAPI } from './pixelAxios.config';
 import { InversifyContainer } from 'container/inversifyContainer';
+import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
 
 /* eslint-disable no-unused-vars */
 export enum EAnimal {
@@ -10,7 +10,7 @@ export enum EAnimal {
 }
 
 export const getAnimal = async (animal: EAnimal) => {
-  const API = InversifyContainer.get<PixelsAPI>(TYPE_CONTAINERS.PixelsAPI);
+  const API = InversifyContainer.get<PixelsAPI>(TYPE_API_CONTAINERS.PixelsAPI);
 
   return API.getInstance().get('search', {
     params: {

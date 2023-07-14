@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { IBot } from 'bot';
-import { TYPE_CONTAINERS } from 'container/typeContainers';
+import { IBot } from 'bot/bot';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { Logger } from 'utils/logger';
+import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 
-const bot = InversifyContainer.get<IBot>(TYPE_CONTAINERS.Bot);
+const bot = InversifyContainer.get<IBot>(TYPE_BOT_CONTAINERS.Bot);
 
 try {
   bot.init();

@@ -1,21 +1,34 @@
-import { getInstanceCommands } from '@commands/commands';
+import { ICommand } from 'bot/commands/commands';
 import { ConfigService } from '@config/config.service';
-import { TYPE_CONTAINERS } from 'container/typeContainers';
 import { inject, injectable } from 'inversify';
 import { Telegraf } from 'telegraf';
 import { Logger } from 'utils/logger';
+import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { TYPE_COMMAND_CONTAINERS } from 'container/commands/command.type';
+import { AbstactCommand } from './commands/command.class';
+import { InversifyContainer } from 'container/inversifyContainer';
 
 export interface IBot {
   init: () => void,
   stop: (error: string) => void
+  getInstance: () => Telegraf
 }
 
 @injectable()
 export class Bot implements IBot {
   bot: Telegraf; // TODO добавить типизацию
 
-  constructor(@inject(TYPE_CONTAINERS.ConfigService) configService: ConfigService) {
+  commands: AbstactCommand[];
+
+  constructor(
+    @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService
+  ) {
     this.bot = new Telegraf(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
+    this.commands = [];
+  }
+
+  getInstance(): Telegraf {
+    return this.bot;
   }
 
   public init(): void {
@@ -30,8 +43,8 @@ export class Bot implements IBot {
   };
 
   private initCommands(): void {
-    const commands = getInstanceCommands(this.bot);
-    for (const command of commands) {
+    this.commands = InversifyContainer.get<ICommand>(TYPE_COMMAND_CONTAINERS.Command).getInstanceCommands();
+    for (const command of this.commands) {
       command.handle();
     }
   }

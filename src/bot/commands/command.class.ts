@@ -1,9 +1,9 @@
 import { Telegraf } from 'telegraf';
 
 // TODO добавить типизацию
-export abstract class Command {
+export abstract class AbstactCommand {
   // eslint-disable-next-line no-useless-constructor
-  constructor(public bot: Telegraf<any>) { }
+  constructor(public bot: Telegraf) { }
 
   abstract handle(): void
 }
