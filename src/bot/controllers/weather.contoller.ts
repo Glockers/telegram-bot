@@ -6,8 +6,6 @@ import { Update } from 'telegraf/typings/core/types/typegram';
 
 export interface IWeatherController {
   getWeather: (ctx: Context<Update>) => void,
-  deleteWeather: (ctx: Context<Update>) => void,
-  subscibeWeather: (ctx: Context<Update>) => void
 }
 
 @injectable()
@@ -21,12 +19,4 @@ export class WeatherController implements IWeatherController {
   getWeather(ctx: Context<Update>) {
     console.log(ctx.message);
   };
-
-  deleteWeather(ctx: Context<Update>) {
-    console.log(ctx.message);
-  }
-
-  subscibeWeather(ctx: Context<Update>) {
-    console.log(ctx.message);
-  }
 }

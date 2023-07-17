@@ -2,6 +2,8 @@ import { IConfigService } from '@config/config.service';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { TaskEntity } from './entities/task.entity';
+import { SubscriptionEntity } from './entities/subscription.entity';
 
 const configService = InversifyContainer.get<IConfigService>(TYPE_BOT_CONTAINERS.ConfigService);
 
@@ -14,7 +16,7 @@ const options: DataSourceOptions = {
   password: configService.get('TYPEORM_PASSWORD'),
   database: configService.get('TYPEORM_DATABASE'),
   synchronize: Boolean(configService.get('TYPEORM_SYNCHRONIZE')),
-  entities: [],
+  entities: [TaskEntity, SubscriptionEntity],
   migrations: []
   // migrationsTableName: appConfig.APP_NODE_ENV === 'production' ? undefined : typeormConfig.migrationsTableName,
   // factories: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.factories,

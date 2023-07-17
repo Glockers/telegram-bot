@@ -18,7 +18,6 @@ export class AnimalCommand extends AbstactCommand {
 
   handle(): void {
     this.animalHandle();
-    throw new Error('test errr');
   }
 
   animalHandle(): void {
