@@ -16,11 +16,13 @@ export class Command implements ICommand {
   constructor(
     @inject(TYPE_COMMAND_CONTAINERS.AnimalCommand) animalCommand: AbstactCommand,
     @inject(TYPE_COMMAND_CONTAINERS.GreetingCommand) greetingCommand: AbstactCommand,
-    @inject(TYPE_COMMAND_CONTAINERS.UnknownCommand) unknownCommand: AbstactCommand
+    @inject(TYPE_COMMAND_CONTAINERS.UnknownCommand) unknownCommand: AbstactCommand,
+    @inject(TYPE_COMMAND_CONTAINERS.WeatherCommand) WeatherCommand: AbstactCommand
   ) {
     this.commands.unshift(unknownCommand);
     this.commands.unshift(animalCommand);
     this.commands.unshift(greetingCommand);
+    this.commands.unshift(WeatherCommand);
   }
 
   getInstanceCommands(): AbstactCommand[] {

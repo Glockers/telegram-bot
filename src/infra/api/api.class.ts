@@ -1,13 +1,16 @@
-import { IConfigService } from '@config/config.service';
+import { ConfigService, IConfigService } from '@config/config.service';
 import { AxiosInstance } from 'axios';
+import { InversifyContainer } from 'container/inversifyContainer';
 
 export abstract class API {
-  configService!: IConfigService;
+  protected axiosInstance!: AxiosInstance;
 
-  axiosInstance!: AxiosInstance;
+  // eslint-disable-next-line no-dupe-class-members
+  protected configService!: IConfigService;
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor() { }
+  constructor() {
+    this.configService = InversifyContainer.get(ConfigService);
+  }
 
   abstract getInstance(): AxiosInstance
 }

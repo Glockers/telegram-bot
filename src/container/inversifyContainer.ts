@@ -6,7 +6,7 @@ import { BotContainer } from './bot/bot.container';
 import { CommandContainer } from './commands/command.container';
 import { WeatherContainer } from './weather/weather.container';
 
-const InversifyContainer = new Container({ skipBaseClassChecks: true });
+const InversifyContainer = new Container({ skipBaseClassChecks: true, autoBindInjectable: true });
 
 const containerCollection: IContainer[] = [
   new AnimalContainer(),

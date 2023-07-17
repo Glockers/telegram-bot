@@ -1,16 +1,20 @@
-import { IConfigService } from '@config/config.service';
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import axios from 'axios';
 import { API } from 'infra/api/api.class';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { getRandomNumber } from 'utils/random';
+
+/* eslint-disable no-unused-vars */
+export enum EAnimal {
+  CAT = 'cat',
+  DOG = 'dog'
+}
 
 @injectable()
 export class PixelsAPI extends API {
   private readonly BASE_URL = 'https://api.pexels.com/v1/';
 
-  constructor(@inject(TYPE_BOT_CONTAINERS.ConfigService) configService: IConfigService) {
+  constructor() {
     super();
-    this.configService = configService;
     this.axiosInstance = axios.create({
       baseURL: this.BASE_URL,
       headers: {
@@ -19,6 +23,16 @@ export class PixelsAPI extends API {
       }
     });
   }
+
+  getAnimal(animal: EAnimal) {
+    return this.getInstance().get('search', {
+      params: {
+        query: animal,
+        page: getRandomNumber(1, 15),
+        per_page: getRandomNumber(1, 15)
+      }
+    });
+  };
 
   getInstance() {
     return this.axiosInstance;

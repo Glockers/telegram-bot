@@ -9,9 +9,9 @@ import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 
 export interface IBot {
-  init: () => void,
-  stop: (error: string) => void
-  getInstance: () => Telegraf
+  init: () => void;
+  stop: (error: string) => void;
+  getInstance: () => Telegraf;
 }
 
 @injectable()
@@ -31,11 +31,21 @@ export class Bot implements IBot {
     return this.bot;
   }
 
-  public init(): void {
-    this.initCommands();
-    this.bot.launch();
-    this.handleError();
+  handleError2(asyncFunction: Function): void {
+    asyncFunction();
   }
+
+  public init() {
+    try {
+      this.handleError();
+      this.initCommands();
+      this.bot.launch();
+    } catch (error) {
+      const errorText = 'Ошибка при создании бота: ' + error;
+      Logger.getLogger().error(errorText);
+      throw errorText;
+    }
+  };
 
   public stop(error: string): void {
     this.bot.stop(error);

@@ -9,9 +9,10 @@ const bot = InversifyContainer.get<IBot>(TYPE_BOT_CONTAINERS.Bot);
 try {
   bot.init();
   Logger.getLogger().info('Телеграм бот запущен');
-} catch (err) {
-  Logger.getLogger().error('Ошибка при запуске: ', err);
+} catch {
+  Logger.getLogger().error('Бот не смог запустится');
 }
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+process.once('unhandledRejection', () => bot.stop('unhandledRejection'));

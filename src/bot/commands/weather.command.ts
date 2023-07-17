@@ -1,18 +1,17 @@
 import { inject, injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
-import { IBot } from 'bot/bot';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { IWeatherController } from 'bot/controllers/weather.contoller';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {
-  // private weatherController: IAnimalController;
+  private weatherController: IWeatherController;
 
   constructor(
-    // @inject(TYPE_ANIMAL_CONTAINERS.AnimalController) animalController: IAnimalController,
-    @inject(TYPE_BOT_CONTAINERS.Bot) bot: IBot
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherController) weatherController: IWeatherController
   ) {
-    super(bot.getInstance());
-    // this.animalController = animalController;
+    super();
+    this.weatherController = weatherController;
   }
 
   handle(): void {
@@ -21,10 +20,6 @@ export class WeatherCommand extends AbstactCommand {
 
   // TODO типизировать
   weatherHandler(): void {
-    this.bot.command('/weather', (ctx) => {
-      /*
-        this write code
-      */
-    });
+    this.bot.command('weather', (ctx) => this.weatherController.getWeather(ctx));
   }
 }
