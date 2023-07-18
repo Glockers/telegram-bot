@@ -17,4 +17,7 @@ try {
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
-process.once('unhandledRejection', () => bot.stop('unhandledRejection'));
+process.once('unhandledRejection', (err: Error) => {
+  Logger.getLogger().error(err.stack);
+  // bot.stop('unhandledRejection');
+});

@@ -3,8 +3,6 @@ import { inject, injectable } from 'inversify';
 import { TYPE_COMMAND_CONTAINERS } from 'container/commands/command.type';
 
 // TODO Добавить типизацию
-// TODO поменять DI
-
 export interface ICommand {
   getInstanceCommands: () => AbstactCommand[]
 }

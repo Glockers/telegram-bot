@@ -1,6 +1,9 @@
-import { Context } from 'telegraf';
+import { Context, Scenes } from 'telegraf';
 
-// TODO Вынести TOKEN  /  добавить типизацию
-export interface IBotContext extends Context {
-  session: string;
+export interface sessionData {
+
+}
+
+export type IBotContext = Scenes.SceneContext & Context & {
+  session: sessionData
 }
