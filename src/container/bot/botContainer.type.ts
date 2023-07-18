@@ -1,6 +1,4 @@
-const TYPE_CONTAINERS = {
+export const TYPE_BOT_CONTAINERS = {
   Bot: Symbol.for('Bot'),
   ConfigService: Symbol.for('ConfigService')
 };
-
-export { TYPE_CONTAINERS as TYPES };

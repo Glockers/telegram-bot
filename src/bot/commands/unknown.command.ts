@@ -1,9 +1,12 @@
-import { Context, Telegraf } from 'telegraf';
-import { Command } from './command.class';
+import { Context } from 'telegraf';
+import { AbstactCommand } from './command.class';
+import { injectable } from 'inversify';
 
-export class UnknownCommand extends Command {
-  constructor(public bot: Telegraf<any>) { // TODO Типизировать
-    super(bot);
+@injectable()
+export class UnknownCommand extends AbstactCommand {
+  // eslint-disable-next-line no-useless-constructor
+  constructor() {
+    super();
   }
 
   handle(): void {
