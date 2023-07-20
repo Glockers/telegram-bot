@@ -1,7 +1,6 @@
 import { AnimalController, IAnimalController } from 'bot/controllers/animal.conroller';
 import { AnimalService, IAnimalService } from 'bot/services/animals.service';
-import { IContainer } from 'container/container.type';
-import { InversifyContainer } from 'container/inversifyContainer';
+import { IContainer, InversifyContainer } from 'container/inversifyContainer';
 import { TYPE_ANIMAL_CONTAINERS } from './animalContainer.type';
 
 export class AnimalContainer implements IContainer {

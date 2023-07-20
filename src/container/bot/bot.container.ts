@@ -1,7 +1,6 @@
 import { ConfigService, IConfigService } from '@config/config.service';
 import { Bot, IBot } from 'bot/bot';
-import { IContainer } from 'container/container.type';
-import { InversifyContainer } from 'container/inversifyContainer';
+import { IContainer, InversifyContainer } from 'container/inversifyContainer';
 import { TYPE_BOT_CONTAINERS } from './botContainer.type';
 
 export class BotContainer implements IContainer {

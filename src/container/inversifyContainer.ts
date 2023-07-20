@@ -1,12 +1,18 @@
 import { Container } from 'inversify';
-import { IContainer } from './container.type';
 import { AnimalContainer } from './animals/animal.container';
 import { APIContainer } from './api/api.container';
 import { BotContainer } from './bot/bot.container';
 import { CommandContainer } from './commands/command.container';
 import { WeatherContainer } from './weather/weather.container';
 
-const InversifyContainer = new Container({ skipBaseClassChecks: true, autoBindInjectable: true });
+export interface IContainer {
+  initContainer: () => void;
+}
+
+const InversifyContainer = new Container({
+  skipBaseClassChecks: true,
+  autoBindInjectable: true
+});
 
 const containerCollection: IContainer[] = [
   new AnimalContainer(),

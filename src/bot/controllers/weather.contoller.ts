@@ -7,8 +7,8 @@ import { Scenes } from 'telegraf';
 import { convertDateToString } from 'utils/dateUtils';
 
 export interface IWeatherController {
-  getWeather: (ctx: IBotContext) => void,
-  getInstanceScene: () => Scenes.BaseScene<IBotContext>
+  getWeather: (ctx: IBotContext) => void;
+  getInstanceScene: () => Scenes.BaseScene<IBotContext>;
 }
 
 @injectable()
@@ -17,7 +17,10 @@ export class WeatherController implements IWeatherController {
 
   private weatherScene: Scenes.BaseScene<IBotContext>;
 
-  constructor(@inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService) {
+  constructor(
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherService)
+    weatherService: IWeatherService
+  ) {
     this.weatherService = weatherService;
     this.weatherScene = weatherScene;
     this.init();
@@ -25,8 +28,7 @@ export class WeatherController implements IWeatherController {
 
   async getWeather(ctx: IBotContext) {
     await ctx.scene.enter('weather');
-    // this.weatherService.getWeatherByCity('Minsk');
-  };
+  }
 
   init() {
     this.askAboutCity();
@@ -34,25 +36,33 @@ export class WeatherController implements IWeatherController {
   }
 
   private askAboutCity() {
-    this.weatherScene.enter(ctx => {
+    this.weatherScene.enter((ctx) => {
+      ctx.reply('Пришли мне название города');
+    });
+
+    this.weatherScene.enter((ctx) => {
       ctx.reply('Пришли мне название города');
     });
   }
 
   private async handleWeather() {
-    this.weatherScene.on('text', async ctx => {
+    this.weatherScene.on('text', async (ctx) => {
       const res = await this.weatherService.getWeatherByCity(ctx.message.text);
       if (!res) {
-        ctx.reply('Такого города нет!');
+        ctx.reply('Такого города нет! Попробуй еще');
       } else {
         // TODO вынести
         const CELSUS = (res.temp - 273.15).toFixed(2);
         const formattedWeather = ` 
-        Погода в ${res.name}, ${convertDateToString(new Date())}\nCкорость ветра: ${res.windSpeed.toFixed(2)} м/c.\nТемпература: ${CELSUS}
+        Погода в ${res.name}, ${convertDateToString(
+          new Date()
+        )}\nCкорость ветра: ${res.windSpeed.toFixed(
+          2
+        )} м/c.\nТемпература: ${CELSUS}
         `;
         ctx.reply(formattedWeather);
+        ctx.scene.leave();
       }
-      this.weatherScene.leave();
     });
   }
 

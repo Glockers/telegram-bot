@@ -1,4 +1,3 @@
-import { ICommand } from 'bot/commands/commands';
 import { ConfigService } from '@config/config.service';
 import { inject, injectable } from 'inversify';
 import { Telegraf, session } from 'telegraf';
@@ -9,8 +8,7 @@ import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { IBotContext } from './context/context.interface';
 import { stage } from './scenes/initStages';
-// import { ratelimitConfig } from '@config/rateLimit.config';
-// import * as ratelimit from 'telegraf-ratelimit';
+// import { rateLimit } from 'telegraf-ratelimit';
 
 export interface IBot {
   init: () => void;
@@ -22,15 +20,10 @@ export interface IBot {
 export class Bot implements IBot {
   bot: Telegraf<IBotContext>; // TODO добавить типизацию
 
-  commands: AbstactCommand[];
-
-  // pgSession;
-
   constructor(
     @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService
   ) {
     this.bot = new Telegraf<IBotContext>(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
-    this.commands = [];
     // this.pgSession = getPgSession(configService);
   }
 
@@ -49,24 +42,25 @@ export class Bot implements IBot {
       Logger.getLogger().error(errorText);
       throw errorText;
     }
-  };
+  }
 
   public stop(error: string): void {
     this.bot.stop(error);
     Logger.getLogger().info('Бот оставновлен');
-  };
+  }
 
   private initCommands(): void {
-    this.commands = InversifyContainer.get<ICommand>(TYPE_COMMAND_CONTAINERS.Command).getInstanceCommands();
-    for (const command of this.commands) {
-      command.handle();
-    }
+    Object.keys(TYPE_COMMAND_CONTAINERS).forEach((key) => {
+      const command =
+        TYPE_COMMAND_CONTAINERS[key as keyof typeof TYPE_COMMAND_CONTAINERS];
+      InversifyContainer.get<AbstactCommand>(command).handle();
+    });
   }
 
   initMiddlewares() {
     this.bot.use(session());
     this.bot.use(stage.middleware());
-    // this.bot.use(ratelimit(ratelimitConfig));
+    // this.bot.use(rateLimit(ratelimitConfig));
   }
 
   private handleError(): void {

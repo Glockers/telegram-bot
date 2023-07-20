@@ -10,7 +10,6 @@ export interface IAnimalService {
 export class AnimalService implements IAnimalService {
   private pixelAPI: PixelsAPI;
 
-  // eslint-disable-next-line no-useless-constructor
   constructor(@inject(TYPE_API_CONTAINERS.PixelsAPI) pixelAPI: PixelsAPI) {
     this.pixelAPI = pixelAPI;
   }
