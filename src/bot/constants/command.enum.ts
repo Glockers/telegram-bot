@@ -3,5 +3,6 @@ export enum COMMAND {
   UNSUBSCRIBE = 'unsubscribe',
   DOG = 'dog',
   CAT = 'cat',
-  WEATHER = 'weather'
+  WEATHER = 'weather',
+  TASK = 'task'
 }

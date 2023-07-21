@@ -1,5 +1,5 @@
 import { IBotContext } from 'bot/context/context.interface';
-import { weatherScene } from 'bot/scenes/weather.scene';
+import { weatherScene } from 'bot/scenes/weather/weather.scene';
 import { IWeatherService } from 'bot/services/weather.service';
 import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
 import { inject, injectable } from 'inversify';

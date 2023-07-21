@@ -1,23 +1,18 @@
 import { SCENE } from 'bot/constants/scenes.enum';
 import { IBotContext } from 'bot/context/context.interface';
+import { ISubscribeService } from 'bot/services/subscribe.service';
+import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
 import { inject, injectable } from 'inversify';
 
-export interface ISubscribeController {
-  subscribeOnWeather: (ctx: IBotContext) => void;
-  unsubscribeFromWeather: (ctx: IBotContext) => void;
-}
+export interface ISubscribeController {}
 
 @injectable()
 export class SubscribeController implements ISubscribeController {
-  //   animalService: IAnimalService;
-  //   constructor(
-  //     @inject(TYPE_ANIMAL_CONTAINERS.AnimalService) animalService: IAnimalService
-  //   ) {
-  //     this.animalService = animalService;
-  //   }
-
-  async subscribeOnWeather(ctx: IBotContext) {
-    await ctx.scene.enter(SCENE.SUBSCRIBE_ON_WEATHER);
+  subscribeService: ISubscribeService;
+  constructor(
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService)
+    subscribeService: ISubscribeService
+  ) {
+    this.subscribeService = subscribeService;
   }
-  unsubscribeFromWeather(ctx: IBotContext) {}
 }

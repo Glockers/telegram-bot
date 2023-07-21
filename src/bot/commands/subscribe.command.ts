@@ -3,6 +3,7 @@ import { AbstactCommand } from './command.class';
 import { COMMAND } from 'bot/constants/command.enum';
 import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
 import { ISubscribeController } from 'bot/controllers/subscribe.controller';
+import { SCENE } from 'bot/constants/scenes.enum';
 
 @injectable()
 export class SubscribeCommand extends AbstactCommand {
@@ -22,13 +23,13 @@ export class SubscribeCommand extends AbstactCommand {
 
   subscribeOnWeather(): void {
     this.bot.command(COMMAND.SUBSCRIBE, (ctx) =>
-      this.subscribeController.subscribeOnWeather(ctx)
+      ctx.scene.enter(SCENE.SUBSCRIBE_ON_WEATHER)
     );
   }
 
   unsubscribeFromWeather(): void {
     this.bot.command(COMMAND.UNSUBSCRIBE, (ctx) =>
-      this.subscribeController.unsubscribeFromWeather(ctx)
+      ctx.scene.enter(SCENE.UNSUBSCRIBE_FROM_WEATHER)
     );
   }
 }

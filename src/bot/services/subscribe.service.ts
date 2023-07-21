@@ -2,15 +2,19 @@ import { injectable } from 'inversify';
 
 export interface ISubscribeService {
   getSubscriptions: () => void;
-  deleteWeather: () => void;
-  subscibeOnWeather: () => void;
+  deleteWeather: (data: any) => void;
+  subscibeOnWeather: (data: any) => void;
 }
 
 @injectable()
 export class SubscribeService implements ISubscribeService {
   getSubscriptions() {}
 
-  deleteWeather() {}
+  deleteWeather(data: any) {
+    console.log('delete ', data);
+  }
 
-  subscibeOnWeather() {}
+  subscibeOnWeather(data: any) {
+    console.log('subscribe ', data);
+  }
 }

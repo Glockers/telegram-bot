@@ -1,24 +1,31 @@
 import { SCENE } from 'bot/constants/scenes.enum';
 import { ISubscribeService } from 'bot/services/subscribe.service';
-import { InversifyContainer } from 'container/inversifyContainer';
 import { Scenes } from 'telegraf';
+import { ISceneBehave } from '../scene.type';
+import { inject, injectable } from 'inversify';
+import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
 
-interface ISceneBehave {
-  getInstance: () => Scenes.WizardScene<any>;
-}
-
+@injectable()
 export class UnsubscribeOnWeatherScene implements ISceneBehave {
   scene: Scenes.WizardScene<any>;
-  //   service: ISubscribeService;
 
-  constructor() {
-    console.log(InversifyContainer);
-    // this.service = InversifyContainer.get()
+  service: ISubscribeService;
+
+  constructor(
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) service: ISubscribeService
+  ) {
+    this.service = service;
     this.scene = new Scenes.WizardScene<any>(
       SCENE.UNSUBSCRIBE_FROM_WEATHER,
       this.askID,
       this.exctractData
     );
+  }
+
+  public initService(service: ISubscribeService) {
+    if (!this.service) {
+      this.service = service;
+    }
   }
 
   getInstance() {
@@ -33,7 +40,7 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
 
   private exctractData = async (ctx: any) => {
     ctx.wizard.state.subscribe_weather.id = ctx.message.text;
-    console.log('res: ', ctx.wizard.state);
+    this.service?.deleteWeather(ctx.wizard.state);
     return ctx.scene.leave();
   };
 }
