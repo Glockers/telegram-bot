@@ -9,8 +9,7 @@ export class AnimalCommand extends AbstactCommand {
   private animalController: IAnimalController;
 
   constructor(
-    @inject(TYPE_ANIMAL_CONTAINERS.AnimalController)
-    animalController: IAnimalController
+    @inject(TYPE_ANIMAL_CONTAINERS.AnimalController) animalController: IAnimalController
   ) {
     super();
     this.animalController = animalController;

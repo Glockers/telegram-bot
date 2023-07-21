@@ -18,8 +18,7 @@ export class WeatherController implements IWeatherController {
   private weatherScene: Scenes.BaseScene<IBotContext>;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.WeatherService)
-    weatherService: IWeatherService
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
   ) {
     this.weatherService = weatherService;
     this.weatherScene = weatherScene;

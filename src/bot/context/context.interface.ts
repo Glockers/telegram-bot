@@ -1,6 +1,6 @@
 import { Context, Scenes } from 'telegraf';
 
-export interface sessionData {}
+export interface sessionData { }
 
 // export type TBaseContext = Scenes.SceneContext<IBotContext>;
 

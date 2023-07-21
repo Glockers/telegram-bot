@@ -16,7 +16,7 @@ export class WeatherContainer implements IContainer {
 
     InversifyContainer.bind<ISubscribeController>(TYPE_WEATHER_CONTAINERS.SubscribeController).to(SubscribeController);
     InversifyContainer.bind<ISubscribeService>(TYPE_WEATHER_CONTAINERS.SubscribeService).to(SubscribeService);
-    
+
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.SubscribeOnWeatherScene).to(SubscribeOnWeatherScene);
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.UnsubscribeOnWeatherScene).to(UnsubscribeOnWeatherScene);
   }

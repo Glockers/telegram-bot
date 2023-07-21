@@ -8,9 +8,9 @@ import { SCENE } from 'bot/constants/scenes.enum';
 @injectable()
 export class SubscribeCommand extends AbstactCommand {
   subscribeController;
+
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.SubscribeController)
-    subscribeController: ISubscribeController
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeController) subscribeController: ISubscribeController
   ) {
     super();
     this.subscribeController = subscribeController;

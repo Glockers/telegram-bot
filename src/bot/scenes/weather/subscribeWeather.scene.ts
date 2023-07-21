@@ -12,8 +12,7 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
   subscribeService: ISubscribeService;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService)
-    subscribeService: ISubscribeService
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeService
   ) {
     this.subscribeService = subscribeService;
     this.scene = new Scenes.WizardScene<any>(

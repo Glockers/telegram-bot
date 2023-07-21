@@ -2,8 +2,7 @@ import { IBotContext } from 'bot/context/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
-import { Context } from 'telegraf';
-import { Message, Update } from 'telegraf/typings/core/types/typegram';
+import { Message } from 'telegraf/typings/core/types/typegram';
 
 export interface IAnimalController {
   getRandomAnimal: (ctx: IBotContext) => void;

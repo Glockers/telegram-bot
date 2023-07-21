@@ -8,6 +8,7 @@ import { TYPE_TASK_CONTAINERS } from 'container/task/task.type';
 @injectable()
 export class AddTaskScene implements ISceneBehave {
   scene: Scenes.WizardScene<any>;
+
   taskService: ITaskService;
 
   constructor(

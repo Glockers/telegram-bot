@@ -1,5 +1,4 @@
 const allCommandContainers = {
-  // Command: Symbol.for('Command'),
   AnimalCommand: Symbol.for('AnimalCommand'),
   GreetingCommand: Symbol.for('GreetingCommand'),
   WeatherCommand: Symbol.for('WeatherCommand'),

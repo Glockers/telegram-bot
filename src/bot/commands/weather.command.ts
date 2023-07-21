@@ -9,8 +9,7 @@ export class WeatherCommand extends AbstactCommand {
   private weatherController: IWeatherController;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.WeatherController)
-    weatherController: IWeatherController
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherController) weatherController: IWeatherController
   ) {
     super();
     this.weatherController = weatherController;
