@@ -2,7 +2,7 @@ import { IBotContext } from 'bot/context/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
-import { Message } from 'telegraf/typings/core/types/typegram';
+import { extractMessageFromChat } from 'utils/extractMessage';
 
 export interface IAnimalController {
   getRandomAnimal: (ctx: IBotContext) => void;
@@ -19,7 +19,7 @@ export class AnimalController implements IAnimalController {
   }
 
   async getRandomAnimal(ctx: IBotContext) {
-    const message = (ctx.message as Message.TextMessage).text;
+    const message = extractMessageFromChat(ctx);
     const result = await this.animalService.getRandmonAnimal(message);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');

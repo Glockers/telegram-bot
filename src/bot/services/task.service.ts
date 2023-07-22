@@ -1,20 +1,21 @@
+import { IAddTask, IRemoveTask } from 'bot/scenes/task/task.interface';
 import { injectable } from 'inversify';
 
 export interface ITaskService {
   getTasks: () => void;
-  deleteTaskById: (id: number) => void;
-  addTask: (data: any) => void;
+  deleteTaskById: (data: IRemoveTask) => void;
+  addTask: (data: IAddTask) => void;
 }
 
 @injectable()
 export class TaskService implements ITaskService {
-  getTasks() {}
+  getTasks() { }
 
-  deleteTaskById(id: number) {
+  deleteTaskById(data: IRemoveTask) {
     console.log('deleteTaskById');
   }
 
-  addTask(data: any) {
+  addTask(data: IAddTask) {
     console.log('addTask: ', data);
   }
 }

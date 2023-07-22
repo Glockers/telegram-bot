@@ -8,7 +8,9 @@ import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { IBotContext } from './context/context.interface';
 import { Stage } from './scenes/initStages';
-// import { rateLimit } from 'telegraf-ratelimit';
+// @ts-ignore
+import rateLimit from 'telegraf-ratelimit';
+import { ratelimitConfig } from '@config/ratelimit.config';
 
 export interface IBot {
   init: () => void;
@@ -57,9 +59,10 @@ export class Bot implements IBot {
     });
   }
 
-  initMiddlewares() {
+  private initMiddlewares() {
     this.bot.use(session());
-    this.bot.use(new Stage().init().middleware());
+    this.bot.use(new Stage().getInstance().middleware());
+    this.bot.use(rateLimit(ratelimitConfig));
   }
 
   private handleError(): void {

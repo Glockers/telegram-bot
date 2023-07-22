@@ -4,10 +4,18 @@ import { ISubscribeService } from 'bot/services/subscribe.service';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { IBotContext } from 'bot/context/context.interface';
+import { extractMessageFromChat } from 'utils/extractMessage';
+import { ISubscribeWeatherData } from './weather.interface';
+
+export interface SubscribeWeatherData {
+  city: string,
+  time: string
+}
 
 @injectable()
 export class SubscribeOnWeatherScene implements ISceneBehave {
-  scene: Scenes.WizardScene<any>;
+  scene: Scenes.WizardScene<IBotContext>;
 
   subscribeService: ISubscribeService;
 
@@ -15,7 +23,7 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
     @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeService
   ) {
     this.subscribeService = subscribeService;
-    this.scene = new Scenes.WizardScene<any>(
+    this.scene = new Scenes.WizardScene<IBotContext>(
       SCENE.SUBSCRIBE_ON_WEATHER,
       this.askCity,
       this.askTime,
@@ -27,22 +35,23 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
     return this.scene;
   }
 
-  askCity = async (ctx: any) => {
+  askCity = async (ctx: IBotContext) => {
     ctx.reply('Введите город');
-    ctx.wizard.state.subscribe_weather = {};
+    ctx.scene.session.subscribeWeather = {} as ISubscribeWeatherData;
     return ctx.wizard.next();
   };
 
-  askTime = async (ctx: any) => {
-    ctx.wizard.state.subscribe_weather.city = ctx.message.text;
+  askTime = async (ctx: IBotContext) => {
+    const city = extractMessageFromChat(ctx);
+    ctx.scene.session.subscribeWeather.city = city;
     ctx.reply('Введите время');
     return ctx.wizard.next();
   };
 
-  exctractData = async (ctx: any) => {
-    ctx.wizard.state.subscribe_weather.time = ctx.message.text;
-    console.log(this.subscribeService);
-    this.subscribeService.subscibeOnWeather(ctx.wizard.state);
+  exctractData = async (ctx: IBotContext) => {
+    const time = extractMessageFromChat(ctx);
+    ctx.scene.session.subscribeWeather.time = time;
+    this.subscribeService.subscibeOnWeather(ctx.scene.session.subscribeWeather);
     return ctx.scene.leave();
   };
 }

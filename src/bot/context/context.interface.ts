@@ -1,13 +1,9 @@
 import { Context, Scenes } from 'telegraf';
-
-export interface sessionData { }
-
-// export type TBaseContext = Scenes.SceneContext<IBotContext>;
-
-// export type TWizardContext = Scenes.WizardContext<IBotContext>;
+import { IBotWizardSessionData } from './sceneSessionData.interface';
 
 export interface IBotContext extends Context {
-  session: sessionData;
-  scene: Scenes.SceneContextScene<any>;
-  wizard: Scenes.WizardContextWizard<any>;
+  scene: Scenes.SceneContextScene<IBotContext, IBotWizardSessionData>;
+  wizard: Scenes.WizardContextWizard<IBotContext>;
 }
+
+export interface ISceneStage extends Scenes.Stage<IBotContext, Scenes.SceneSessionData> { }

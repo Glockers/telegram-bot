@@ -4,10 +4,12 @@ import { SCENE } from 'bot/constants/scenes.enum';
 import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/task/task.type';
+import { IBotContext } from 'bot/context/context.interface';
+import { extractMessageFromChat } from 'utils/extractMessage';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {
-  scene: Scenes.WizardScene<any>;
+  scene: Scenes.WizardScene<IBotContext>;
 
   taskService: ITaskService;
 
@@ -16,7 +18,7 @@ export class AddTaskScene implements ISceneBehave {
   ) {
     this.taskService = taskService;
 
-    this.scene = new Scenes.WizardScene<any>(
+    this.scene = new Scenes.WizardScene<IBotContext>(
       SCENE.ADD_TASK,
       this.askTitle,
       this.askDescription,
@@ -28,21 +30,24 @@ export class AddTaskScene implements ISceneBehave {
     return this.scene;
   }
 
-  askTitle = async (ctx: any) => {
-    ctx.reply('Введите город');
-    ctx.wizard.state.subscribe_weather = {};
+  askTitle = async (ctx: IBotContext) => {
+    ctx.scene.session.addTask = {};
+    ctx.reply('Введите заголовок задачи');
     return ctx.wizard.next();
   };
 
-  askDescription = async (ctx: any) => {
-    ctx.wizard.state.subscribe_weather.city = ctx.message.text;
-    ctx.reply('Введите время');
+  askDescription = async (ctx: IBotContext) => {
+    const title = extractMessageFromChat(ctx);
+    ctx.scene.session.addTask.title = title;
+
+    ctx.reply('Введите описание');
     return ctx.wizard.next();
   };
 
-  exctractData = async (ctx: any) => {
-    ctx.wizard.state.subscribe_weather.time = ctx.message.text;
-    this.taskService.addTask(ctx.wizard.state);
+  exctractData = async (ctx: IBotContext) => {
+    const description = extractMessageFromChat(ctx);
+    ctx.scene.session.addTask.description = description;
+    this.taskService.addTask(ctx.scene.session.addTask);
     return ctx.scene.leave();
   };
 }

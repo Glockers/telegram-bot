@@ -1,18 +1,19 @@
 import { inject, injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
-import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
-import { IWeatherController } from 'bot/controllers/weather.contoller';
 import { COMMAND } from 'bot/constants/command.enum';
+import { TYPE_SCENES_CONTAINERS } from 'container/scenes/scenes.type';
+import { WeatherScene } from 'bot/scenes/weather/weather.scene';
+import { SCENE } from 'bot/constants/scenes.enum';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {
-  private weatherController: IWeatherController;
+  private weatherScene: WeatherScene;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.WeatherController) weatherController: IWeatherController
+    @inject(TYPE_SCENES_CONTAINERS.WeatherScene) weatherScene: WeatherScene
   ) {
     super();
-    this.weatherController = weatherController;
+    this.weatherScene = weatherScene;
   }
 
   handle(): void {
@@ -22,7 +23,7 @@ export class WeatherCommand extends AbstactCommand {
   // TODO типизировать
   weatherHandler(): void {
     this.bot.command(COMMAND.WEATHER, (ctx) =>
-      this.weatherController.getWeather(ctx)
+      ctx.scene.enter(SCENE.WEATHER)
     );
   }
 }

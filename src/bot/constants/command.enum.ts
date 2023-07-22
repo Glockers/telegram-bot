@@ -5,5 +5,6 @@ export enum COMMAND {
   DOG = 'dog',
   CAT = 'cat',
   WEATHER = 'weather',
-  TASK = 'task'
+  TASK = 'task',
+  CANCEL = 'cancel'
 }
