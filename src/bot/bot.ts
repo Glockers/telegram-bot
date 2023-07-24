@@ -2,8 +2,7 @@ import { ConfigService } from '@config/config.service';
 import { inject, injectable } from 'inversify';
 import { Telegraf, session } from 'telegraf';
 import { Logger } from 'utils/logger';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
-import { TYPE_COMMAND_CONTAINERS } from 'container/commands/command.type';
+import { TYPE_COMMAND_CONTAINERS } from 'container/bot/commands/command.type';
 import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { IBotContext } from './context/context.interface';
@@ -11,6 +10,7 @@ import { Stage } from './scenes/initStages';
 // @ts-ignore
 import rateLimit from 'telegraf-ratelimit';
 import { ratelimitConfig } from '@config/ratelimit.config';
+import { TYPE_CONFIG_CONTAINERS } from 'container/config/config.type';
 
 export interface IBot {
   init: () => void;
@@ -23,7 +23,7 @@ export class Bot implements IBot {
   bot: Telegraf<IBotContext>; // TODO добавить типизацию
 
   constructor(
-    @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService
+    @inject(TYPE_CONFIG_CONTAINERS.ConfigService) configService: ConfigService
   ) {
     this.bot = new Telegraf<IBotContext>(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
     // this.pgSession = getPgSession(configService);

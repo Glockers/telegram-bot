@@ -3,7 +3,7 @@ import { ISubscribeService } from 'bot/services/subscribe.service';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
-import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IBotContext } from 'bot/context/context.interface';
 import { IUnsubscribeWeather } from './weather.interface';
 import { extractMessageFromChat } from 'utils/extractMessage';

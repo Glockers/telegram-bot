@@ -1,6 +1,6 @@
 import { AbstactCommand } from './command.class';
 import { inject, injectable } from 'inversify';
-import { TYPE_ANIMAL_CONTAINERS } from 'container/animals/animalContainer.type';
+import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { IAnimalController } from 'bot/controllers/animal.conroller';
 import { COMMAND } from 'bot/constants/command.enum';
 

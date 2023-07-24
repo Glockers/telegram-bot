@@ -1,22 +1,22 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-type TSubscriptionEntity = {
+export type TWeatherSubscribeEntity = {
   id: number;
   userID: number;
-  interval?: string;
-  time?: Date;
+  city: string;
+  time: Date;
 }
 
-@Entity('subscruptions')
-class SubscriptionEntity implements TSubscriptionEntity {
+@Entity('weather_subscriptions')
+class WeatherSubscribeEntity implements TWeatherSubscribeEntity {
   @PrimaryGeneratedColumn()
   public id!: number;
 
   @Column() userID!: number;
 
-  @Column({ type: 'text', nullable: true }) interval!: string;
+  @Column({ type: 'text' }) city!: string;
 
   @Column({ type: 'timestamptz', nullable: true }) time!: Date;
 }
 
-export { SubscriptionEntity };
+export { WeatherSubscribeEntity };

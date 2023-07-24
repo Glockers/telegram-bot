@@ -3,7 +3,7 @@ import { ISceneBehave } from '../scene.type';
 import { SCENE } from 'bot/constants/scenes.enum';
 import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
-import { TYPE_TASK_CONTAINERS } from 'container/task/task.type';
+import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { IBotContext } from 'bot/context/context.interface';
 import { extractMessageFromChat } from 'utils/extractMessage';
 

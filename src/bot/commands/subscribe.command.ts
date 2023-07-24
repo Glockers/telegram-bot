@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
 import { COMMAND } from 'bot/constants/command.enum';
-import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { ISubscribeController } from 'bot/controllers/subscribe.controller';
 import { SCENE } from 'bot/constants/scenes.enum';
 

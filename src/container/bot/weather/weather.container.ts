@@ -6,7 +6,7 @@ import { ISubscribeService, SubscribeService } from 'bot/services/subscribe.serv
 import { ISceneBehave } from 'bot/scenes/scene.type';
 import { SubscribeOnWeatherScene } from 'bot/scenes/weather/subscribeWeather.scene';
 import { UnsubscribeOnWeatherScene } from 'bot/scenes/weather/unsubscribeWeather.scene';
-import { TYPE_SCENES_CONTAINERS } from 'container/scenes/scenes.type';
+import { TYPE_SCENES_CONTAINERS } from 'container/bot/scenes/scenes.type';
 import { WeatherScene } from 'bot/scenes/weather/weather.scene';
 
 export class WeatherContainer implements IContainer {

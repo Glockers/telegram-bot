@@ -6,5 +6,8 @@ export enum COMMAND {
   CAT = 'cat',
   WEATHER = 'weather',
   TASK = 'task',
-  CANCEL = 'cancel'
+  CANCEL = 'cancel',
+  ADD_TASK = 'add_task',
+  REMOOVE_TASK = 'remove_task',
+  GET_TASKS = 'get_tasks'
 }

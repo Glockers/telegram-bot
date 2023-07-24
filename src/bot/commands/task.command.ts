@@ -1,7 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
-import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { ISubscribeController } from 'bot/controllers/subscribe.controller';
+import { COMMAND } from 'bot/constants/command.enum';
 
 @injectable()
 export class TaskCommand extends AbstactCommand {
@@ -15,26 +16,27 @@ export class TaskCommand extends AbstactCommand {
   }
 
   handle(): void {
-    // this.addTask();
-    // this.deleteTask();
-    // this.getAllTask();
+    this.addTask();
+    this.deleteTask();
+    this.getAllTask();
   }
 
-  // addTask() {
-  //   this.bot.command(COMMAND., (ctx) =>
-  //   //   ctx.scene.enter(SCENE.)
-  //   );
-  // }
+  addTask() {
+    this.bot.command(COMMAND.ADD_TASK, (ctx) =>
+      console.log('add task')
+    );
+  }
 
-  // deleteTask() {
-  //   this.bot.command(COMMAND., (ctx) =>
-  //   //   ctx.scene.enter(SCENE.)
-  //   );
-  // }
+  deleteTask() {
+    this.bot.command(COMMAND.REMOOVE_TASK, (ctx) =>
+      console.log('remoove task')
 
-  // getAllTask() {
-  //   this.bot.command(COMMAND., (ctx) =>
-  //   //   ctx.scene.enter(SCENE.)
-  //   );
-  // }
+    );
+  }
+
+  getAllTask() {
+    this.bot.command(COMMAND.GET_TASKS, (ctx) =>
+      console.log('getAllTask')
+    );
+  }
 }

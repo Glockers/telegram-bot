@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-type TTaskEntity = {
+export interface ITaskEntity {
   id: number;
   userID: number;
   title: string,
@@ -8,7 +8,7 @@ type TTaskEntity = {
 }
 
 @Entity('tasks')
-class TaskEntity implements TTaskEntity {
+class TaskEntity implements ITaskEntity {
   @PrimaryGeneratedColumn()
   public id!: number;
 

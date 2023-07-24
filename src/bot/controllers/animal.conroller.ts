@@ -1,6 +1,6 @@
 import { IBotContext } from 'bot/context/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
-import { TYPE_ANIMAL_CONTAINERS } from 'container/animals/animalContainer.type';
+import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
 import { extractMessageFromChat } from 'utils/extractMessage';
 

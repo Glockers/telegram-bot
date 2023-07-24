@@ -1,11 +1,12 @@
 import { IConfigService } from '@config/config.service';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { TaskEntity } from './entities/task.entity';
-import { SubscriptionEntity } from './entities/subscription.entity';
+import { WeatherSubscribeEntity } from './entities/weatherSubscribe.entity';
+import { TYPE_CONFIG_CONTAINERS } from 'container/config/config.type';
 
-const configService = InversifyContainer.get<IConfigService>(TYPE_BOT_CONTAINERS.ConfigService);
+// eslint-disable-next-line no-undef
+const configService = InversifyContainer.get<IConfigService>(TYPE_CONFIG_CONTAINERS.ConfigService);
 
 // TOD вынести конфигурацию
 const options: DataSourceOptions = {
@@ -16,27 +17,8 @@ const options: DataSourceOptions = {
   password: configService.get('TYPEORM_PASSWORD'),
   database: configService.get('TYPEORM_DATABASE'),
   synchronize: Boolean(configService.get('TYPEORM_SYNCHRONIZE')),
-  entities: [TaskEntity, SubscriptionEntity],
+  entities: [TaskEntity, WeatherSubscribeEntity],
   migrations: []
-  // migrationsTableName: appConfig.APP_NODE_ENV === 'production' ? undefined : typeormConfig.migrationsTableName,
-  // factories: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.factories,
-  // seeds: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.seeds
 };
 
-// const options: DataSourceOptions & SeederOptions = {
-//   type: typeormConfig.TYPEORM_CONNECTION,
-//   host: typeormConfig.TYPEORM_HOST,
-//   port: typeormConfig.TYPEORM_PORT,
-//   username: typeormConfig.TYPEORM_USERNAME,
-//   password: typeormConfig.TYPEORM_PASSWORD,
-//   database: typeormConfig.TYPEORM_DATABASE,
-//   logging: typeormConfig.TYPEORM_LOGGING,
-//   synchronize: typeormConfig.TYPEORM_SYNCHRONIZE,
-//   entities: appConfig.APP_NODE_ENV === 'production' ? typeormConfig.productionEntityPath : typeormConfig.developEntityPath,
-//   migrations: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.migrationsPath,
-//   migrationsTableName: appConfig.APP_NODE_ENV === 'production' ? undefined : typeormConfig.migrationsTableName,
-//   factories: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.factories,
-//   seeds: appConfig.APP_NODE_ENV === 'production' ? [] : typeormConfig.seeds
-// };
-
-export const PostgresDataSource = new DataSource(options);
+export const postgresDataSource = new DataSource(options);

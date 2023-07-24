@@ -1,5 +1,5 @@
 import { ISubscribeService } from 'bot/services/subscribe.service';
-import { TYPE_WEATHER_CONTAINERS } from 'container/weather/weather.type';
+import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { inject, injectable } from 'inversify';
 
 export interface ISubscribeController { }

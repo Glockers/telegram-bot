@@ -1,6 +1,6 @@
 import { ConfigService } from '@config/config.service';
 import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { TYPE_CONFIG_CONTAINERS } from 'container/config/config.type';
 import { WeatherAPI } from 'infra/api/weather/weatherAPI.config';
 import { inject, injectable } from 'inversify';
 
@@ -16,7 +16,7 @@ export class WeatherService implements IWeatherService {
   weatherAPI: WeatherAPI;
 
   constructor(
-    @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService,
+    @inject(TYPE_CONFIG_CONTAINERS.ConfigService) configService: ConfigService,
     @inject(TYPE_API_CONTAINERS.WeatherAPI) weatherAPI: WeatherAPI
   ) {
     this.configService = configService;

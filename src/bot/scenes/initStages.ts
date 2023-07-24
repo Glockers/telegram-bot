@@ -1,9 +1,10 @@
 import { Scenes } from 'telegraf';
-import { TYPE_SCENES_CONTAINERS } from 'container/scenes/scenes.type';
+import { TYPE_SCENES_CONTAINERS } from 'container/bot/scenes/scenes.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { ISceneBehave, SceneReturnType } from './scene.type';
 import { IBotContext, ISceneStage } from 'bot/context/context.interface';
 import { extractMessageFromChat } from 'utils/extractMessage';
+import { COMMAND } from 'bot/constants/command.enum';
 
 export class Stage {
   private scenes: SceneReturnType[] = [];
@@ -28,12 +29,11 @@ export class Stage {
     });
   }
 
-  // TODO next type
-  private cancelScene(ctx: IBotContext, next: any) {
+  private cancelScene(ctx: IBotContext, next: () => Promise<void>) {
     const message = extractMessageFromChat(ctx);
     const commandCancel = message.startsWith('/') ? message : '/' + message;
-    if (message === commandCancel) {
-      ctx.reply('Вы успешно отменили комманду');
+    if (commandCancel === COMMAND.CANCEL) {
+      ctx.reply('Вы вышли из сцены!');
       return ctx.scene.leave();
     }
 
