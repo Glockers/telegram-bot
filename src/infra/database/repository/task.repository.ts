@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { ITaskEntity, TaskEntity } from '../entities/task.entity';
-import { postgresDataSource } from '../typeorm';
 import { IAddTask } from 'bot/scenes/task/task.interface';
 import { injectable } from 'inversify';
+import { Database } from '../typeorm';
 
 export type TAddTask = Omit<ITaskEntity, 'id'>;
 
@@ -13,7 +13,7 @@ export class TaskRepository {
   private repository: Repository<ITaskEntity>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(TaskEntity);
+    this.repository = Database.get().getRepository(TaskEntity);
   }
 
   async add(data: IAddTask): Promise<ITaskEntity> {

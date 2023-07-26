@@ -1,5 +1,5 @@
 import { SCENE } from 'bot/constants/scenes.enum';
-import { ISubscribeService } from 'bot/services/subscribe.service';
+import { ISubscribeService } from 'bot/services/subscribeWeather.service';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
@@ -7,6 +7,7 @@ import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IBotContext } from 'bot/context/context.interface';
 import { IUnsubscribeWeather } from './weather.interface';
 import { extractMessageFromChat } from 'utils/extractMessage';
+import { catchAsyncFunction } from 'utils/catchAsync';
 
 @injectable()
 export class UnsubscribeOnWeatherScene implements ISceneBehave {
@@ -41,10 +42,12 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
     return ctx.wizard.next();
   };
 
-  private exctractData = async (ctx: IBotContext) => {
-    const id = Number(extractMessageFromChat(ctx));
-    ctx.scene.session.unsubscribeWeather.id = id;
-    this.service?.deleteWeather(ctx.scene.session.unsubscribeWeather);
-    return ctx.scene.leave();
-  };
+  private exctractData = async (ctx: IBotContext) =>
+    catchAsyncFunction(ctx, () => {
+      const id = Number(extractMessageFromChat(ctx));
+      ctx.scene.session.unsubscribeWeather.id = id;
+      const resultDelete = this.service.deleteWeather(ctx.scene.session.unsubscribeWeather);
+      if (resultDelete) ctx.reply('Вы отменили подписку');
+      return ctx.scene.leave();
+    });
 }

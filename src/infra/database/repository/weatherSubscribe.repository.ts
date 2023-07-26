@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
-import { postgresDataSource } from '../typeorm';
 import { TWeatherSubscribeEntity, WeatherSubscribeEntity } from '../entities/weatherSubscribe.entity';
 import { injectable } from 'inversify';
+import { Database } from '../typeorm';
 
 export type IWeatherSubscribe = Omit<TWeatherSubscribeEntity, 'id'>;
 
@@ -12,7 +12,7 @@ export class WeatherSubscribeRepository {
   private repository: Repository<TWeatherSubscribeEntity>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(WeatherSubscribeEntity);
+    this.repository = Database.get().getRepository(WeatherSubscribeEntity);
   }
 
   async add(data: IWeatherSubscribe): Promise<TWeatherSubscribeEntity> {
@@ -27,9 +27,9 @@ export class WeatherSubscribeRepository {
     return await this.repository.find();
   }
 
-  async findOneById(data: TFindSubscribeWeatherById): Promise<TWeatherSubscribeEntity | null> {
+  async findOneById(id: number): Promise<TWeatherSubscribeEntity | null> {
     return await this.repository.findOneBy({
-      id: data.id
+      id
     });
   }
 }

@@ -14,7 +14,8 @@ export interface IContainer {
 
 const InversifyContainer = new Container({
   skipBaseClassChecks: true,
-  autoBindInjectable: true
+  autoBindInjectable: true,
+  defaultScope: 'Singleton'
 });
 
 const containerCollection: IContainer[] = [

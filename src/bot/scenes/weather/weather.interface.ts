@@ -1,8 +1,8 @@
 export interface ISubscribeWeatherData {
-  city?: string,
-  time?: string,
+  city: string,
+  time: Date,
 }
 
 export interface IUnsubscribeWeather {
-  id?: number;
+  id: number;
 }

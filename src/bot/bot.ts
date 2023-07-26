@@ -7,10 +7,11 @@ import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { IBotContext } from './context/context.interface';
 import { Stage } from './scenes/initStages';
+import { ratelimitConfig } from '@config/ratelimit.config';
+import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { initSheduler } from 'infra/sheduler/sheduler.service';
 // @ts-ignore
 import rateLimit from 'telegraf-ratelimit';
-import { ratelimitConfig } from '@config/ratelimit.config';
-import { TYPE_CONFIG_CONTAINERS } from 'container/config/config.type';
 
 export interface IBot {
   init: () => void;
@@ -23,7 +24,7 @@ export class Bot implements IBot {
   bot: Telegraf<IBotContext>; // TODO добавить типизацию
 
   constructor(
-    @inject(TYPE_CONFIG_CONTAINERS.ConfigService) configService: ConfigService
+    @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService
   ) {
     this.bot = new Telegraf<IBotContext>(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
     // this.pgSession = getPgSession(configService);
@@ -35,8 +36,8 @@ export class Bot implements IBot {
 
   public init() {
     try {
+      initSheduler(this.bot);
       this.initMiddlewares();
-      this.handleError();
       this.initCommands();
       this.bot.launch();
     } catch (error) {
@@ -63,6 +64,7 @@ export class Bot implements IBot {
     this.bot.use(session());
     this.bot.use(new Stage().getInstance().middleware());
     this.bot.use(rateLimit(ratelimitConfig));
+    this.handleError();
   }
 
   private handleError(): void {

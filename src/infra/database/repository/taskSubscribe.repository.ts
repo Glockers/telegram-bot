@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { postgresDataSource } from '../typeorm';
+import { Database } from '../typeorm';
 import { ITaskSubscribeEntity, TaskSubscribeEntity } from '../entities/taskSubscribe.entity';
 import { injectable } from 'inversify';
 
@@ -12,7 +12,7 @@ export class TaskSubscribeRepository {
   private repository: Repository<ITaskSubscribeEntity>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(TaskSubscribeEntity);
+    this.repository = Database.get().getRepository(TaskSubscribeEntity);
   }
 
   async add(data: ITaskSubscribe): Promise<ITaskSubscribeEntity> {

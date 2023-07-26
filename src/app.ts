@@ -3,12 +3,12 @@ import { IBot } from 'bot/bot';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { Logger } from 'utils/logger';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
-// import { initDatabase } from 'infra/database/init';
+import { initDatabase } from 'infra/database/init';
 
 const bot = InversifyContainer.get<IBot>(TYPE_BOT_CONTAINERS.Bot);
 
 try {
-  // initDatabase();
+  initDatabase();
   bot.init();
   Logger.getLogger().info('Телеграм бот запущен');
 } catch {
