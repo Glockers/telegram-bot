@@ -26,7 +26,6 @@ export class WeatherService implements IWeatherService {
   async getWeatherByCity(city: string) {
     // TODO Вынести статическую инфу
     if (!city) throw new Error('City ​​cannot be empty!');
-    console.log('test', this.configService);
     const result = await this.weatherAPI.getWeatherByCity(city, this.configService.get('WEATHER_TOKEN'));
     if (!result) return null;
     return this.parseWeather(result.data);

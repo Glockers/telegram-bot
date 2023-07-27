@@ -1,17 +1,16 @@
-import { ISubscribeWeatherData, IUnsubscribeWeather } from 'bot/scenes/weather/weather.interface';
+import { ISceneSubscribeWeather, ISceneUnsubscribeWeather } from 'bot/scenes/weather/weather.interface';
 import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
 import { TWeatherSubscribeEntity } from 'infra/database/entities/weatherSubscribe.entity';
 import { WeatherSubscribeRepository } from 'infra/database/repository/weatherSubscribe.repository';
 import { inject, injectable } from 'inversify';
 
-export interface ISubscribeService {
-  getSubscriptions: () => void;
-  deleteWeather: (data: IUnsubscribeWeather) => boolean;
-  subscibeOnWeather: (data: ISubscribeWeatherData, id: any) => boolean;
+export interface ISubscribeWeatherService {
+  deleteWeather: (data: ISceneUnsubscribeWeather) => any;
+  subscibeOnWeather: (data: ISceneSubscribeWeather, id: any) => boolean;
 }
 
 @injectable()
-export class SubscribeWeatherService implements ISubscribeService {
+export class SubscribeWeatherService implements ISubscribeWeatherService {
   weatherSubscribeRepository: WeatherSubscribeRepository;
 
   constructor(
@@ -26,17 +25,13 @@ export class SubscribeWeatherService implements ISubscribeService {
     return findedWeather;
   }
 
-  getSubscriptions(): Promise<TWeatherSubscribeEntity[]> {
-    return this.weatherSubscribeRepository.getAll();
+  async deleteWeather(data: ISceneUnsubscribeWeather) {
+    const selectedSubscribe = await this.getSubscription(data.id);
+    if (!selectedSubscribe) throw new Error('Такой ID не найден');
+    return await this.weatherSubscribeRepository.delete(selectedSubscribe);
   }
 
-  deleteWeather(data: IUnsubscribeWeather): boolean {
-    console.log('test', !this.getSubscription(data.id));
-    if (!this.getSubscription(data.id)) throw new Error('Подписка не найдена');
-    return true;
-  }
-
-  subscibeOnWeather(data: ISubscribeWeatherData, userID: number): boolean {
+  subscibeOnWeather(data: ISceneSubscribeWeather, userID: number): boolean {
     const formedData = {
       ...data,
       userID

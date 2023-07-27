@@ -18,7 +18,7 @@ class TaskSubscribeEntity implements ITaskSubscribeEntity {
   @ManyToOne(() => TaskEntity, task => task.id)
   public taskEntity!: TaskEntity;
 
-  @Column({ type: 'timestamptz', nullable: true }) time!: Date;
+  @Column({ type: 'timestamptz' }) time!: Date;
 }
 
 export { TaskSubscribeEntity };

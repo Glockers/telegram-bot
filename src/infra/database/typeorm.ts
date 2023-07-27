@@ -4,8 +4,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { TaskEntity } from './entities/task.entity';
 import { WeatherSubscribeEntity } from './entities/weatherSubscribe.entity';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
-
-// eslint-disable-next-line no-undef
+import { TaskSubscribeEntity } from './entities/taskSubscribe.entity';
 
 // TOD вынести конфигурацию
 export class Database {
@@ -29,7 +28,7 @@ export class Database {
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
       synchronize: Boolean(configService.get('TYPEORM_SYNCHRONIZE')),
-      entities: [TaskEntity, WeatherSubscribeEntity],
+      entities: [TaskEntity, WeatherSubscribeEntity, TaskSubscribeEntity],
       migrations: []
     };
 

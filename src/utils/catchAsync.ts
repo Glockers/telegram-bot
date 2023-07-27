@@ -1,8 +1,8 @@
 import { IBotContext } from 'bot/context/context.interface';
 
-export function catchAsyncFunction(ctx: IBotContext, asyncFunction: Function) {
+export async function catchAsyncFunction(ctx: IBotContext, asyncFunction: Function) {
   try {
-    return asyncFunction(ctx);
+    return await asyncFunction(ctx);
   } catch (error) {
     if (error instanceof Error) {
       ctx.reply(error.message);

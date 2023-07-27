@@ -1,8 +1,7 @@
-export interface IAddTask {
-  title?: string,
-  description?: string,
-}
+import { ITaskEntity } from 'infra/database/entities/task.entity';
 
-export interface IRemoveTask {
-  id?: number;
+export type ISceneAddTask = Omit<ITaskEntity, 'id' | 'userID'>;
+
+export interface ISceneDeleteTask {
+  id: number;
 }

@@ -16,7 +16,7 @@ class WeatherSubscribeEntity implements TWeatherSubscribeEntity {
 
   @Column({ type: 'text' }) city!: string;
 
-  @Column({ type: 'timestamptz', nullable: true }) time!: Date;
+  @Column({ type: 'timestamptz' }) time!: Date;
 }
 
 export { WeatherSubscribeEntity };

@@ -2,7 +2,7 @@ import { IBotContext } from 'bot/context/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
-import { extractMessageFromChat } from 'utils/extractMessage';
+import { extractMessageFromChat } from 'utils/contextHelpers';
 
 export interface IAnimalController {
   getRandomAnimal: (ctx: IBotContext) => void;

@@ -4,7 +4,7 @@ export interface ITaskEntity {
   id: number;
   userID: number;
   title: string,
-  description: string
+  description: string,
 }
 
 @Entity('tasks')

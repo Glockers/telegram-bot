@@ -5,8 +5,9 @@ import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { IBotContext } from 'bot/context/context.interface';
-import { IRemoveTask } from './task.interface';
-import { extractMessageFromChat } from 'utils/extractMessage';
+import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
+import { ISceneDeleteTask } from './task.interface';
+import { catchAsyncFunction } from 'utils/catchAsync';
 
 @injectable()
 export class DeleteTaskScene implements ISceneBehave {
@@ -18,9 +19,11 @@ export class DeleteTaskScene implements ISceneBehave {
     @inject(TYPE_TASK_CONTAINERS.TaskService) taskService: ITaskService
   ) {
     this.taskService = taskService;
+
     this.scene = new Scenes.WizardScene<IBotContext>(
       SCENE.DELETE_TASK,
-      this.exctractData
+      this.askTaskID,
+      this.extractTaskID
     );
   }
 
@@ -30,15 +33,22 @@ export class DeleteTaskScene implements ISceneBehave {
 
   askTaskID(ctx: IBotContext) {
     ctx.reply('Введите номер задачи');
-    ctx.scene.session.removeTask = {} as IRemoveTask;
-    return ctx.wizard.next();
-  }
+    ctx.scene.session.removeTask = {} as ISceneDeleteTask;
+    ctx.wizard.next();
+  };
 
-  exctractData(ctx: IBotContext) {
+  extractTaskID = (ctx: IBotContext) => {
     const taskID = extractMessageFromChat(ctx);
     ctx.scene.session.removeTask.id = Number(taskID);
 
-    this.taskService.deleteTaskById(ctx.scene.session.removeTask);
-    return ctx.scene.leave();
+    this.handle(ctx);
   };
+
+  handle = async (ctx: IBotContext) =>
+    catchAsyncFunction(ctx, async () => {
+      const userID = exctractUserIdFromChat(ctx);
+      await this.taskService.deleteTaskById(ctx.scene.session.removeTask, userID);
+      ctx.reply('Задача была удалена из ваших дел!');
+      return ctx.scene.leave();
+    });
 }

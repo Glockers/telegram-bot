@@ -1,19 +1,14 @@
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
 import { COMMAND } from 'bot/constants/command.enum';
-import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { ISubscribeController } from 'bot/controllers/subscribe.controller';
 import { SCENE } from 'bot/constants/scenes.enum';
 
 @injectable()
 export class SubscribeCommand extends AbstactCommand {
-  subscribeController;
-
+  // eslint-disable-next-line no-useless-constructor
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.SubscribeController) subscribeController: ISubscribeController
   ) {
     super();
-    this.subscribeController = subscribeController;
   }
 
   handle(): void {

@@ -8,6 +8,8 @@ export enum COMMAND {
   TASK = 'task',
   CANCEL = 'cancel',
   ADD_TASK = 'add_task',
-  REMOOVE_TASK = 'remove_task',
-  GET_TASKS = 'get_tasks'
+  DELETE_TASK = 'delete_task',
+  GET_MY_TASKS = 'my_tasks',
+  SET_NOTIFICATION_TASK = 'set_notification_task',
+  CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
 }

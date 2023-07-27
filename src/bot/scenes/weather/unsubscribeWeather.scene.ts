@@ -1,22 +1,22 @@
 import { SCENE } from 'bot/constants/scenes.enum';
-import { ISubscribeService } from 'bot/services/subscribeWeather.service';
+import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IBotContext } from 'bot/context/context.interface';
-import { IUnsubscribeWeather } from './weather.interface';
-import { extractMessageFromChat } from 'utils/extractMessage';
+import { ISceneUnsubscribeWeather } from './weather.interface';
+import { extractMessageFromChat } from 'utils/contextHelpers';
 import { catchAsyncFunction } from 'utils/catchAsync';
 
 @injectable()
 export class UnsubscribeOnWeatherScene implements ISceneBehave {
   scene: Scenes.WizardScene<IBotContext>;
 
-  service: ISubscribeService;
+  service: ISubscribeWeatherService;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) service: ISubscribeService
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) service: ISubscribeWeatherService
   ) {
     this.service = service;
     this.scene = new Scenes.WizardScene<IBotContext>(
@@ -26,7 +26,7 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
     );
   }
 
-  public initService(service: ISubscribeService) {
+  public initService(service: ISubscribeWeatherService) {
     if (!this.service) {
       this.service = service;
     }
@@ -38,15 +38,15 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
 
   private askID = async (ctx: IBotContext) => {
     ctx.reply('Введите ID подписки');
-    ctx.scene.session.unsubscribeWeather = {} as IUnsubscribeWeather;
+    ctx.scene.session.unsubscribeWeather = {} as ISceneUnsubscribeWeather;
     return ctx.wizard.next();
   };
 
-  private exctractData = async (ctx: IBotContext) =>
-    catchAsyncFunction(ctx, () => {
+  private exctractData = (ctx: IBotContext) =>
+    catchAsyncFunction(ctx, async () => {
       const id = Number(extractMessageFromChat(ctx));
       ctx.scene.session.unsubscribeWeather.id = id;
-      const resultDelete = this.service.deleteWeather(ctx.scene.session.unsubscribeWeather);
+      const resultDelete = await this.service.deleteWeather(ctx.scene.session.unsubscribeWeather);
       if (resultDelete) ctx.reply('Вы отменили подписку');
       return ctx.scene.leave();
     });
