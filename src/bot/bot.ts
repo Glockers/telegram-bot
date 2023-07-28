@@ -21,13 +21,12 @@ export interface IBot {
 
 @injectable()
 export class Bot implements IBot {
-  bot: Telegraf<IBotContext>; // TODO добавить типизацию
+  bot: Telegraf<IBotContext>;
 
   constructor(
     @inject(TYPE_BOT_CONTAINERS.ConfigService) configService: ConfigService
   ) {
-    this.bot = new Telegraf<IBotContext>(configService.get('TOKEN')); // TODO Вынести TOKEN  /  добавить типизацию
-    // this.pgSession = getPgSession(configService);
+    this.bot = new Telegraf<IBotContext>(configService.get('TOKEN'));
   }
 
   getInstance(): Telegraf<IBotContext> {

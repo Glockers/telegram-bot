@@ -12,4 +12,6 @@ export enum COMMAND {
   GET_MY_TASKS = 'my_tasks',
   SET_NOTIFICATION_TASK = 'set_notification_task',
   CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
+  HELP = 'help',
+  START = 'start'
 }
