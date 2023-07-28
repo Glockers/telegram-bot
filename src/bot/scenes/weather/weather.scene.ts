@@ -42,10 +42,6 @@ export class WeatherScene implements ISceneBehave {
     this.scene.enter((ctx) => {
       ctx.reply('Пришли мне название города');
     });
-
-    this.scene.enter((ctx) => {
-      ctx.reply('Пришли мне название города');
-    });
   }
 
   private async handleWeather() {

@@ -1,4 +1,4 @@
-import { Scenes } from 'telegraf';
+import { Markup, Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { SCENE } from 'bot/constants/scenes.enum';
 import { ITaskService } from 'bot/services/task.service';
@@ -8,6 +8,7 @@ import { IBotContext } from 'bot/context/context.interface';
 import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
 import { catchAsyncFunction } from 'utils/catchAsync';
 import { ISceneAddTask } from './task.interface';
+import { convertStringToDate } from 'utils/dateUtils';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {
@@ -24,8 +25,13 @@ export class AddTaskScene implements ISceneBehave {
       SCENE.ADD_TASK,
       this.askTitle,
       this.askDescription,
-      this.exctractDescription
+      this.askReminder,
+      this.exctractData
     );
+
+    this.scene.action('cancelRemind', (ctx, next: any) => {
+      next();
+    });
   }
 
   getInstance() {
@@ -46,10 +52,25 @@ export class AddTaskScene implements ISceneBehave {
     return ctx.wizard.next();
   };
 
-  exctractDescription = async (ctx: IBotContext) => {
+  askReminder = async (ctx: IBotContext) => {
     const description = extractMessageFromChat(ctx);
     ctx.scene.session.addTask.description = description;
+    ctx.reply('Напомнить о задаче?', Markup.inlineKeyboard([
+      Markup.button.callback('Да', 'confirmRemind'),
+      Markup.button.callback('Нет', 'cancelRemind')
+    ]));
 
+    this.scene.action('confirmRemind', (ctx) => {
+      ctx.reply('Пришли время когда нужно сообщить');
+    });
+  };
+
+  exctractData = async (ctx: IBotContext) => {
+    const time = ctx?.message ? extractMessageFromChat(ctx) : null;
+    if (time) {
+      const resConverting = convertStringToDate(time);
+      if (!resConverting) throw new Error('Введена неверно дата!');
+    }
     return this.handle(ctx);
   };
 

@@ -21,7 +21,7 @@ export class Database {
   private static createDataSource(): DataSource {
     const configService = InversifyContainer.get<IConfigService>(TYPE_BOT_CONTAINERS.ConfigService);
     const options: DataSourceOptions = {
-      type: configService.get('TYPEORM_CONNECTION') as any,
+      type: configService.get('TYPEORM_CONNECTION') as 'postgres',
       host: configService.get('TYPEORM_HOST'),
       port: Number(configService.get('TYPEORM_PORT')),
       username: configService.get('TYPEORM_USERNAME'),

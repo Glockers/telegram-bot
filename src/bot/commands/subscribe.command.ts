@@ -27,4 +27,16 @@ export class SubscribeCommand extends AbstactCommand {
       ctx.scene.enter(SCENE.UNSUBSCRIBE_FROM_WEATHER)
     );
   }
+
+  // subscribeOnTask(): void {
+  //   this.bot.command(COMMAND.SET_NOTIFICATION_TASK, (ctx) =>
+  //     ctx.scene.enter(SCENE.SET_NOTIFICATION_TASK)
+  //   );
+  // }
+
+  unSubscribeFromTask(): void {
+    this.bot.command(COMMAND.CANCEL_NOTIFICATION_TASK, (ctx) =>
+      ctx.scene.enter(SCENE.CANCEL_NOTIFICATION_TASK)
+    );
+  }
 }
