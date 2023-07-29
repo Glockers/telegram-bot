@@ -17,7 +17,6 @@ export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>) => {
 
   for (const element of subscriptions) {
     const res = await weatherService.getWeatherByCity(element.city);
-    console.log(getCurrentDate() === element.time);
     const message = formWeatherReport(res);
     bot.telegram.sendMessage(element.userID, message);
     operationsCount++;

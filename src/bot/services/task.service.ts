@@ -1,13 +1,13 @@
 import { ISceneAddTask, ISceneIdTask } from 'bot/scenes/task/task.interface';
 import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
 import { ITaskEntity } from 'infra/database/entities/task.entity';
-import { TAddTask, TaskRepository } from 'infra/database/repository/task.repository';
+import { TaskRepository } from 'infra/database/repository/task.repository';
 import { inject, injectable } from 'inversify';
 
 export interface ITaskService {
   getTasks: (userID: number) => Promise<ITaskEntity[]>;
   deleteTaskById: (data: ISceneIdTask, userID: number) => Promise<boolean>;
-  addTask: (data: ISceneAddTask, userID: number) => void;
+  addTask: (data: ISceneAddTask) => void;
 }
 
 @injectable()
@@ -37,11 +37,7 @@ export class TaskService implements ITaskService {
     return result;
   }
 
-  addTask(data: ISceneAddTask, userID: number): void {
-    const newTask: TAddTask = {
-      ...data,
-      userID
-    };
-    this.taskRepository.add(newTask);
+  addTask(data: ISceneAddTask): void {
+    this.taskRepository.add(data);
   }
 }
