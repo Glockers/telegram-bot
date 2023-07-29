@@ -3,8 +3,6 @@ import { TYPE_SCENES_CONTAINERS } from 'container/bot/scenes/scenes.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { ISceneBehave, SceneReturnType } from './scene.type';
 import { IBotContext, ISceneStage } from 'bot/context/context.interface';
-import { extractMessageFromChat } from 'utils/extractMessage';
-import { COMMAND } from 'bot/constants/command.enum';
 
 export class Stage {
   private scenes: SceneReturnType[] = [];
@@ -30,12 +28,17 @@ export class Stage {
   }
 
   private cancelScene(ctx: IBotContext, next: () => Promise<void>) {
-    const message = extractMessageFromChat(ctx);
-    const commandCancel = message.startsWith('/') ? message : '/' + message;
-    if (commandCancel === COMMAND.CANCEL) {
-      ctx.reply('Вы вышли из сцены!');
-      return ctx.scene.leave();
-    }
+    // const message = ctx?.message ? extractMessageFromChat(ctx) : null;
+    // const isSceneEmpty = Object.keys(ctx.scene.session).length;
+
+    // if (message && isSceneEmpty && message === '/cancel') {
+    //   ctx.reply('Вы отменили действие. Теперь можете использовать команды!');
+    //   return ctx.scene.leave();
+    // }
+
+    // if (message && message && isSceneEmpty && isCommand(message)) {
+    //   return ctx.reply('Введите команду /cancel, чтобы отменить текущую операцию.');
+    // }
 
     next();
   }

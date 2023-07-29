@@ -1,6 +1,8 @@
 import { IBotContext } from 'bot/context/context.interface';
 import { Telegraf } from 'telegraf';
 
-export const taskShedulerHandler = (bot: Telegraf<IBotContext>) => {
-  bot.telegram.sendMessage('760175592', 'taskShedulerHandler');
+export const taskShedulerHandler = async (bot: Telegraf<IBotContext>) => {
+  // const repository = InversifyContainer.get<TaskSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.TaskSubscribeRepository);
+  // console.log(repository);
+  // bot.telegram.sendMessage('760175592', 'taskShedulerHandler');
 };

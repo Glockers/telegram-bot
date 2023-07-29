@@ -1,3 +1,4 @@
+import { COMMAND } from 'bot/constants/command.enum';
 import { AbstactCommand } from './command.class';
 import { injectable } from 'inversify';
 
@@ -9,14 +10,14 @@ export class GreetingCommand extends AbstactCommand {
   }
 
   startHandle(): void {
-    this.bot.start((ctx) => {
-      ctx.reply('Welcome!');
-    });
+    this.bot.command(COMMAND.START, (ctx) =>
+      ctx.reply('Welcome!')
+    );
   }
 
   helpHandle(): void {
-    this.bot.help((ctx) => {
-      ctx.reply('Help message');
-    });
+    this.bot.command(COMMAND.HELP, (ctx) =>
+      ctx.reply('Welcome!')
+    );
   }
 }

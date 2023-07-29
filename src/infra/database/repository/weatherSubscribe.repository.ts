@@ -23,8 +23,15 @@ export class WeatherSubscribeRepository {
     return await this.repository.remove(data);
   }
 
-  async getAll(): Promise<TWeatherSubscribeEntity[]> {
-    return await this.repository.find();
+  async getAllByTime(targetTime: Date): Promise<TWeatherSubscribeEntity[]> {
+    const targetHours = targetTime.getHours();
+    const targetMinutes = targetTime.getMinutes();
+    const records = await this.repository
+      .createQueryBuilder('record')
+      .where('EXTRACT(HOUR FROM record.time) = :hours', { hours: targetHours })
+      .andWhere('EXTRACT(MINUTE FROM record.time) = :minutes', { minutes: targetMinutes })
+      .getMany();
+    return records;
   }
 
   async findOneById(id: number): Promise<TWeatherSubscribeEntity | null> {

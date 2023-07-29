@@ -2,10 +2,10 @@ import { SCENE } from 'bot/constants/scenes.enum';
 import { IBotContext } from 'bot/context/context.interface';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
-import { convertDateToString } from 'utils/dateUtils';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IWeatherService } from 'bot/services/weather.service';
+import { formWeatherReport } from 'utils/messagerUtil';
 
 // export const weatherScene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
 
@@ -42,10 +42,6 @@ export class WeatherScene implements ISceneBehave {
     this.scene.enter((ctx) => {
       ctx.reply('Пришли мне название города');
     });
-
-    this.scene.enter((ctx) => {
-      ctx.reply('Пришли мне название города');
-    });
   }
 
   private async handleWeather() {
@@ -54,16 +50,8 @@ export class WeatherScene implements ISceneBehave {
       if (!res) {
         ctx.reply('Такого города нет! Попробуй еще');
       } else {
-        // TODO вынести
-        const CELSUS = (res.temp - 273.15).toFixed(2);
-        const formattedWeather = ` 
-        Погода в ${res.name}, ${convertDateToString(
-          new Date()
-        )}\nCкорость ветра: ${res.windSpeed.toFixed(
-          2
-        )} м/c.\nТемпература: ${CELSUS}
-        `;
-        ctx.reply(formattedWeather);
+        const message = formWeatherReport(res);
+        ctx.reply(message);
         ctx.scene.leave();
       }
     });

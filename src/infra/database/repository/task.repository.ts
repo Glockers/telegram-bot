@@ -1,6 +1,5 @@
 import { Repository } from 'typeorm';
 import { ITaskEntity, TaskEntity } from '../entities/task.entity';
-import { IAddTask } from 'bot/scenes/task/task.interface';
 import { injectable } from 'inversify';
 import { Database } from '../typeorm';
 
@@ -16,7 +15,7 @@ export class TaskRepository {
     this.repository = Database.get().getRepository(TaskEntity);
   }
 
-  async add(data: IAddTask): Promise<ITaskEntity> {
+  async add(data: TAddTask): Promise<ITaskEntity> {
     return await this.repository.save(data);
   }
 
@@ -24,13 +23,17 @@ export class TaskRepository {
     return await this.repository.remove(data);
   }
 
-  async getAll(): Promise<ITaskEntity[]> {
-    return this.repository.find();
+  async getAll(userID: number): Promise<ITaskEntity[]> {
+    return this.repository.find({
+      where: {
+        userID
+      }
+    });
   }
 
-  async findOneById(data: TFindTaskById): Promise<ITaskEntity | null> {
+  async findOneById(id: number): Promise<ITaskEntity | null> {
     return this.repository.findOneBy({
-      id: data.id
+      id
     });
   }
 }

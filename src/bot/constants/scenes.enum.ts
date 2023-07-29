@@ -4,5 +4,9 @@ export enum SCENE {
   UNSUBSCRIBE_FROM_WEATHER = 'unsubscribe_from_weather',
   WEATHER = 'weather',
   ADD_TASK = 'add_task',
-  DELETE_TASK = 'delete_task'
+  DELETE_TASK = 'delete_task',
+  SET_NOTIFICATION_TASK = 'set_notification_task',
+  CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
+  SKIP = 'skip',
+
 }

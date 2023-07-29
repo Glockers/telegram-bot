@@ -1,8 +1,8 @@
-export interface ISubscribeWeatherData {
+export interface ISceneSubscribeWeather {
   city: string,
   time: Date,
 }
 
-export interface IUnsubscribeWeather {
+export interface ISceneUnsubscribeWeather {
   id: number;
 }

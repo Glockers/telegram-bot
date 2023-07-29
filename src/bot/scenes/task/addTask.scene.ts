@@ -5,7 +5,8 @@ import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { IBotContext } from 'bot/context/context.interface';
-import { extractMessageFromChat } from 'utils/extractMessage';
+import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
+import { ISceneAddTask } from './task.interface';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {
@@ -17,12 +18,9 @@ export class AddTaskScene implements ISceneBehave {
     @inject(TYPE_TASK_CONTAINERS.TaskService) taskService: ITaskService
   ) {
     this.taskService = taskService;
-
     this.scene = new Scenes.WizardScene<IBotContext>(
       SCENE.ADD_TASK,
-      this.askTitle,
-      this.askDescription,
-      this.exctractData
+      this.askTitle, this.askDescription, this.getAnswerDescription, this.getAnswerDescription
     );
   }
 
@@ -31,22 +29,28 @@ export class AddTaskScene implements ISceneBehave {
   }
 
   askTitle = async (ctx: IBotContext) => {
-    ctx.scene.session.addTask = {};
+    const userID = exctractUserIdFromChat(ctx);
+    ctx.scene.session.addTask = {} as ISceneAddTask;
+    ctx.scene.session.addTask.userID = userID;
     ctx.reply('Введите заголовок задачи');
-    return ctx.wizard.next();
+    ctx.wizard.next();
   };
 
   askDescription = async (ctx: IBotContext) => {
     const title = extractMessageFromChat(ctx);
     ctx.scene.session.addTask.title = title;
-
     ctx.reply('Введите описание');
-    return ctx.wizard.next();
+    ctx.wizard.next();
   };
 
-  exctractData = async (ctx: IBotContext) => {
-    const description = extractMessageFromChat(ctx);
-    ctx.scene.session.addTask.description = description;
+  getAnswerDescription = async (ctx: IBotContext) => {
+    const message = extractMessageFromChat(ctx);
+    ctx.scene.session.addTask.description = message;
+    this.handle(ctx);
+  };
+
+  handle = async (ctx: IBotContext) => {
+    ctx.reply('Задача была добавлена');
     this.taskService.addTask(ctx.scene.session.addTask);
     return ctx.scene.leave();
   };
