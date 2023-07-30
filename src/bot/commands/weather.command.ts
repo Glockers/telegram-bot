@@ -1,7 +1,9 @@
 import { injectable } from 'inversify';
 import { AbstactCommand } from './command.class';
-import { COMMAND } from 'bot/constants/command.enum';
+import { COMMAND_NAME } from 'bot/constants/command.enum';
 import { SCENE } from 'bot/constants/scenes.enum';
+import { CommandHandlers } from 'bot/interfaces/command.interface';
+import { IBotContext } from 'bot/context/context.interface';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {
@@ -11,14 +13,20 @@ export class WeatherCommand extends AbstactCommand {
     super();
   }
 
-  handle(): void {
-    this.weatherHandler();
+  initCommands(): void {
+    this.bot.command(COMMAND_NAME.WEATHER, (ctx) =>
+      this.getCommands()[COMMAND_NAME.WEATHER]!(ctx)
+    );
   }
 
-  // TODO типизировать
-  weatherHandler(): void {
-    this.bot.command(COMMAND.WEATHER, (ctx) =>
-      ctx.scene.enter(SCENE.WEATHER)
-    );
+  getCommands(): CommandHandlers {
+    const commandHandlers: CommandHandlers = {
+      [COMMAND_NAME.WEATHER]: this.weatherHandler
+    };
+    return commandHandlers;
+  }
+
+  private weatherHandler(ctx: IBotContext): void {
+    ctx.scene.enter(SCENE.WEATHER);
   }
 }

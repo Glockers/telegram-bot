@@ -55,7 +55,7 @@ export class Bot implements IBot {
     Object.keys(TYPE_COMMAND_CONTAINERS).forEach((key) => {
       const command =
         TYPE_COMMAND_CONTAINERS[key as keyof typeof TYPE_COMMAND_CONTAINERS];
-      InversifyContainer.get<AbstactCommand>(command).handle();
+      InversifyContainer.get<AbstactCommand>(command).initCommands();
     });
   }
 
