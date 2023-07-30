@@ -5,9 +5,9 @@ import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { IBotContext } from 'bot/context/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
+import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { ISceneIdTask } from './task.interface';
-import { catchAsyncFunction } from 'utils/catchAsync';
+import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
 @injectable()
 export class DeleteTaskScene implements ISceneBehave {

@@ -18,7 +18,8 @@ export class AnimalCommand extends AbstactCommand {
   }
 
   initCommands(): void {
-    this.animalHandle = this.animalHandle.bind(this);
+    this.catHandler = this.catHandler.bind(this);
+    this.dogHandler = this.dogHandler.bind(this);
 
     this.bot.command([COMMAND_NAME.CAT], (ctx) => this.getCommands()[COMMAND_NAME.CAT]!(ctx));
     this.bot.command([COMMAND_NAME.DOG], (ctx) => this.getCommands()[COMMAND_NAME.DOG]!(ctx));
@@ -26,13 +27,17 @@ export class AnimalCommand extends AbstactCommand {
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [COMMAND_NAME.CAT]: this.animalHandle,
-      [COMMAND_NAME.DOG]: this.animalHandle
+      [COMMAND_NAME.CAT]: this.catHandler,
+      [COMMAND_NAME.DOG]: this.dogHandler
     };
     return commandHandlers;
   }
 
-  private animalHandle(ctx: IBotContext): void {
-    this.animalController.getRandomAnimal(ctx);
+  private catHandler(ctx: IBotContext): void {
+    this.animalController.getRandomCat(ctx);
+  }
+
+  private dogHandler(ctx: IBotContext): void {
+    this.animalController.getRandomDog(ctx);
   }
 }

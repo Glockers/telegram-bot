@@ -2,7 +2,7 @@ import { IBotContext } from 'bot/context/context.interface';
 import { ITaskService } from 'bot/services/task.service';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { inject, injectable } from 'inversify';
-import { exctractUserIdFromChat } from 'utils/contextHelpers';
+import { exctractUserIdFromChat } from 'common/helpers/contextHelpers';
 
 export interface ITaskController {
   getMyTask: (ctx: IBotContext) => Promise<void>;

@@ -3,10 +3,10 @@ import { TYPE_SCENES_CONTAINERS } from 'container/bot/scenes/scenes.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { ISceneBehave, SceneReturnType } from './scene.type';
 import { IBotContext, ISceneStage } from 'bot/context/context.interface';
-import { getCommand } from 'utils/commandUtil';
+import { getCommand } from 'common/helpers/commandUtil';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { extractMessageFromChat } from 'utils/contextHelpers';
-import { isCommand } from 'utils/isCommand';
+import { extractMessageFromChat } from 'common/helpers/contextHelpers';
+import { isCommand } from 'common/utils/isCommand';
 
 export class Stage {
   private scenes: SceneReturnType[] = [];

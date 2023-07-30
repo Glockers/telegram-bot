@@ -1,17 +1,17 @@
 import { ConfigService } from '@config/config.service';
 import { inject, injectable } from 'inversify';
 import { Telegraf, session } from 'telegraf';
-import { Logger } from 'utils/logger';
+import { Logger } from 'common/utils/logger';
 import { TYPE_COMMAND_CONTAINERS } from 'container/bot/commands/command.type';
 import { AbstactCommand } from './commands/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { IBotContext } from './context/context.interface';
 import { Stage } from './scenes/initStages';
-import { ratelimitConfig } from '@config/ratelimit.config';
+// import { ratelimitConfig } from '@config/ratelimit.config';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { initSheduler } from 'infra/sheduler/sheduler.service';
 // @ts-ignore
-import rateLimit from 'telegraf-ratelimit';
+// import rateLimit from 'telegraf-ratelimit';
 
 export interface IBot {
   init: () => void;
@@ -62,7 +62,7 @@ export class Bot implements IBot {
   private initMiddlewares() {
     this.bot.use(session());
     this.bot.use(new Stage().getInstance().middleware());
-    this.bot.use(rateLimit(ratelimitConfig));
+    // this.bot.use(rateLimit(ratelimitConfig));
     this.handleError();
   }
 

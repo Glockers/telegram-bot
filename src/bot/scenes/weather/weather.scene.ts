@@ -5,9 +5,7 @@ import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IWeatherService } from 'bot/services/weather.service';
-import { formWeatherReport } from 'utils/messagerUtil';
-
-// export const weatherScene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
+import { formWeatherReport } from 'common/utils/messagerUtil';
 
 @injectable()
 export class WeatherScene implements ISceneBehave {

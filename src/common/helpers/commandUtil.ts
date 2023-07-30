@@ -12,5 +12,9 @@ export const getCommand = (command: COMMAND_NAME, ctx: IBotContext): void => {
     commands = { ...commands, ...InversifyContainer.get<AbstactCommand>(command).getCommands() };
   });
 
-  commands[command]!(ctx);
+  if (commands[command]) {
+    commands[command]?.(ctx);
+  } else {
+    throw new Error('Неизвестная команда');
+  }
 };

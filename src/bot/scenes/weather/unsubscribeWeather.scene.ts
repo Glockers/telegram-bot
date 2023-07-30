@@ -6,8 +6,8 @@ import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IBotContext } from 'bot/context/context.interface';
 import { ISceneUnsubscribeWeather } from './weather.interface';
-import { extractMessageFromChat } from 'utils/contextHelpers';
-import { catchAsyncFunction } from 'utils/catchAsync';
+import { extractMessageFromChat } from 'common/helpers/contextHelpers';
+import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
 @injectable()
 export class UnsubscribeOnWeatherScene implements ISceneBehave {
