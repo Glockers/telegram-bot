@@ -32,6 +32,7 @@ module.exports = {
   scopes: [
     { name: 'project' },
     { name: 'commands' },
+    { name: 'buttons' },
     { name: 'utils' },
     { name: 'config' },
     { name: 'middleware' },

@@ -1,6 +1,6 @@
-import { TYPE_BOT_CONTAINERS } from './../../container/bot/botContainer.type';
+import { TYPE_BOT_CONTAINERS } from '../../container/bot/botContainer.type';
 import { IBot } from 'bot/bot';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
 import { InversifyContainer } from 'container/inversifyContainer';
 import { Telegraf } from 'telegraf';

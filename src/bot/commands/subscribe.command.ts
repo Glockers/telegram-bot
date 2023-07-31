@@ -1,9 +1,9 @@
 import { injectable } from 'inversify';
-import { AbstactCommand } from './command.class';
+import { AbstactCommand } from '../interfaces/command.class';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
 import { SCENE } from 'bot/constants/scenes.enum';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 
 @injectable()
 export class SubscribeCommand extends AbstactCommand {

@@ -1,6 +1,6 @@
-import { AbstactCommand } from 'bot/commands/command.class';
+import { AbstactCommand } from 'bot/interfaces/command.class';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
 import { TYPE_COMMAND_CONTAINERS } from 'container/bot/commands/command.type';
 import { InversifyContainer } from 'container/inversifyContainer';

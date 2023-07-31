@@ -1,11 +1,15 @@
-import { IBotContext } from 'bot/context/context.interface';
+import { buttonInfoTask } from './../buttons/task.button';
+import { backMenuTask, setTaskPanel } from 'bot/buttons/task.button';
+import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
 import { ITaskService } from 'bot/services/task.service';
+import { exctractUserIdFromChat, exctractcallbackQueryData } from 'common/helpers/contextHelpers';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { inject, injectable } from 'inversify';
-import { exctractUserIdFromChat } from 'common/helpers/contextHelpers';
 
 export interface ITaskController {
   getMyTask: (ctx: IBotContext) => Promise<void>;
+  deleteTask: (ctx: CallbackQueryData) => Promise<void>;
+  getTask: (ctx: CallbackQueryData) => Promise<void>;
 }
 
 @injectable()
@@ -20,14 +24,21 @@ export class TaskController implements ITaskController {
 
   async getMyTask(ctx: IBotContext): Promise<void> {
     const userID = exctractUserIdFromChat(ctx);
-    const task = await this.taskService.getTasks(userID);
-    let message = '';
+    const tasks = await this.taskService.getTasks(userID);
+    tasks.length === 0
+      ? ctx.reply('У вас нет задач')
+      : ctx.reply('Список задач', buttonInfoTask(tasks));
+  }
 
-    for (const element of task) {
-      message += `Задача: ${element.id}\nНазвание: ${element.title}\nОписание: ${element.description}\n-----------------------\n\n`;
-    }
+  async getTask(ctx: CallbackQueryData) {
+    const queryData = exctractcallbackQueryData(ctx);
+    const task = await this.taskService.getTaskById(queryData.id);
+    ctx.editMessageText('№' + task.id + `\nЗаголовок: ${task.title}\nОписание: ${task.description}`, setTaskPanel('sub', queryData.id));
+  }
 
-    if (!message) ctx.reply('У вас нет задач!');
-    else ctx.reply(message);
+  async deleteTask(ctx: CallbackQueryData) {
+    const taskID = exctractcallbackQueryData(ctx);
+    const userID = exctractUserIdFromChat(ctx);
+    await this.taskService.deleteTaskById(taskID, userID) ? ctx.editMessageText('Задача удалена', backMenuTask) : ctx.reply('Задача не была удалена!');
   }
 }

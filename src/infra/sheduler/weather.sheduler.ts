@@ -1,4 +1,4 @@
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { IWeatherService } from 'bot/services/weather.service';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { InversifyContainer } from 'container/inversifyContainer';

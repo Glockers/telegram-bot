@@ -1,4 +1,4 @@
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { UserError } from 'common/exceptions/users.error';
 import { Logger } from '../utils/logger';
 

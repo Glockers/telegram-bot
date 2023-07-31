@@ -1,5 +1,5 @@
 import { SCENE } from 'bot/constants/scenes.enum';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';

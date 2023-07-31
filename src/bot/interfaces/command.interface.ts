@@ -1,5 +1,5 @@
 import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 
 export type CommandHandler = (ctx: IBotContext) => void;
 

@@ -4,7 +4,7 @@ import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service'
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { ISceneSubscribeWeather } from './weather.interface';
 import { convertStringToDate } from 'common/utils/dateUtils';

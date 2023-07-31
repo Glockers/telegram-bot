@@ -4,8 +4,8 @@ import { Scenes } from 'telegraf';
 import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { IBotContext } from 'bot/context/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
+import { IBotContext } from 'bot/interfaces/context.interface';
+import { exctractUserIdFromChat, exctractcallbackQueryData, extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { ISceneIdTask } from './task.interface';
 import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
@@ -25,6 +25,14 @@ export class DeleteTaskScene implements ISceneBehave {
       this.askTaskID,
       this.extractTaskID
     );
+
+    this.scene.action(/delete_task\?(.*)/, (ctx) => {
+      console.log('wer');
+      const result = exctractcallbackQueryData(ctx);
+      const userID = exctractUserIdFromChat(ctx);
+      this.taskService.deleteTaskById(result.id, userID);
+      ctx.editMessageText('Задача удалена!');
+    });
   }
 
   getInstance() {

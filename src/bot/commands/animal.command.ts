@@ -1,9 +1,9 @@
-import { AbstactCommand } from './command.class';
+import { AbstactCommand } from '../interfaces/command.class';
 import { inject, injectable } from 'inversify';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { IAnimalController } from 'bot/controllers/animal.conroller';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
 
 @injectable()

@@ -3,13 +3,16 @@ import { inject, injectable } from 'inversify';
 import { Telegraf, session } from 'telegraf';
 import { Logger } from 'common/utils/logger';
 import { TYPE_COMMAND_CONTAINERS } from 'container/bot/commands/command.type';
-import { AbstactCommand } from './commands/command.class';
+import { AbstactCommand } from './interfaces/command.class';
 import { InversifyContainer } from 'container/inversifyContainer';
-import { IBotContext } from './context/context.interface';
+import { IBotContext } from './interfaces/context.interface';
 import { Stage } from './scenes/initStages';
 // import { ratelimitConfig } from '@config/ratelimit.config';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { initSheduler } from 'infra/sheduler/sheduler.service';
+import { MainAction } from './actions/actions';
+import { TYPE_ACTION_CONTAINERS } from 'container/bot/actions/actions.type';
+import { AbstactAction } from './interfaces/actions.class';
 // @ts-ignore
 // import rateLimit from 'telegraf-ratelimit';
 
@@ -38,7 +41,9 @@ export class Bot implements IBot {
       initSheduler(this.bot);
       this.initMiddlewares();
       this.initCommands();
+      this.initActions();
       this.bot.launch();
+      new MainAction().initActions();
     } catch (error) {
       const errorText = 'Ошибка при создании бота: ' + error;
       Logger.getLogger().error(errorText);
@@ -56,6 +61,14 @@ export class Bot implements IBot {
       const command =
         TYPE_COMMAND_CONTAINERS[key as keyof typeof TYPE_COMMAND_CONTAINERS];
       InversifyContainer.get<AbstactCommand>(command).initCommands();
+    });
+  }
+
+  private initActions(): void {
+    Object.keys(TYPE_ACTION_CONTAINERS).forEach((key) => {
+      const command =
+        TYPE_ACTION_CONTAINERS[key as keyof typeof TYPE_ACTION_CONTAINERS];
+      InversifyContainer.get<AbstactAction>(command).init();
     });
   }
 
