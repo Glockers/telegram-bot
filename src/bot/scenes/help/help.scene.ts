@@ -3,7 +3,6 @@ import { ISceneBehave } from '../scene.type';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { SCENE } from 'bot/constants/scenes.enum';
 import { injectable } from 'inversify';
-import { helpMenu } from 'bot/buttons/greeting.button';
 
 @injectable()
 export class HelpScene implements ISceneBehave {
@@ -19,8 +18,8 @@ export class HelpScene implements ISceneBehave {
   };
 
   init() {
-    this.scene.enter(ctx => {
-      ctx.reply('This is help message!', helpMenu);
-    });
+    // this.scene.enter(ctx => {
+    //   ctx.reply('This is help message!', helpMenu);
+    // });
   }
 }

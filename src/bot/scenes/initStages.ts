@@ -39,7 +39,6 @@ export class Stage {
       ctx.scene.leave();
       return getCommand(message.substring(1) as COMMAND_NAME, ctx);
     }
-
     next();
   }
 

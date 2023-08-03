@@ -6,6 +6,7 @@ import { ACTION_NAME } from 'bot/constants/actions.enum';
 import { getCommand } from 'common/helpers/commandUtil';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
 import { taskMenu } from 'bot/buttons/task.button';
+import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
 @injectable()
 export class TaskAction extends AbstactAction {
@@ -19,16 +20,8 @@ export class TaskAction extends AbstactAction {
   }
 
   init() {
-    this.bot.action(/task_detail\?(.*)/, (ctx) => {
-      this.taskController.getTask(ctx);
-    });
-
-    this.bot.action(/delete_task\?(.*)/, (ctx) => {
-      this.taskController.deleteTask(ctx);
-    });
-
     this.bot.action(ACTION_NAME.MY_TASK, (ctx) => {
-      getCommand(COMMAND_NAME.GET_MY_TASKS, ctx);
+      catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.GET_MY_TASKS, ctx));
     });
 
     this.bot.action(ACTION_NAME.TASK, (ctx) => {
@@ -37,6 +30,22 @@ export class TaskAction extends AbstactAction {
 
     this.bot.action(ACTION_NAME.ADD_TASK, (ctx) => {
       getCommand(COMMAND_NAME.ADD_TASK, ctx);
+    });
+
+    this.bot.action(/task_detail\?(.*)/, (ctx) => {
+      catchAsyncFunction(ctx, () => this.taskController.getTask(ctx));
+    });
+
+    this.bot.action(/delete_task\?(.*)/, (ctx) => {
+      catchAsyncFunction(ctx, () => this.taskController.deleteTask(ctx));
+    });
+
+    this.bot.action(/un_subscribe_task\?(.*)/, (ctx) => {
+      catchAsyncFunction(ctx, () => this.taskController.unSubscribeFromTask(ctx));
+    });
+
+    this.bot.action(/subscribe_task\?(.*)/, (ctx) => {
+      catchAsyncFunction(ctx, () => this.taskController.subsribeOnTask(ctx));
     });
   }
 }

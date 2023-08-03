@@ -20,13 +20,22 @@ export const backMenuTask = Markup.inlineKeyboard([
   ]
 ]);
 
-export const setTaskPanel = (mode: 'unSub' | 'sub', taskID: number) => {
-  const selecteTitle = mode === 'sub' ? 'Уведомить' : 'Отменить уведомление';
-  const handlerText = 'delete_task?' + JSON.stringify({ id: taskID });
+export const setTaskPanel = (isSubscribe: boolean, taskID: number) => {
+  const serializedTaskInfo = JSON.stringify({ id: taskID });
+  const deleteHandlerText = `${ACTION_NAME.DELETE_TASK}?${serializedTaskInfo}`;
+  let selecteTitle = '';
+  let subHandlerText = '';
+  if (!isSubscribe) {
+    selecteTitle = 'Уведомить';
+    subHandlerText = `${ACTION_NAME.SUBSCRIBE_TASK}?${serializedTaskInfo}`;
+  } else {
+    selecteTitle = 'Отписатся от уведомления';
+    subHandlerText = `${ACTION_NAME.UN_SUBSCRIBE_TASK}?${serializedTaskInfo}`;
+  }
 
   return Markup.inlineKeyboard([
-    [Markup.button.callback('Удалить задачу', handlerText)],
-    [Markup.button.callback(selecteTitle, ACTION_NAME.HELP_MENU)],
+    [Markup.button.callback('Удалить задачу', deleteHandlerText)],
+    [Markup.button.callback(selecteTitle, subHandlerText)],
     [Markup.button.callback('Назад в меню', ACTION_NAME.TASK)]
   ]);
 };

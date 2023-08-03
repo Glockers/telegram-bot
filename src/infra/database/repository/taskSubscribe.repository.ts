@@ -27,9 +27,10 @@ export class TaskSubscribeRepository {
     return await this.repository.find();
   }
 
-  async findOneById(data: TFindSubscribeTaskById): Promise<ITaskSubscribeEntity | null> {
-    return await this.repository.findOneBy({
-      id: data.id
-    });
+  async findOneByTaskID(taskID: number): Promise<ITaskSubscribeEntity | null> {
+    const queryBuilder = this.repository
+      .createQueryBuilder('taskSubscribe')
+      .innerJoinAndSelect('taskSubscribe.taskEntity', 'taskEntity', 'taskEntity.id = :taskID', { taskID });
+    return await queryBuilder.getOne();
   }
 }

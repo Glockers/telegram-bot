@@ -10,7 +10,6 @@ import { Stage } from './scenes/initStages';
 // import { ratelimitConfig } from '@config/ratelimit.config';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { initSheduler } from 'infra/sheduler/sheduler.service';
-import { MainAction } from './actions/actions';
 import { TYPE_ACTION_CONTAINERS } from 'container/bot/actions/actions.type';
 import { AbstactAction } from './interfaces/actions.class';
 // @ts-ignore
@@ -43,7 +42,6 @@ export class Bot implements IBot {
       this.initCommands();
       this.initActions();
       this.bot.launch();
-      new MainAction().initActions();
     } catch (error) {
       const errorText = 'Ошибка при создании бота: ' + error;
       Logger.getLogger().error(errorText);

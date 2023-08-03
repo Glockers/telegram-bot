@@ -8,8 +8,9 @@ import { inject, injectable } from 'inversify';
 export interface ITaskService {
   getTasks: (userID: number) => Promise<ITaskEntity[]>;
   deleteTaskById: (data: ISceneIdTask, userID: number) => Promise<boolean>;
-  addTask: (data: ISceneAddTask) => void;
+  addTask: (data: ISceneAddTask) => Promise<void>;
   getTaskById: (taskID: number) => Promise<ITaskEntity>;
+
 }
 
 @injectable()
@@ -35,11 +36,12 @@ export class TaskService implements ITaskService {
 
   async getTaskById(idTask: number): Promise<ITaskEntity> {
     const result = await this.taskRepository.findOneById(idTask);
+    console.log('test:', result);
     if (!result) throw UserError.sendMessage('Задача с таким ID не найдена');
     return result;
   }
 
-  addTask(data: ISceneAddTask): void {
-    this.taskRepository.add(data);
+  async addTask(data: ISceneAddTask): Promise<void> {
+    await this.taskRepository.add(data);
   }
 }

@@ -16,7 +16,7 @@ export function exctractUserIdFromChat(ctx: IBotContext): number {
 
 export function exctractcallbackQueryData(ctx: CallbackQueryData) {
   try {
-    return JSON.parse(ctx.match[1]);
+    return JSON.parse(ctx.match[1]) as { id: number };
   } catch (error) {
     throw new Error('Ошибка при десериализации данных');
   }

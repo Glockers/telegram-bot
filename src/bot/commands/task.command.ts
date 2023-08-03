@@ -19,7 +19,7 @@ export class TaskCommand extends AbstactCommand {
   }
 
   initCommands(): void {
-    this.getAllTask = this.getAllTask.bind(this);
+    this.getMyTasks = this.getMyTasks.bind(this);
 
     this.bot.command(COMMAND_NAME.ADD_TASK, ctx =>
       this.getCommands()[COMMAND_NAME.ADD_TASK]!(ctx)
@@ -36,7 +36,7 @@ export class TaskCommand extends AbstactCommand {
     const commandHandlers: CommandHandlers = {
       [COMMAND_NAME.ADD_TASK]: this.addTask,
       // [COMMAND_NAME.DELETE_TASK]: this.deleteTask,
-      [COMMAND_NAME.GET_MY_TASKS]: this.getAllTask
+      [COMMAND_NAME.GET_MY_TASKS]: this.getMyTasks
     };
     return commandHandlers;
   }
@@ -45,11 +45,7 @@ export class TaskCommand extends AbstactCommand {
     ctx.scene.enter(SCENE.ADD_TASK);
   }
 
-  // private deleteTask(ctx: IBotContext): void {
-  //   ctx.scene.enter(SCENE.DELETE_TASK);
-  // }
-
-  private getAllTask(ctx: IBotContext): void {
+  private getMyTasks(ctx: IBotContext): void {
     this.taskController.getMyTask(ctx);
   }
 }

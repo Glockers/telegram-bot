@@ -3,7 +3,7 @@ import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
 import { IBotContext } from 'bot/interfaces/context.interface';
-import { SCENE } from 'bot/constants/scenes.enum';
+import { helpMenu } from 'bot/buttons/greeting.button';
 
 @injectable()
 export class GreetingCommand extends AbstactCommand {
@@ -29,6 +29,6 @@ export class GreetingCommand extends AbstactCommand {
   }
 
   private helpHandle(ctx: IBotContext): void {
-    ctx.scene.enter(SCENE.HELP);
+    ctx.reply('This is help message!', helpMenu);
   }
 }

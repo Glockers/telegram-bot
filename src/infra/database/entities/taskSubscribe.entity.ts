@@ -15,7 +15,7 @@ class TaskSubscribeEntity implements ITaskSubscribeEntity {
 
   @Column() userID!: number;
 
-  @ManyToOne(() => TaskEntity, task => task.id)
+  @ManyToOne(() => TaskEntity, task => task.id, { onDelete: 'CASCADE' })
   public taskEntity!: TaskEntity;
 
   @Column({ type: 'timestamptz' }) time!: Date;
