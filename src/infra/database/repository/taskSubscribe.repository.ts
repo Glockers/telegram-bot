@@ -27,9 +27,22 @@ export class TaskSubscribeRepository {
     return await this.repository.find();
   }
 
-  async findOneById(data: TFindSubscribeTaskById): Promise<ITaskSubscribeEntity | null> {
-    return await this.repository.findOneBy({
-      id: data.id
-    });
+  async findOneByTaskID(taskID: number): Promise<ITaskSubscribeEntity | null> {
+    const queryBuilder = this.repository
+      .createQueryBuilder('taskSubscribe')
+      .innerJoinAndSelect('taskSubscribe.taskEntity', 'taskEntity', 'taskEntity.id = :taskID', { taskID });
+    return await queryBuilder.getOne();
+  }
+
+  async getdAllByTaskTime(targetTime: Date): Promise<ITaskSubscribeEntity[]> {
+    const targetHours = targetTime.getHours();
+    const targetMinutes = targetTime.getMinutes();
+    const records = await this.repository
+      .createQueryBuilder('record')
+      .leftJoinAndSelect('record.taskEntity', 'task')
+      .where('EXTRACT(HOUR FROM record.time) = :hours', { hours: targetHours })
+      .andWhere('EXTRACT(MINUTE FROM record.time) = :minutes', { minutes: targetMinutes })
+      .getMany();
+    return records;
   }
 }

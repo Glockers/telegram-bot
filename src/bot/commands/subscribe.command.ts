@@ -1,7 +1,9 @@
 import { injectable } from 'inversify';
-import { AbstactCommand } from './command.class';
-import { COMMAND } from 'bot/constants/command.enum';
+import { AbstactCommand } from '../interfaces/command.class';
+import { COMMAND_NAME } from 'bot/constants/command.enum';
 import { SCENE } from 'bot/constants/scenes.enum';
+import { CommandHandlers } from 'bot/interfaces/command.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 
 @injectable()
 export class SubscribeCommand extends AbstactCommand {
@@ -11,32 +13,29 @@ export class SubscribeCommand extends AbstactCommand {
     super();
   }
 
-  handle(): void {
-    this.subscribeOnWeather();
-    this.unsubscribeFromWeather();
-  }
+  initCommands(): void {
+    this.bot.command(COMMAND_NAME.SUBSCRIBE, (ctx) =>
+      this.getCommands()[COMMAND_NAME.SUBSCRIBE]!(ctx)
+    );
 
-  subscribeOnWeather(): void {
-    this.bot.command(COMMAND.SUBSCRIBE, (ctx) =>
-      ctx.scene.enter(SCENE.SUBSCRIBE_ON_WEATHER)
+    this.bot.command(COMMAND_NAME.UNSUBSCRIBE, (ctx) =>
+      this.getCommands()[COMMAND_NAME.UNSUBSCRIBE]!(ctx)
     );
   }
 
-  unsubscribeFromWeather(): void {
-    this.bot.command(COMMAND.UNSUBSCRIBE, (ctx) =>
-      ctx.scene.enter(SCENE.UNSUBSCRIBE_FROM_WEATHER)
-    );
+  getCommands(): CommandHandlers {
+    const commandHandlers: CommandHandlers = {
+      [COMMAND_NAME.SUBSCRIBE]: this.subscribeOnWeather,
+      [COMMAND_NAME.UNSUBSCRIBE]: this.unsubscribeFromWeather
+    };
+    return commandHandlers;
   }
 
-  // subscribeOnTask(): void {
-  //   this.bot.command(COMMAND.SET_NOTIFICATION_TASK, (ctx) =>
-  //     ctx.scene.enter(SCENE.SET_NOTIFICATION_TASK)
-  //   );
-  // }
+  private subscribeOnWeather(ctx: IBotContext): void {
+    ctx.scene.enter(SCENE.SUBSCRIBE_ON_WEATHER);
+  }
 
-  unSubscribeFromTask(): void {
-    this.bot.command(COMMAND.CANCEL_NOTIFICATION_TASK, (ctx) =>
-      ctx.scene.enter(SCENE.CANCEL_NOTIFICATION_TASK)
-    );
+  private unsubscribeFromWeather(ctx: IBotContext): void {
+    ctx.scene.enter(SCENE.UNSUBSCRIBE_FROM_WEATHER);
   }
 }

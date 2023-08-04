@@ -1,11 +1,13 @@
-import { IBotContext } from 'bot/context/context.interface';
+import { chooseAnimalPanel } from './../buttons/animal.button';
+import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
-import { extractMessageFromChat } from 'utils/contextHelpers';
 
 export interface IAnimalController {
-  getRandomAnimal: (ctx: IBotContext) => void;
+  getRandomCat: (ctx: IBotContext) => void;
+  getRandomDog: (ctx: IBotContext) => void;
 }
 
 @injectable()
@@ -18,12 +20,21 @@ export class AnimalController implements IAnimalController {
     this.animalService = animalService;
   }
 
-  async getRandomAnimal(ctx: IBotContext) {
-    const message = extractMessageFromChat(ctx);
-    const result = await this.animalService.getRandmonAnimal(message);
+  async getRandomCat(ctx: IBotContext) {
+    const result = await this.animalService.getRandmonAnimal(ACTION_NAME.CAT);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');
-      return await ctx.replyWithPhoto(result).then(() => {
+      return await ctx.replyWithPhoto(result, chooseAnimalPanel(ACTION_NAME.CAT)).then(() => {
+        ctx.deleteMessage(replyMessage.message_id);
+      });
+    }
+  }
+
+  async getRandomDog(ctx: IBotContext) {
+    const result = await this.animalService.getRandmonAnimal(ACTION_NAME.DOG);
+    if (result) {
+      const replyMessage = await ctx.reply('Получаем картинку...');
+      return await ctx.replyWithPhoto(result, chooseAnimalPanel(ACTION_NAME.DOG)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });
     }

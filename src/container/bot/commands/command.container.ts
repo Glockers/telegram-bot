@@ -1,7 +1,7 @@
 import { IContainer, InversifyContainer } from 'container/inversifyContainer';
 import { TYPE_COMMAND_CONTAINERS } from './command.type';
 import { AnimalCommand } from 'bot/commands/animal.command';
-import { AbstactCommand } from 'bot/commands/command.class';
+import { AbstactCommand } from 'bot/interfaces/command.class';
 import { GreetingCommand } from 'bot/commands/greeting.command';
 import { UnknownCommand } from 'bot/commands/unknown.command';
 import { WeatherCommand } from 'bot/commands/weather.command';

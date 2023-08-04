@@ -4,9 +4,10 @@ import { SCENE } from 'bot/constants/scenes.enum';
 import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { IBotContext } from 'bot/context/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
+import { IBotContext } from 'bot/interfaces/context.interface';
+import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { ISceneAddTask } from './task.interface';
+import { backMenuTask } from 'bot/buttons/task.button';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {
@@ -29,9 +30,7 @@ export class AddTaskScene implements ISceneBehave {
   }
 
   askTitle = async (ctx: IBotContext) => {
-    const userID = exctractUserIdFromChat(ctx);
     ctx.scene.session.addTask = {} as ISceneAddTask;
-    ctx.scene.session.addTask.userID = userID;
     ctx.reply('Введите заголовок задачи');
     ctx.wizard.next();
   };
@@ -44,13 +43,15 @@ export class AddTaskScene implements ISceneBehave {
   };
 
   getAnswerDescription = async (ctx: IBotContext) => {
+    const userID = exctractUserIdFromChat(ctx);
+    ctx.scene.session.addTask.userID = userID;
     const message = extractMessageFromChat(ctx);
     ctx.scene.session.addTask.description = message;
     this.handle(ctx);
   };
 
   handle = async (ctx: IBotContext) => {
-    ctx.reply('Задача была добавлена');
+    ctx.reply('Задача была добавлена', backMenuTask);
     this.taskService.addTask(ctx.scene.session.addTask);
     return ctx.scene.leave();
   };

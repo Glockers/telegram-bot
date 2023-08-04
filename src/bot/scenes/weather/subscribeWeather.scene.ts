@@ -4,11 +4,12 @@ import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service'
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { IBotContext } from 'bot/context/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'utils/contextHelpers';
+import { IBotContext } from 'bot/interfaces/context.interface';
+import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { ISceneSubscribeWeather } from './weather.interface';
-import { convertStringToDate } from 'utils/dateUtils';
-import { catchAsyncFunction } from 'utils/catchAsync';
+import { convertStringToDate } from 'common/utils/dateUtils';
+import { catchAsyncFunction } from 'common/helpers/catchAsync';
+import { UserError } from 'common/exceptions/users.error';
 
 export interface SubscribeWeatherData {
   city: string,
@@ -54,7 +55,7 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
     catchAsyncFunction(ctx, () => {
       const time = extractMessageFromChat(ctx);
       const convertedTime = convertStringToDate(time);
-      if (!convertedTime) throw new Error('Введена неккоректо дата!');
+      if (!convertedTime) throw UserError.sendMessage('Введена неккоректо дата!');
       ctx.scene.session.subscribeWeather.time = convertedTime;
 
       const userID = exctractUserIdFromChat(ctx);

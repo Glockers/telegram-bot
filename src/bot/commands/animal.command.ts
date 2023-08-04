@@ -1,8 +1,10 @@
-import { AbstactCommand } from './command.class';
+import { AbstactCommand } from '../interfaces/command.class';
 import { inject, injectable } from 'inversify';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { IAnimalController } from 'bot/controllers/animal.conroller';
-import { COMMAND } from 'bot/constants/command.enum';
+import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { IBotContext } from 'bot/interfaces/context.interface';
+import { CommandHandlers } from 'bot/interfaces/command.interface';
 
 @injectable()
 export class AnimalCommand extends AbstactCommand {
@@ -15,13 +17,27 @@ export class AnimalCommand extends AbstactCommand {
     this.animalController = animalController;
   }
 
-  handle(): void {
-    this.animalHandle();
+  initCommands(): void {
+    this.catHandler = this.catHandler.bind(this);
+    this.dogHandler = this.dogHandler.bind(this);
+
+    this.bot.command([COMMAND_NAME.CAT], (ctx) => this.getCommands()[COMMAND_NAME.CAT]!(ctx));
+    this.bot.command([COMMAND_NAME.DOG], (ctx) => this.getCommands()[COMMAND_NAME.DOG]!(ctx));
   }
 
-  animalHandle(): void {
-    this.bot.command([COMMAND.CAT, COMMAND.DOG], (ctx) =>
-      this.animalController.getRandomAnimal(ctx)
-    );
+  getCommands(): CommandHandlers {
+    const commandHandlers: CommandHandlers = {
+      [COMMAND_NAME.CAT]: this.catHandler,
+      [COMMAND_NAME.DOG]: this.dogHandler
+    };
+    return commandHandlers;
+  }
+
+  private catHandler(ctx: IBotContext): void {
+    this.animalController.getRandomCat(ctx);
+  }
+
+  private dogHandler(ctx: IBotContext): void {
+    this.animalController.getRandomDog(ctx);
   }
 }

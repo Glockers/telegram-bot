@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import axios from 'axios';
 import { API } from 'infra/api/api.class';
-import { getRandomNumber } from 'utils/random';
+import { getRandomNumber } from 'common/utils/random';
 
 /* eslint-disable no-unused-vars */
 export enum EAnimal {

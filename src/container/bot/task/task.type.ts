@@ -1,4 +1,5 @@
 export const TYPE_TASK_CONTAINERS = {
   TaskService: Symbol.for('TaskService'),
-  TaskController: Symbol.for('TaskController')
+  TaskController: Symbol.for('TaskController'),
+  SubscribeTaskService: Symbol.for('SubscribeTaskService')
 };

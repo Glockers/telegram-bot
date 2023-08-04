@@ -7,6 +7,8 @@ import { WeatherContainer } from './bot/weather/weather.container';
 import { TaskContainer } from './bot/task/task.container';
 import { ConfigContainer } from './config/config.container';
 import { RepositoryContainer } from './repository/repository.container';
+import { SceneContainer } from './bot/scenes/scene.container';
+import { ActionContainer } from './bot/actions/actions.container';
 
 export interface IContainer {
   initContainer: () => void;
@@ -26,7 +28,9 @@ const containerCollection: IContainer[] = [
   new WeatherContainer(),
   new TaskContainer(),
   new ConfigContainer(),
-  new RepositoryContainer()
+  new RepositoryContainer(),
+  new SceneContainer(),
+  new ActionContainer()
 ];
 
 for (const container of containerCollection) {

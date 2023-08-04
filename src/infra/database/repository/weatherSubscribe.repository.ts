@@ -39,4 +39,10 @@ export class WeatherSubscribeRepository {
       id
     });
   }
+
+  async findSubscriptionsByUserID(userID: number): Promise<TWeatherSubscribeEntity[]> {
+    return await this.repository.find({
+      where: { userID }
+    });
+  }
 }

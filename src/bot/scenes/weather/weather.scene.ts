@@ -1,13 +1,11 @@
 import { SCENE } from 'bot/constants/scenes.enum';
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
 import { IWeatherService } from 'bot/services/weather.service';
-import { formWeatherReport } from 'utils/messagerUtil';
-
-// export const weatherScene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
+import { formWeatherReport } from 'common/utils/messagerUtil';
 
 @injectable()
 export class WeatherScene implements ISceneBehave {

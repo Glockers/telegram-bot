@@ -1,4 +1,4 @@
-import { ISceneAddTask, ISceneIdTask } from 'bot/scenes/task/task.interface';
+import { ISceneAddTask, ISceneIdTask, ISubscribeTaskSession } from 'bot/scenes/task/task.interface';
 import { ISceneSubscribeWeather, ISceneUnsubscribeWeather } from 'bot/scenes/weather/weather.interface';
 import { Scenes } from 'telegraf';
 
@@ -7,4 +7,5 @@ export interface IBotWizardSessionData extends Scenes.WizardSessionData {
   unsubscribeWeather: ISceneUnsubscribeWeather,
   addTask: ISceneAddTask,
   sceneIdTask: ISceneIdTask,
+  subscribeTask: ISubscribeTaskSession,
 }

@@ -8,5 +8,5 @@ export enum SCENE {
   SET_NOTIFICATION_TASK = 'set_notification_task',
   CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
   SKIP = 'skip',
-
+  HELP = 'help',
 }

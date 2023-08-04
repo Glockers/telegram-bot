@@ -1,4 +1,4 @@
-import { IBotContext } from 'bot/context/context.interface';
+import { IBotContext } from 'bot/interfaces/context.interface';
 
 // TODO вынести конфиг
 export const ratelimitConfig = {
