@@ -18,7 +18,8 @@ export enum ACTION_NAME {
   MY_TASK = 'my_task',
   SUBSCRIBE_TASK = 'subscribe_task',
   UN_SUBSCRIBE_TASK = 'un_subscribe_task',
-
-  RECOMEND = 'recomend',
+  RECOMMEND_MENU = 'RECOMMEND_MENU',
+  RECOMMEND_EVENTS = 'RECOMMEND_EVENTS',
+  RECOMMEND_PLACE = 'RECOMMEND_PLACE',
 
 }

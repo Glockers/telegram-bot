@@ -13,7 +13,7 @@ export const helpMenu = Markup.inlineKeyboard([
     Markup.button.callback('Задачи', ACTION_NAME.TASK)
   ],
   [
-    Markup.button.callback('Рекомендация мест', ACTION_NAME.RECOMEND)
+    Markup.button.callback('Рекомендация мест', ACTION_NAME.RECOMMEND_MENU)
   ]
 ]
 );
