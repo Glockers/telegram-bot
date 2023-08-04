@@ -24,6 +24,10 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
     this.taskSubscribeRepository = taskSubscribeRepository;
   }
 
+  async getSubs() {
+    return await this.taskSubscribeRepository.getAll();
+  }
+
   async getSubscriptionTaskById(taskID: number): Promise<ITaskSubscribeEntity | null> {
     return await this.taskSubscribeRepository.findOneByTaskID(taskID);
   }

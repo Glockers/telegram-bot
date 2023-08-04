@@ -33,4 +33,16 @@ export class TaskSubscribeRepository {
       .innerJoinAndSelect('taskSubscribe.taskEntity', 'taskEntity', 'taskEntity.id = :taskID', { taskID });
     return await queryBuilder.getOne();
   }
+
+  async getdAllByTaskTime(targetTime: Date): Promise<ITaskSubscribeEntity[]> {
+    const targetHours = targetTime.getHours();
+    const targetMinutes = targetTime.getMinutes();
+    const records = await this.repository
+      .createQueryBuilder('record')
+      .leftJoinAndSelect('record.taskEntity', 'task')
+      .where('EXTRACT(HOUR FROM record.time) = :hours', { hours: targetHours })
+      .andWhere('EXTRACT(MINUTE FROM record.time) = :minutes', { minutes: targetMinutes })
+      .getMany();
+    return records;
+  }
 }
