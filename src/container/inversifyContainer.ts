@@ -9,6 +9,7 @@ import { ConfigContainer } from './config/config.container';
 import { RepositoryContainer } from './repository/repository.container';
 import { SceneContainer } from './bot/scenes/scene.container';
 import { ActionContainer } from './bot/actions/actions.container';
+import { RecommendContainer } from './bot/recommend/recommend.container';
 
 export interface IContainer {
   initContainer: () => void;
@@ -30,7 +31,8 @@ const containerCollection: IContainer[] = [
   new ConfigContainer(),
   new RepositoryContainer(),
   new SceneContainer(),
-  new ActionContainer()
+  new ActionContainer(),
+  new RecommendContainer()
 ];
 
 for (const container of containerCollection) {

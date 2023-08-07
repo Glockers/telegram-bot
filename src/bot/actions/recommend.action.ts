@@ -1,28 +1,46 @@
 import { menuRecomend } from 'bot/buttons/recomend.button';
-import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { Actions } from 'bot/constants/actions.enum';
+import { RecommendController } from 'bot/controllers/recommend.controller';
 import { AbstactAction } from 'bot/interfaces/actions.class';
-import { injectable } from 'inversify';
+import { catchAsyncFunction } from 'common/helpers/catchAsync';
+import { TYPE_RECOMMEND_CONTAINERS } from 'container/bot/recommend/recommend.type';
+import { Kinds } from 'infra/api/recommend/place.type';
+import { inject, injectable } from 'inversify';
 
 @injectable()
 export class RecommendAction extends AbstactAction {
-  // eslint-disable-next-line no-useless-constructor
+  private recommendController: RecommendController;
+
   constructor(
+    @inject(TYPE_RECOMMEND_CONTAINERS.RecommendController) recommendController: RecommendController
   ) {
     super();
+    this.recommendController = recommendController;
   }
 
   init() {
-    this.bot.action(ACTION_NAME.RECOMMEND_MENU, (ctx) => {
+    this.bot.action(Actions.RECOMMEND_MENU, (ctx) => {
       ctx.editMessageText('this is reccomend Menu', menuRecomend);
     });
 
-    this.bot.action(ACTION_NAME.RECOMMEND_EVENTS, (ctx) => {
-      // ctx.editMessageText('this is reccomend Menu', menuRecomend);
-      // this.controller.getRecommendEvents(ctx);
+    this.bot.action(Actions.RECOMMEND_CAFE, (ctx) => {
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.CAFE));
     });
 
-    this.bot.action(ACTION_NAME.RECOMMEND_PLACE, (ctx) => {
-      // this.controller.getRecommendPlace(ctx)
+    this.bot.action(Actions.RECOMMEND_ATTRACTIONS, (ctx) => {
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.ATTRACTIONS));
+    });
+
+    this.bot.action(Actions.RECOMMEND_THEATRES_AND_ENTERTAINMENTS, (ctx) => {
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.THEATRES_AND_ENTERTAINMENTS));
+    });
+
+    this.bot.action(Actions.RECOMMEND_SHOPS, (ctx) => {
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.SHOPS));
+    });
+
+    this.bot.action(Actions.RECOMMEND_BANK, (ctx) => {
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.BANKS));
     });
   }
 }

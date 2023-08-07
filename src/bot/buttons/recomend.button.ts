@@ -1,14 +1,23 @@
-import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { Actions } from 'bot/constants/actions.enum';
 import { Markup } from 'telegraf';
 
 export const menuRecomend = Markup.inlineKeyboard([
   [
-    Markup.button.callback('Рекомандация событий', ACTION_NAME.CAT)
+    Markup.button.callback('Местные кафе', Actions.RECOMMEND_CAFE)
   ],
   [
-    Markup.button.callback('Рекомандация достопремичательностей', ACTION_NAME.CAT)
+    Markup.button.callback('Театры и развлечения', Actions.RECOMMEND_THEATRES_AND_ENTERTAINMENTS)
   ],
   [
-    Markup.button.callback('Назад', ACTION_NAME.HELP_MENU)
+    Markup.button.callback('Магазины', Actions.RECOMMEND_SHOPS)
+  ],
+  [
+    Markup.button.callback('Банки', Actions.RECOMMEND_BANK)
+  ],
+  [
+    Markup.button.callback('Достопремичательности', Actions.RECOMMEND_ATTRACTIONS)
+  ],
+  [
+    Markup.button.callback('Назад', Actions.HELP_MENU)
   ]
 ]);

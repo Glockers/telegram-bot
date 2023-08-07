@@ -1,24 +1,24 @@
-import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { Actions } from 'bot/constants/actions.enum';
 import { Markup } from 'telegraf';
 
 export const helpMenu = Markup.inlineKeyboard([
   [
-    Markup.button.callback('Котики', ACTION_NAME.CAT),
-    Markup.button.callback('Cобачки', ACTION_NAME.DOG)
+    Markup.button.callback('Котики', Actions.CAT),
+    Markup.button.callback('Cобачки', Actions.DOG)
   ],
   [
-    Markup.button.callback('Погода', ACTION_NAME.WEATHER)
+    Markup.button.callback('Погода', Actions.WEATHER)
   ],
   [
-    Markup.button.callback('Задачи', ACTION_NAME.TASK)
+    Markup.button.callback('Задачи', Actions.TASK)
   ],
   [
-    Markup.button.callback('Рекомендация мест', ACTION_NAME.RECOMMEND_MENU)
+    Markup.button.callback('Рекомендация мест', Actions.RECOMMEND_MENU)
   ]
 ]
 );
 
-export const backToMainMenu = (choose: ACTION_NAME.HELP_MENU | ACTION_NAME.HELP_MENU_SCEBE) => {
+export const backToMainMenu = (choose: Actions.HELP_MENU | Actions.HELP_MENU_SCEBE) => {
   return Markup.inlineKeyboard([
     [
       Markup.button.callback('Назад в меню', choose)

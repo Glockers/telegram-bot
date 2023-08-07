@@ -6,7 +6,6 @@ import { WeatherSubscribeEntity } from './entities/weatherSubscribe.entity';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { TaskSubscribeEntity } from './entities/taskSubscribe.entity';
 
-// TOD вынести конфигурацию
 export class Database {
   private static instance: DataSource | null = null;
 
