@@ -1,4 +1,4 @@
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
@@ -20,7 +20,7 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
   ) {
     this.service = service;
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.UNSUBSCRIBE_FROM_WEATHER,
+      AppScenes.UNSUBSCRIBE_FROM_WEATHER,
       this.askID,
       this.exctractData
     );

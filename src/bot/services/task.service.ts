@@ -36,7 +36,6 @@ export class TaskService implements ITaskService {
 
   async getTaskById(idTask: number): Promise<ITaskEntity> {
     const result = await this.taskRepository.findOneById(idTask);
-    console.log('test:', result);
     if (!result) throw UserError.sendMessage('Задача с таким ID не найдена');
     return result;
   }

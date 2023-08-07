@@ -4,7 +4,7 @@ import { InversifyContainer } from 'container/inversifyContainer';
 import { ISceneBehave, SceneReturnType } from './scene.type';
 import { IBotContext, ISceneStage } from 'bot/interfaces/context.interface';
 import { getCommand } from 'common/helpers/commandUtil';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { CommandName } from 'bot/constants/command.enum';
 import { extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { isCommand } from 'common/utils/isCommand';
 import { TTL } from 'bot/constants/number.constants';
@@ -38,7 +38,7 @@ export class Stage {
 
     if (message && isSceneEmpty && isCommand(message)) {
       ctx.scene.leave();
-      return getCommand(message.substring(1) as COMMAND_NAME, ctx);
+      return getCommand(message.substring(1) as CommandName, ctx);
     }
     next();
   }

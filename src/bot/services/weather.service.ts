@@ -1,12 +1,13 @@
 import { ConfigService } from '@config/config.service';
+import { UserError } from 'common/exceptions/userError';
 import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
 import { WeatherAPI } from 'infra/api/weather/weather';
+import { WeatherAPIData, WeatherData } from 'infra/api/weather/weather.type';
 import { inject, injectable } from 'inversify';
 
 export interface IWeatherService {
-  // TODO убрать any
-  getWeatherByCity: (city: string) => any
+  getWeatherByCity: (city: string) => Promise<WeatherData | null>
 }
 
 @injectable()
@@ -23,16 +24,14 @@ export class WeatherService implements IWeatherService {
     this.weatherAPI = weatherAPI;
   }
 
-  async getWeatherByCity(city: string) {
-    // TODO Вынести статическую инфу
-    if (!city) throw new Error('City ​​cannot be empty!');
+  async getWeatherByCity(city: string): Promise<WeatherData | null> {
+    if (!city) throw UserError.sendMessage('Поле для города не может быть пустым!');
     const result = await this.weatherAPI.getWeatherByCity(city, this.configService.get('WEATHER_TOKEN'));
     if (!result) return null;
-    return this.parseWeather(result.data);
+    return this.parseWeather(result);
   }
 
-  // TODO убрать any
-  private parseWeather(data: any) {
+  private parseWeather(data: WeatherAPIData): WeatherData {
     const { main, weather, wind, name } = data;
     const { temp } = main;
     const { description, main: title } = weather[0];

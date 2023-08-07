@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import axios, { AxiosInstance } from 'axios';
 import { API } from 'infra/api/api.class';
-import { FeatureCollection, ICountryData, Kinds } from './place.type';
+import { FeatureCollection, ICountryData, KindsPlace } from './place.type';
 
 @injectable()
 export class RecommendAPI extends API {
@@ -33,7 +33,7 @@ export class RecommendAPI extends API {
     return data.data;
   };
 
-  async getPlaces(city: string, kind: Kinds): Promise<FeatureCollection> {
+  async getPlaces(city: string, kind: KindsPlace): Promise<FeatureCollection> {
     const result = await this.getСordByCity(city);
     const places = await this.getInstance().get<FeatureCollection>(this.URL_PLACES, {
       params: {

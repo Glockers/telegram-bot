@@ -1,6 +1,6 @@
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { ITaskService } from 'bot/services/task.service';
 import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
@@ -20,7 +20,7 @@ export class AddTaskScene implements ISceneBehave {
   ) {
     this.taskService = taskService;
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.ADD_TASK,
+      AppScenes.ADD_TASK,
       this.askTitle, this.askDescription, this.getAnswerDescription, this.getAnswerDescription
     );
   }

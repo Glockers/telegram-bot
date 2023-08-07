@@ -5,6 +5,7 @@ import { CallbackQuery, Update } from 'telegraf/typings/core/types/typegram';
 export interface IBotContext extends Context {
   scene: Scenes.SceneContextScene<IBotContext, IBotWizardSessionData>;
   wizard: Scenes.WizardContextWizard<IBotContext>;
+  update: Update
 }
 
 export interface ISceneStage extends Scenes.Stage<IBotContext, Scenes.SceneSessionData> { }

@@ -1,6 +1,6 @@
 import { buttonInfoTask } from './../buttons/task.button';
 import { backMenuTask, setTaskPanel } from 'bot/buttons/task.button';
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
 import { SubscribeTaskService } from 'bot/services/subscriptionsTask.service';
 import { exctractUserIdFromChat, exctractcallbackQueryData } from 'common/helpers/contextHelpers';
@@ -57,7 +57,7 @@ export class TaskController implements ITaskController {
       time: new Date()
     };
 
-    ctx.scene.enter(SCENE.SET_NOTIFICATION_TASK);
+    ctx.scene.enter(AppScenes.SET_NOTIFICATION_TASK);
   }
 
   async unSubscribeFromTask(ctx: CallbackQueryData): Promise<void> {

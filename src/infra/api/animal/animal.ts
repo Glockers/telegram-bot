@@ -3,8 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 import { API } from 'infra/api/api.class';
 import { getRandomNumber } from 'common/utils/random';
 
-/* eslint-disable no-unused-vars */
-export enum EAnimal {
+export enum Animals {
   CAT = 'cat',
   DOG = 'dog'
 }
@@ -24,7 +23,7 @@ export class PixelsAPI extends API {
     });
   }
 
-  async getAnimal(animal: EAnimal) {
+  async getAnimal(animal: Animals) {
     const result = await this.getInstance().get('search', {
       params: {
         query: animal,

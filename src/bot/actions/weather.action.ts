@@ -1,6 +1,6 @@
 import { weatherMenu } from 'bot/buttons/weather.button';
 import { Actions } from 'bot/constants/actions.enum';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { CommandName } from 'bot/constants/command.enum';
 import { IWeatherlController } from 'bot/controllers/weather.controller';
 import { AbstactAction } from 'bot/interfaces/actions.class';
 import { catchAsyncFunction } from 'common/helpers/catchAsync';
@@ -25,11 +25,11 @@ export class WeatherAction extends AbstactAction {
     });
 
     this.bot.action(Actions.GET_WEATHER, ctx => {
-      catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.WEATHER, ctx));
+      catchAsyncFunction(ctx, () => getCommand(CommandName.WEATHER, ctx));
     });
 
     this.bot.action(Actions.SUBSCRIBE_WEATHER, ctx => {
-      catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.SUBSCRIBE, ctx));
+      catchAsyncFunction(ctx, () => getCommand(CommandName.SUBSCRIBE, ctx));
     });
 
     this.bot.action(Actions.GET_WEATHER_SUBSCRIBE, ctx => {

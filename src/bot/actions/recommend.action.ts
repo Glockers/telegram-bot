@@ -4,7 +4,7 @@ import { RecommendController } from 'bot/controllers/recommend.controller';
 import { AbstactAction } from 'bot/interfaces/actions.class';
 import { catchAsyncFunction } from 'common/helpers/catchAsync';
 import { TYPE_RECOMMEND_CONTAINERS } from 'container/bot/recommend/recommend.type';
-import { Kinds } from 'infra/api/recommend/place.type';
+import { KindsPlace } from 'infra/api/recommend/place.type';
 import { inject, injectable } from 'inversify';
 
 @injectable()
@@ -24,23 +24,23 @@ export class RecommendAction extends AbstactAction {
     });
 
     this.bot.action(Actions.RECOMMEND_CAFE, (ctx) => {
-      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.CAFE));
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, KindsPlace.CAFE));
     });
 
     this.bot.action(Actions.RECOMMEND_ATTRACTIONS, (ctx) => {
-      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.ATTRACTIONS));
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, KindsPlace.ATTRACTIONS));
     });
 
     this.bot.action(Actions.RECOMMEND_THEATRES_AND_ENTERTAINMENTS, (ctx) => {
-      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.THEATRES_AND_ENTERTAINMENTS));
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, KindsPlace.THEATRES_AND_ENTERTAINMENTS));
     });
 
     this.bot.action(Actions.RECOMMEND_SHOPS, (ctx) => {
-      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.SHOPS));
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, KindsPlace.SHOPS));
     });
 
     this.bot.action(Actions.RECOMMEND_BANK, (ctx) => {
-      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, Kinds.BANKS));
+      catchAsyncFunction(ctx, () => this.recommendController.getRecommendPlaces(ctx, KindsPlace.BANKS));
     });
   }
 }

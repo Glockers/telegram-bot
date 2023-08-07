@@ -13,14 +13,14 @@ export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>): Promis
   const repository = InversifyContainer.get<WeatherSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.WeatherSubscribeRepository);
   const weatherService = InversifyContainer.get<IWeatherService>(TYPE_WEATHER_CONTAINERS.WeatherService);
   const subscriptions = await repository.getAllByTime(getCurrentDate());
-  let operationsCount = 0;
 
-  for (const element of subscriptions) {
+  const operationsCount = await Promise.all(subscriptions.map(async (element) => {
     const res = await weatherService.getWeatherByCity(element.city);
+    if (!res) throw new Error(`${element.city} not found`);
     const message = formWeatherReport(res);
-    bot.telegram.sendMessage(element.userID, message);
-    operationsCount++;
-  }
+    await bot.telegram.sendMessage(element.userID, message);
+    return 1;
+  }));
 
-  Logger.getLogger().info('Рассылку на погоду получило:', operationsCount, 'человек(а)');
+  Logger.getLogger().info('Рассылку на погоду получило:', operationsCount.length, 'человек(а)');
 };

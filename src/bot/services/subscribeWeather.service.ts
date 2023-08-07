@@ -7,7 +7,7 @@ import { inject, injectable } from 'inversify';
 
 export interface ISubscribeWeatherService {
   deleteWeather: (data: ISceneUnsubscribeWeather) => Promise<boolean>;
-  subscibeOnWeather: (data: ISceneSubscribeWeather, id: any) => boolean;
+  subscibeOnWeather: (data: ISceneSubscribeWeather, id: number) => boolean;
   getWeatherSubscriptions(userID: number): Promise<TWeatherSubscribeEntity[]>
 }
 

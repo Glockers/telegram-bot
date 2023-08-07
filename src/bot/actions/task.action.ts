@@ -4,7 +4,7 @@ import { ITaskController } from 'bot/controllers/task.controller';
 import { AbstactAction } from 'bot/interfaces/actions.class';
 import { Actions } from 'bot/constants/actions.enum';
 import { getCommand } from 'common/helpers/commandUtil';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { CommandName } from 'bot/constants/command.enum';
 import { taskMenu } from 'bot/buttons/task.button';
 import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
@@ -21,7 +21,7 @@ export class TaskAction extends AbstactAction {
 
   init(): void {
     this.bot.action(Actions.MY_TASK, (ctx) => {
-      catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.GET_MY_TASKS, ctx));
+      catchAsyncFunction(ctx, () => getCommand(CommandName.GET_MY_TASKS, ctx));
     });
 
     this.bot.action(Actions.TASK, (ctx) => {
@@ -29,7 +29,7 @@ export class TaskAction extends AbstactAction {
     });
 
     this.bot.action(Actions.ADD_TASK, (ctx) => {
-      getCommand(COMMAND_NAME.ADD_TASK, ctx);
+      getCommand(CommandName.ADD_TASK, ctx);
     });
 
     this.bot.action(/task_detail\?(.*)/, (ctx) => {

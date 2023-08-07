@@ -1,4 +1,4 @@
-import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { CommandName } from 'bot/constants/command.enum';
 import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
@@ -8,18 +8,18 @@ import { helpMenu } from 'bot/buttons/greeting.button';
 @injectable()
 export class GreetingCommand extends AbstactCommand {
   initCommands(): void {
-    this.bot.command(COMMAND_NAME.START, (ctx) =>
-      this.getCommands()[COMMAND_NAME.START]!(ctx)
+    this.bot.command(CommandName.START, (ctx) =>
+      this.getCommands()[CommandName.START]!(ctx)
     );
 
-    this.bot.command(COMMAND_NAME.HELP, (ctx) =>
-      this.getCommands()[COMMAND_NAME.HELP]!(ctx));
+    this.bot.command(CommandName.HELP, (ctx) =>
+      this.getCommands()[CommandName.HELP]!(ctx));
   }
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [COMMAND_NAME.HELP]: this.helpHandle,
-      [COMMAND_NAME.START]: this.startHandle
+      [CommandName.HELP]: this.helpHandle,
+      [CommandName.START]: this.startHandle
     };
     return commandHandlers;
   }

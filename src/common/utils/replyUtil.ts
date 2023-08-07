@@ -1,8 +1,9 @@
 import { Feature } from 'infra/api/recommend/place.type';
 import { convertDateToString } from './dateUtils';
 import { CELSUS } from 'bot/constants/number.constants';
+import { WeatherData } from 'infra/api/weather/weather.type';
 
-export const formWeatherReport = (res: any): string => {
+export const formWeatherReport = (res: WeatherData): string => {
   const celsus = (res.temp - CELSUS).toFixed(2);
   const formattedWeather = ` 
   Погода в ${res.name}, ${convertDateToString(

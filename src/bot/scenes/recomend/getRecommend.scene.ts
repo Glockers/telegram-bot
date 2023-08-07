@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { ISceneBehave } from '../scene.type';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { TYPE_RECOMMEND_CONTAINERS } from 'container/bot/recommend/recommend.type';
 import { IRecommendService } from 'bot/services/recommend.service';
@@ -19,7 +19,7 @@ export class RecommendScene implements ISceneBehave {
   ) {
     this.recommendService = recommendService;
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.GET_RECOMMEND_PLACE,
+      AppScenes.GET_RECOMMEND_PLACE,
       this.askCity,
       this.askRate
     );

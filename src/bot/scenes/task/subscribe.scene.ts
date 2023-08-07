@@ -1,4 +1,4 @@
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { ISceneBehave } from '../scene.type';
 import { Scenes } from 'telegraf';
 import { inject, injectable } from 'inversify';
@@ -23,7 +23,7 @@ export class SubscribeTaskScene implements ISceneBehave {
     this.subscribeTaskService = subscribeTaskService;
 
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.SET_NOTIFICATION_TASK,
+      AppScenes.SET_NOTIFICATION_TASK,
       this.askTime,
       this.extractTime
     );

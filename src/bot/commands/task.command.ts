@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { AbstactCommand } from '../interfaces/command.class';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { SCENE } from 'bot/constants/scenes.enum';
+import { CommandName } from 'bot/constants/command.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { ITaskController } from '../controllers/task.controller';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
@@ -21,27 +21,27 @@ export class TaskCommand extends AbstactCommand {
   initCommands(): void {
     this.getMyTasks = this.getMyTasks.bind(this);
 
-    this.bot.command(COMMAND_NAME.ADD_TASK, ctx =>
-      this.getCommands()[COMMAND_NAME.ADD_TASK]!(ctx)
+    this.bot.command(CommandName.ADD_TASK, ctx =>
+      this.getCommands()[CommandName.ADD_TASK]!(ctx)
     );
-    this.bot.command(COMMAND_NAME.DELETE_TASK, ctx =>
-      this.getCommands()[COMMAND_NAME.DELETE_TASK]!(ctx)
+    this.bot.command(CommandName.DELETE_TASK, ctx =>
+      this.getCommands()[CommandName.DELETE_TASK]!(ctx)
     );
-    this.bot.command(COMMAND_NAME.GET_MY_TASKS, ctx =>
-      this.getCommands()[COMMAND_NAME.GET_MY_TASKS]!(ctx)
+    this.bot.command(CommandName.GET_MY_TASKS, ctx =>
+      this.getCommands()[CommandName.GET_MY_TASKS]!(ctx)
     );
   }
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [COMMAND_NAME.ADD_TASK]: this.addTask,
-      [COMMAND_NAME.GET_MY_TASKS]: this.getMyTasks
+      [CommandName.ADD_TASK]: this.addTask,
+      [CommandName.GET_MY_TASKS]: this.getMyTasks
     };
     return commandHandlers;
   }
 
   private addTask(ctx: IBotContext): void {
-    ctx.scene.enter(SCENE.ADD_TASK);
+    ctx.scene.enter(AppScenes.ADD_TASK);
   }
 
   private getMyTasks(ctx: IBotContext): void {

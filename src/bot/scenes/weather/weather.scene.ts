@@ -1,4 +1,4 @@
-import { SCENE } from 'bot/constants/scenes.enum';
+import { AppScenes } from 'bot/constants/scenes.enum';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
 import { ISceneBehave } from '../scene.type';
@@ -17,7 +17,7 @@ export class WeatherScene implements ISceneBehave {
     @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
   ) {
     this.weatherService = weatherService;
-    this.scene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
+    this.scene = new Scenes.BaseScene<IBotContext>(AppScenes.WEATHER);
     this.init();
   }
 
@@ -46,8 +46,7 @@ export class WeatherScene implements ISceneBehave {
       if (!res) {
         ctx.reply('Такого города нет! Попробуй еще');
       } else {
-        const message = formWeatherReport(res);
-        ctx.reply(message);
+        ctx.reply(formWeatherReport(res));
         ctx.scene.leave();
       }
     });

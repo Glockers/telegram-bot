@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-export enum COMMAND_NAME {
+export enum CommandName {
   SUBSCRIBE = 'subscribe',
   UNSUBSCRIBE = 'unsubscribe',
   DOG = 'dog',

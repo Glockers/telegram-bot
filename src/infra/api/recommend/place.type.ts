@@ -30,8 +30,7 @@ export interface ICountryData {
   lon: number
 }
 
-/* eslint-disable no-unused-vars */
-export enum Kinds {
+export enum KindsPlace {
   CAFE = 'cafes',
   ATTRACTIONS = 'tourist_object',
   THEATRES_AND_ENTERTAINMENTS = 'theatres_and_entertainments',

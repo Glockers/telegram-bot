@@ -1,11 +1,11 @@
 import { AbstactCommand } from 'bot/interfaces/command.class';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
+import { CommandName } from 'bot/constants/command.enum';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { CommandHandlers } from 'bot/interfaces/command.interface';
 import { TYPE_COMMAND_CONTAINERS } from 'container/bot/commands/command.type';
 import { InversifyContainer } from 'container/inversifyContainer';
 
-export const getCommand = (command: COMMAND_NAME, ctx: IBotContext): void => {
+export const getCommand = (command: CommandName, ctx: IBotContext): void => {
   let commands = {} as CommandHandlers;
   Object.keys(TYPE_COMMAND_CONTAINERS).forEach((key) => {
     const command = TYPE_COMMAND_CONTAINERS[key as keyof typeof TYPE_COMMAND_CONTAINERS];

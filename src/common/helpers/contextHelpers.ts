@@ -1,3 +1,4 @@
+import { AppUpdate } from 'bot/interfaces/callbackData.interface';
 import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
 import { Message } from 'telegraf/typings/core/types/typegram';
 
@@ -6,7 +7,7 @@ export function extractMessageFromChat(ctx: IBotContext): string {
 }
 
 export function exctractUserIdFromChat(ctx: IBotContext): number {
-  const userID = ctx?.message ? ctx?.message?.from.id : (ctx.update as any)?.callback_query?.from.id;
+  const userID = ctx?.message ? ctx?.message?.from.id : (ctx.update as AppUpdate)?.callback_query?.from.id;
   if (!userID) throw new Error('Ошибка, id у пользователя должен существовать');
   return userID;
 }
