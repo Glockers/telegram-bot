@@ -7,6 +7,7 @@ import { getCommand } from 'common/helpers/commandUtil';
 import { COMMAND_NAME } from 'bot/constants/command.enum';
 import { extractMessageFromChat } from 'common/helpers/contextHelpers';
 import { isCommand } from 'common/utils/isCommand';
+import { TTL } from 'bot/constants/number.constants';
 
 export class Stage {
   private scenes: SceneReturnType[] = [];
@@ -16,12 +17,12 @@ export class Stage {
   constructor() {
     this.init();
     this.stage = new Scenes.Stage<IBotContext>([...this.scenes], {
-      ttl: 24 * 60 * 60 // TODO вынести
+      ttl: TTL
     });
     this.initMiddleware();
   }
 
-  private init() {
+  private init(): void {
     Object.keys(TYPE_SCENES_CONTAINERS).forEach((key) => {
       const command =
         TYPE_SCENES_CONTAINERS[key as keyof typeof TYPE_SCENES_CONTAINERS];
@@ -42,11 +43,11 @@ export class Stage {
     next();
   }
 
-  private initMiddleware() {
+  private initMiddleware(): void {
     this.stage.use(this.cancelScene);
   }
 
-  getInstance() {
+  getInstance(): ISceneStage {
     return this.stage;
   }
 }

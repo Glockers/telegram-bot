@@ -9,7 +9,7 @@ import { SubscribeCommand } from 'bot/commands/subscribe.command';
 import { TaskCommand } from 'bot/commands/task.command';
 
 export class CommandContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<AbstactCommand>(TYPE_COMMAND_CONTAINERS.AnimalCommand).to(AnimalCommand);
     InversifyContainer.bind<AbstactCommand>(TYPE_COMMAND_CONTAINERS.GreetingCommand).to(GreetingCommand);
     InversifyContainer.bind<AbstactCommand>(TYPE_COMMAND_CONTAINERS.WeatherCommand).to(WeatherCommand);

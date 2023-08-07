@@ -1,5 +1,5 @@
 import { API } from 'infra/api/api.class';
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -13,7 +13,7 @@ export class WeatherAPI extends API {
     });
   }
 
-  getInstance() {
+  getInstance(): AxiosInstance {
     return this.axiosInstance;
   }
 

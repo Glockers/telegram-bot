@@ -9,7 +9,7 @@ export type TFindTaskById = Pick<ITaskEntity, 'id'>;
 
 @injectable()
 export class TaskRepository {
-  private repository: Repository<ITaskEntity>;
+  private readonly repository: Repository<ITaskEntity>;
 
   constructor() {
     this.repository = Database.get().getRepository(TaskEntity);

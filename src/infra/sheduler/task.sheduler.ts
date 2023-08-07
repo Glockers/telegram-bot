@@ -6,7 +6,7 @@ import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type
 import { TaskSubscribeRepository } from 'infra/database/repository/taskSubscribe.repository';
 import { Telegraf } from 'telegraf';
 
-export const taskShedulerHandler = async (bot: Telegraf<IBotContext>) => {
+export const taskShedulerHandler = async (bot: Telegraf<IBotContext>): Promise<void> => {
   const repository = InversifyContainer.get<TaskSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.TaskSubscribeRepository);
   const subs = await repository.getdAllByTaskTime(getCurrentDate());
   let operationsCount = 0;

@@ -6,7 +6,7 @@ import { WeatherAPI } from 'infra/api/weather/weather';
 import { RecommendAPI } from 'infra/api/recommend/place';
 
 export class APIContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<API>(TYPE_API_CONTAINERS.PixelsAPI).to(PixelsAPI);
     InversifyContainer.bind<API>(TYPE_API_CONTAINERS.WeatherAPI).to(WeatherAPI);
     InversifyContainer.bind<RecommendAPI>(TYPE_API_CONTAINERS.RecommendAPI).to(RecommendAPI);

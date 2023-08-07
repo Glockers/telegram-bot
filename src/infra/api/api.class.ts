@@ -5,7 +5,6 @@ import { InversifyContainer } from 'container/inversifyContainer';
 export abstract class API {
   protected axiosInstance!: AxiosInstance;
 
-  // eslint-disable-next-line no-dupe-class-members
   protected configService!: IConfigService;
 
   constructor() {

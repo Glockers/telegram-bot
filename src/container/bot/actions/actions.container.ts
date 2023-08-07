@@ -7,7 +7,7 @@ import { GreetingAction } from 'bot/actions/greeting.action';
 import { RecommendAction } from 'bot/actions/recommend.action';
 
 export class ActionContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<AbstactAction>(TYPE_ACTION_CONTAINERS.TaskAction).to(TaskAction);
     InversifyContainer.bind<AbstactAction>(TYPE_ACTION_CONTAINERS.WeatherAction).to(WeatherAction);
     InversifyContainer.bind<AbstactAction>(TYPE_ACTION_CONTAINERS.GreetingAction).to(GreetingAction);

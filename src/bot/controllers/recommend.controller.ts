@@ -10,14 +10,6 @@ export interface IRecommendController {
 
 @injectable()
 export class RecommendController implements IRecommendController {
-  // animalService: IAnimalService;
-
-  // constructor(
-  //   // @inject(TYPE_ANIMAL_CONTAINERS.AnimalService) animalService: IAnimalService
-  // ) {
-  //   // this.animalService = animalService;
-  // }
-
   async getRecommendPlaces(ctx: IBotContext, kind: Kinds): Promise<void> {
     ctx.scene.session.places = {} as SessionPlace;
     ctx.scene.session.places.kinds = kind;

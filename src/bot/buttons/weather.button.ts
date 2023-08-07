@@ -1,6 +1,7 @@
 import { Actions } from 'bot/constants/actions.enum';
 import { TWeatherSubscribeEntity } from 'infra/database/entities/weatherSubscribe.entity';
 import { Markup } from 'telegraf';
+import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
 
 export const weatherMenu = Markup.inlineKeyboard([
   [
@@ -17,7 +18,7 @@ export const weatherMenu = Markup.inlineKeyboard([
   ]
 ]);
 
-export const weatherInfoTask = (subscriptions: TWeatherSubscribeEntity[]) => {
+export const weatherInfoTask = (subscriptions: TWeatherSubscribeEntity[]): Markup.Markup<InlineKeyboardMarkup> => {
   const buttonTasks = [];
   for (const element of subscriptions) {
     const text = 'unsubscribe_weather?' + JSON.stringify({ id: element.id });

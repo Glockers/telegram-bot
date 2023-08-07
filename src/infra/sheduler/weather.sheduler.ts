@@ -9,7 +9,7 @@ import { getCurrentDate } from 'common/utils/dateUtils';
 import { Logger } from 'common/utils/logger';
 import { formWeatherReport } from 'common/utils/replyUtil';
 
-export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>) => {
+export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>): Promise<void> => {
   const repository = InversifyContainer.get<WeatherSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.WeatherSubscribeRepository);
   const weatherService = InversifyContainer.get<IWeatherService>(TYPE_WEATHER_CONTAINERS.WeatherService);
   const subscriptions = await repository.getAllByTime(getCurrentDate());

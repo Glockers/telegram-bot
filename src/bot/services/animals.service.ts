@@ -8,7 +8,7 @@ export interface IAnimalService {
 
 @injectable()
 export class AnimalService implements IAnimalService {
-  private pixelAPI: PixelsAPI;
+  private readonly pixelAPI: PixelsAPI;
 
   constructor(@inject(TYPE_API_CONTAINERS.PixelsAPI) pixelAPI: PixelsAPI) {
     this.pixelAPI = pixelAPI;

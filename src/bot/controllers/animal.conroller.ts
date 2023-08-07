@@ -6,13 +6,13 @@ import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.ty
 import { inject, injectable } from 'inversify';
 
 export interface IAnimalController {
-  getRandomCat: (ctx: IBotContext) => void;
-  getRandomDog: (ctx: IBotContext) => void;
+  getRandomCat: (ctx: IBotContext) => Promise<void>;
+  getRandomDog: (ctx: IBotContext) => Promise<void>;
 }
 
 @injectable()
 export class AnimalController implements IAnimalController {
-  animalService: IAnimalService;
+  private readonly animalService: IAnimalService;
 
   constructor(
     @inject(TYPE_ANIMAL_CONTAINERS.AnimalService) animalService: IAnimalService
@@ -20,7 +20,7 @@ export class AnimalController implements IAnimalController {
     this.animalService = animalService;
   }
 
-  async getRandomCat(ctx: IBotContext) {
+  async getRandomCat(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.CAT);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');
@@ -30,7 +30,7 @@ export class AnimalController implements IAnimalController {
     }
   }
 
-  async getRandomDog(ctx: IBotContext) {
+  async getRandomDog(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.DOG);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');

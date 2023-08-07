@@ -1,7 +1,6 @@
 import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
 import { Message } from 'telegraf/typings/core/types/typegram';
 
-// TODO add null
 export function extractMessageFromChat(ctx: IBotContext): string {
   return (ctx.message as Message.TextMessage).text;
 }

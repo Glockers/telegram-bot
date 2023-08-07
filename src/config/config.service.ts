@@ -7,7 +7,7 @@ export interface IConfigService {
 
 @injectable()
 export class ConfigService implements IConfigService {
-  private config: DotenvParseOutput;
+  private readonly config: DotenvParseOutput;
 
   constructor() {
     const { error, parsed } = config();

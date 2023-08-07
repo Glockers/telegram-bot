@@ -6,7 +6,7 @@ import { InversifyContainer } from 'container/inversifyContainer';
 import { Telegraf } from 'telegraf';
 
 export abstract class AbstactCommand {
-  protected bot: Telegraf<IBotContext>;
+  protected readonly bot: Telegraf<IBotContext>;
 
   constructor() {
     this.bot = InversifyContainer.get<IBot>(TYPE_BOT_CONTAINERS.Bot).getInstance();

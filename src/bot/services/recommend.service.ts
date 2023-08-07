@@ -10,7 +10,7 @@ export interface IRecommendService {
 
 @injectable()
 export class RecommendService implements IRecommendService {
-  private recommendAPI: RecommendAPI;
+  private readonly recommendAPI: RecommendAPI;
 
   constructor(@inject(TYPE_API_CONTAINERS.RecommendAPI) recommendAPI: RecommendAPI) {
     this.recommendAPI = recommendAPI;

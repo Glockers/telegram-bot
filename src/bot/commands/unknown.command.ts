@@ -5,11 +5,6 @@ import { IBotContext } from 'bot/interfaces/context.interface';
 
 @injectable()
 export class UnknownCommand extends AbstactCommand {
-  // eslint-disable-next-line no-useless-constructor
-  constructor() {
-    super();
-  }
-
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
     };

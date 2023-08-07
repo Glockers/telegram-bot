@@ -14,12 +14,12 @@ const configLogger = {
 };
 
 export class Logger {
-  private static createLogger() {
+  private static createLogger(): log4js.Logger {
     log4js.configure(configLogger);
     return log4js.getLogger();
   }
 
-  public static getLogger() {
+  public static getLogger(): log4js.Logger {
     return this.createLogger();
   }
 }

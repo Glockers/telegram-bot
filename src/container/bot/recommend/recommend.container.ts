@@ -4,7 +4,7 @@ import { IRecommendController, RecommendController } from '../../../bot/controll
 import { IRecommendService, RecommendService } from 'bot/services/recommend.service';
 
 export class RecommendContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<IRecommendController>(TYPE_RECOMMEND_CONTAINERS.RecommendController).to(RecommendController);
     InversifyContainer.bind<IRecommendService>(TYPE_RECOMMEND_CONTAINERS.RecommendService).to(RecommendService);
   }

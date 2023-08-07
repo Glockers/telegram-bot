@@ -10,7 +10,7 @@ import { catchAsyncFunction } from 'common/helpers/catchAsync';
 
 @injectable()
 export class TaskAction extends AbstactAction {
-  private taskController: ITaskController;
+  private readonly taskController: ITaskController;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.TaskController) taskController: ITaskController
@@ -19,7 +19,7 @@ export class TaskAction extends AbstactAction {
     this.taskController = taskController;
   }
 
-  init() {
+  init(): void {
     this.bot.action(Actions.MY_TASK, (ctx) => {
       catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.GET_MY_TASKS, ctx));
     });

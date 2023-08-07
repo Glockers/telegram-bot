@@ -15,7 +15,7 @@ export interface ITaskService {
 
 @injectable()
 export class TaskService implements ITaskService {
-  taskRepository: TaskRepository;
+  private readonly taskRepository: TaskRepository;
 
   constructor(
     @inject(TYPE_REPOSITORY_CONTAINERS.TaskRepository) taskRepository: TaskRepository

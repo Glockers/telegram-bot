@@ -8,7 +8,7 @@ import { CommandHandlers } from 'bot/interfaces/command.interface';
 
 @injectable()
 export class AnimalCommand extends AbstactCommand {
-  private animalController: IAnimalController;
+  private readonly animalController: IAnimalController;
 
   constructor(
     @inject(TYPE_ANIMAL_CONTAINERS.AnimalController) animalController: IAnimalController

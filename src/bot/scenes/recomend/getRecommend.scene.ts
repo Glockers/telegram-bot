@@ -10,9 +10,9 @@ import { formatRecommendPlace } from 'common/utils/replyUtil';
 
 @injectable()
 export class RecommendScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private scene: Scenes.WizardScene<IBotContext>;
 
-  recommendService: IRecommendService;
+  private readonly recommendService: IRecommendService;
 
   constructor(
     @inject(TYPE_RECOMMEND_CONTAINERS.RecommendService) recommendService: IRecommendService

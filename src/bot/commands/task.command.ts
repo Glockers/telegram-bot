@@ -9,7 +9,7 @@ import { IBotContext } from 'bot/interfaces/context.interface';
 
 @injectable()
 export class TaskCommand extends AbstactCommand {
-  taskController: ITaskController;
+  private readonly taskController: ITaskController;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.TaskController) taskController: ITaskController
@@ -35,7 +35,6 @@ export class TaskCommand extends AbstactCommand {
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
       [COMMAND_NAME.ADD_TASK]: this.addTask,
-      // [COMMAND_NAME.DELETE_TASK]: this.deleteTask,
       [COMMAND_NAME.GET_MY_TASKS]: this.getMyTasks
     };
     return commandHandlers;

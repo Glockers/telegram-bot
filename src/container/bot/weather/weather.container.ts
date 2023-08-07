@@ -10,7 +10,7 @@ import { WeatherScene } from 'bot/scenes/weather/weather.scene';
 import { IWeatherlController, WeatherController } from 'bot/controllers/weather.controller';
 
 export class WeatherContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<IWeatherService>(TYPE_WEATHER_CONTAINERS.WeatherService).to(WeatherService);
     InversifyContainer.bind<ISubscribeWeatherService>(TYPE_WEATHER_CONTAINERS.SubscribeService).to(SubscribeWeatherService);
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.SubscribeOnWeatherScene).to(SubscribeOnWeatherScene);

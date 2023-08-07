@@ -1,7 +1,7 @@
 import { Logger } from 'common/utils/logger';
 import { Database } from './typeorm';
 
-export function initDatabase() {
+export function initDatabase(): void {
   try {
     Database.get().initialize();
     Logger.getLogger().info('Connection has been established successfully.');

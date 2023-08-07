@@ -9,7 +9,7 @@ import { inject, injectable } from 'inversify';
 
 @injectable()
 export class RecommendAction extends AbstactAction {
-  private recommendController: RecommendController;
+  private readonly recommendController: RecommendController;
 
   constructor(
     @inject(TYPE_RECOMMEND_CONTAINERS.RecommendController) recommendController: RecommendController
@@ -18,7 +18,7 @@ export class RecommendAction extends AbstactAction {
     this.recommendController = recommendController;
   }
 
-  init() {
+  init(): void {
     this.bot.action(Actions.RECOMMEND_MENU, (ctx) => {
       ctx.editMessageText('this is reccomend Menu', menuRecomend);
     });

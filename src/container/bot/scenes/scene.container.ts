@@ -5,7 +5,7 @@ import { SubscribeTaskScene } from 'bot/scenes/task/subscribe.scene';
 import { RecommendScene } from 'bot/scenes/recomend/getRecommend.scene';
 
 export class SceneContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.SubscribeTaskScene).to(SubscribeTaskScene);
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.RecommendScene).to(RecommendScene);
   }

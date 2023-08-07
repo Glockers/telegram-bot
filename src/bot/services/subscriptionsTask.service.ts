@@ -14,7 +14,7 @@ export interface ISubscribeTaskService {
 
 @injectable()
 export class SubscribeTaskService extends TaskService implements ISubscribeTaskService {
-  taskSubscribeRepository: TaskSubscribeRepository;
+  private readonly taskSubscribeRepository: TaskSubscribeRepository;
 
   constructor(
     @inject(TYPE_REPOSITORY_CONTAINERS.TaskSubscribeRepository) taskSubscribeRepository: TaskSubscribeRepository,
@@ -24,7 +24,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
     this.taskSubscribeRepository = taskSubscribeRepository;
   }
 
-  async getSubs() {
+  async getSubs(): Promise<ITaskSubscribeEntity[]> {
     return await this.taskSubscribeRepository.getAll();
   }
 

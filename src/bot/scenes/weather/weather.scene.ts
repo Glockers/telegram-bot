@@ -9,40 +9,38 @@ import { formWeatherReport } from 'common/utils/replyUtil';
 
 @injectable()
 export class WeatherScene implements ISceneBehave {
-  scene: Scenes.BaseScene<IBotContext>;
+  private readonly scene: Scenes.BaseScene<IBotContext>;
 
-  private weatherService: IWeatherService;
+  private readonly weatherService: IWeatherService;
 
   constructor(
-    // @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeService
     @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
-
   ) {
     this.weatherService = weatherService;
     this.scene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
     this.init();
   }
 
-  getInstance() {
+  getInstance(): Scenes.BaseScene<IBotContext> {
     return this.scene;
   };
 
-  async getWeather(ctx: IBotContext) {
+  async getWeather(ctx: IBotContext): Promise<void> {
     await ctx.scene.enter('weather');
   }
 
-  init() {
+  init(): void {
     this.askAboutCity();
     this.handleWeather();
   }
 
-  private askAboutCity() {
+  private askAboutCity(): void {
     this.scene.enter((ctx) => {
       ctx.reply('Пришли мне название города');
     });
   }
 
-  private async handleWeather() {
+  private async handleWeather(): Promise<void> {
     this.scene.on('text', async (ctx) => {
       const res = await this.weatherService.getWeatherByCity(ctx.message.text);
       if (!res) {

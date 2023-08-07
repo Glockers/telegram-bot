@@ -13,7 +13,7 @@ export interface ISubscribeWeatherService {
 
 @injectable()
 export class SubscribeWeatherService implements ISubscribeWeatherService {
-  weatherSubscribeRepository: WeatherSubscribeRepository;
+  private readonly weatherSubscribeRepository: WeatherSubscribeRepository;
 
   constructor(
     @inject(TYPE_REPOSITORY_CONTAINERS.WeatherSubscribeRepository) weatherSubscribeRepository: WeatherSubscribeRepository

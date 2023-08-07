@@ -4,7 +4,7 @@ import { TYPE_BOT_CONTAINERS } from './botContainer.type';
 import { ConfigService, IConfigService } from '@config/config.service';
 
 export class BotContainer implements IContainer {
-  initContainer() {
+  initContainer(): void {
     InversifyContainer.bind<IBot>(TYPE_BOT_CONTAINERS.Bot).to(Bot).inSingletonScope();
     InversifyContainer.bind<IConfigService>(TYPE_BOT_CONTAINERS.ConfigService).to(ConfigService).inSingletonScope();
   }

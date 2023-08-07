@@ -7,13 +7,7 @@ import { helpMenu } from 'bot/buttons/greeting.button';
 
 @injectable()
 export class GreetingAction extends AbstactAction {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(
-  ) {
-    super();
-  }
-
-  init() {
+  init(): void {
     this.bot.action(Actions.CAT, (ctx) => {
       getCommand(COMMAND_NAME.CAT, ctx);
     });

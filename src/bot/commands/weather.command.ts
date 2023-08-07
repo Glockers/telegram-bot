@@ -7,12 +7,6 @@ import { IBotContext } from 'bot/interfaces/context.interface';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(
-  ) {
-    super();
-  }
-
   initCommands(): void {
     this.bot.command(COMMAND_NAME.WEATHER, (ctx) =>
       this.getCommands()[COMMAND_NAME.WEATHER]!(ctx)

@@ -11,9 +11,9 @@ import { backMenuTask } from 'bot/buttons/task.button';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private scene: Scenes.WizardScene<IBotContext>;
 
-  taskService: ITaskService;
+  private readonly taskService: ITaskService;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.TaskService) taskService: ITaskService
@@ -25,24 +25,24 @@ export class AddTaskScene implements ISceneBehave {
     );
   }
 
-  getInstance() {
+  getInstance(): Scenes.WizardScene<IBotContext> {
     return this.scene;
   }
 
-  askTitle = async (ctx: IBotContext) => {
+  askTitle = async (ctx: IBotContext): Promise<void> => {
     ctx.scene.session.addTask = {} as ISceneAddTask;
     ctx.reply('Введите заголовок задачи');
     ctx.wizard.next();
   };
 
-  askDescription = async (ctx: IBotContext) => {
+  askDescription = async (ctx: IBotContext): Promise<void> => {
     const title = extractMessageFromChat(ctx);
     ctx.scene.session.addTask.title = title;
     ctx.reply('Введите описание');
     ctx.wizard.next();
   };
 
-  getAnswerDescription = async (ctx: IBotContext) => {
+  getAnswerDescription = async (ctx: IBotContext): Promise<void> => {
     const userID = exctractUserIdFromChat(ctx);
     ctx.scene.session.addTask.userID = userID;
     const message = extractMessageFromChat(ctx);
@@ -50,7 +50,7 @@ export class AddTaskScene implements ISceneBehave {
     this.handle(ctx);
   };
 
-  handle = async (ctx: IBotContext) => {
+  handle = async (ctx: IBotContext): Promise<void> => {
     ctx.reply('Задача была добавлена', backMenuTask);
     this.taskService.addTask(ctx.scene.session.addTask);
     return ctx.scene.leave();

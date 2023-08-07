@@ -5,16 +5,16 @@ import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { extractMessageFromChat } from 'common/helpers/contextHelpers';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
 import { convertStringToDate } from 'common/utils/dateUtils';
 import { backMenuTask } from 'bot/buttons/task.button';
 import { SubscribeTaskService } from 'bot/services/subscriptionsTask.service';
+import { Message } from 'telegraf/typings/core/types/typegram';
 
 @injectable()
 export class SubscribeTaskScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private scene: Scenes.WizardScene<IBotContext>;
 
-  subscribeTaskService: SubscribeTaskService;
+  private subscribeTaskService: SubscribeTaskService;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.SubscribeTaskService) subscribeTaskService: SubscribeTaskService
@@ -29,26 +29,25 @@ export class SubscribeTaskScene implements ISceneBehave {
     );
   }
 
-  getInstance() {
+  getInstance(): Scenes.WizardScene<IBotContext> {
     return this.scene;
   }
 
-  askTime(ctx: IBotContext) {
+  askTime(ctx: IBotContext): void {
     ctx.editMessageText('Введите время (формат: 15:59)');
     ctx.wizard.next();
   };
 
-  extractTime = (ctx: IBotContext) => {
+  extractTime = (ctx: IBotContext): Promise<Message.TextMessage> | undefined => {
     const time = convertStringToDate(extractMessageFromChat(ctx));
     if (!time) return ctx.reply('Неверно введена дата. Формат даты: 15:59');
     ctx.scene.session.subscribeTask.time = time;
     this.handle(ctx);
   };
 
-  handle = async (ctx: IBotContext) =>
-    catchAsyncFunction(ctx, async () => {
-      await this.subscribeTaskService.subscribeOnTask(ctx.scene.session.subscribeTask);
-      ctx.reply('Вы установили уведомление на задачу', backMenuTask);
-      return ctx.scene.leave();
-    });
+  handle = async (ctx: IBotContext) => {
+    await this.subscribeTaskService.subscribeOnTask(ctx.scene.session.subscribeTask);
+    ctx.reply('Вы установили уведомление на задачу', backMenuTask);
+    return ctx.scene.leave();
+  };
 }
