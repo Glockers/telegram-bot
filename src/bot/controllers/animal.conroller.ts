@@ -1,5 +1,5 @@
 import { chooseAnimalPanel } from './../buttons/animal.button';
-import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { Actions } from 'bot/constants/actions.enum';
 import { IBotContext } from 'bot/interfaces/context.interface';
 import { IAnimalService } from 'bot/services/animals.service';
 import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
@@ -21,20 +21,20 @@ export class AnimalController implements IAnimalController {
   }
 
   async getRandomCat(ctx: IBotContext) {
-    const result = await this.animalService.getRandmonAnimal(ACTION_NAME.CAT);
+    const result = await this.animalService.getRandmonAnimal(Actions.CAT);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');
-      return await ctx.replyWithPhoto(result, chooseAnimalPanel(ACTION_NAME.CAT)).then(() => {
+      return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.CAT)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });
     }
   }
 
   async getRandomDog(ctx: IBotContext) {
-    const result = await this.animalService.getRandmonAnimal(ACTION_NAME.DOG);
+    const result = await this.animalService.getRandmonAnimal(Actions.DOG);
     if (result) {
       const replyMessage = await ctx.reply('Получаем картинку...');
-      return await ctx.replyWithPhoto(result, chooseAnimalPanel(ACTION_NAME.DOG)).then(() => {
+      return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.DOG)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });
     }

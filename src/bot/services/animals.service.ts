@@ -1,5 +1,5 @@
 import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
-import { EAnimal, PixelsAPI } from 'infra/api/pexels/pixelAxios.config';
+import { EAnimal, PixelsAPI } from 'infra/api/animal/animal';
 import { inject, injectable } from 'inversify';
 
 export interface IAnimalService {

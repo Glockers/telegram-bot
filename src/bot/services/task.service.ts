@@ -1,5 +1,5 @@
 import { ISceneAddTask, ISceneIdTask } from 'bot/scenes/task/task.interface';
-import { UserError } from 'common/exceptions/users.error';
+import { UserError } from 'common/exceptions/userError';
 import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
 import { ITaskEntity } from 'infra/database/entities/task.entity';
 import { TaskRepository } from 'infra/database/repository/task.repository';

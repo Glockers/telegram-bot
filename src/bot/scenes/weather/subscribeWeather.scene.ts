@@ -9,7 +9,7 @@ import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/c
 import { ISceneSubscribeWeather } from './weather.interface';
 import { convertStringToDate } from 'common/utils/dateUtils';
 import { catchAsyncFunction } from 'common/helpers/catchAsync';
-import { UserError } from 'common/exceptions/users.error';
+import { UserError } from 'common/exceptions/userError';
 
 export interface SubscribeWeatherData {
   city: string,

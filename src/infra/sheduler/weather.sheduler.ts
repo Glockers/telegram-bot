@@ -7,7 +7,7 @@ import { WeatherSubscribeRepository } from 'infra/database/repository/weatherSub
 import { Telegraf } from 'telegraf';
 import { getCurrentDate } from 'common/utils/dateUtils';
 import { Logger } from 'common/utils/logger';
-import { formWeatherReport } from 'common/utils/messagerUtil';
+import { formWeatherReport } from 'common/utils/replyUtil';
 
 export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>) => {
   const repository = InversifyContainer.get<WeatherSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.WeatherSubscribeRepository);

@@ -35,7 +35,7 @@ export class Stage {
     const message = ctx?.message ? extractMessageFromChat(ctx) : null;
     const isSceneEmpty = Object.keys(ctx.scene.session).length;
 
-    if (message && message && isSceneEmpty && isCommand(message)) {
+    if (message && isSceneEmpty && isCommand(message)) {
       ctx.scene.leave();
       return getCommand(message.substring(1) as COMMAND_NAME, ctx);
     }

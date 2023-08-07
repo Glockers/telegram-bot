@@ -11,7 +11,6 @@ export const taskShedulerHandler = async (bot: Telegraf<IBotContext>) => {
   const subs = await repository.getdAllByTaskTime(getCurrentDate());
   let operationsCount = 0;
 
-  console.log(subs);
   for (const task of subs) {
     const message = '№' + task.taskEntity.id + `\nЗаголовок: ${task.taskEntity.title}\nОписание: ${task.taskEntity.description}`;
     bot.telegram.sendMessage(task.userID, message);

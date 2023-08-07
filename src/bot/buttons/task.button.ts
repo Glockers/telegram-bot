@@ -1,42 +1,42 @@
-import { ACTION_NAME } from 'bot/constants/actions.enum';
+import { Actions } from 'bot/constants/actions.enum';
 import { ITaskEntity } from 'infra/database/entities/task.entity';
 import { Markup } from 'telegraf';
 
 export const taskMenu = Markup.inlineKeyboard([
   [
-    Markup.button.callback('Мои задачи', ACTION_NAME.MY_TASK)
+    Markup.button.callback('Мои задачи', Actions.MY_TASK)
   ],
   [
-    Markup.button.callback('Добавь задачу', ACTION_NAME.ADD_TASK)
+    Markup.button.callback('Добавь задачу', Actions.ADD_TASK)
   ],
   [
-    Markup.button.callback('Назад в меню', ACTION_NAME.HELP_MENU)
+    Markup.button.callback('Назад в меню', Actions.HELP_MENU)
   ]
 ]);
 
 export const backMenuTask = Markup.inlineKeyboard([
   [
-    Markup.button.callback('Назад в меню', ACTION_NAME.TASK)
+    Markup.button.callback('Назад в меню', Actions.TASK)
   ]
 ]);
 
 export const setTaskPanel = (isSubscribe: boolean, taskID: number) => {
   const serializedTaskInfo = JSON.stringify({ id: taskID });
-  const deleteHandlerText = `${ACTION_NAME.DELETE_TASK}?${serializedTaskInfo}`;
+  const deleteHandlerText = `${Actions.DELETE_TASK}?${serializedTaskInfo}`;
   let selecteTitle = '';
   let subHandlerText = '';
   if (!isSubscribe) {
     selecteTitle = 'Уведомить';
-    subHandlerText = `${ACTION_NAME.SUBSCRIBE_TASK}?${serializedTaskInfo}`;
+    subHandlerText = `${Actions.SUBSCRIBE_TASK}?${serializedTaskInfo}`;
   } else {
     selecteTitle = 'Отписатся от уведомления';
-    subHandlerText = `${ACTION_NAME.UN_SUBSCRIBE_TASK}?${serializedTaskInfo}`;
+    subHandlerText = `${Actions.UN_SUBSCRIBE_TASK}?${serializedTaskInfo}`;
   }
 
   return Markup.inlineKeyboard([
     [Markup.button.callback('Удалить задачу', deleteHandlerText)],
     [Markup.button.callback(selecteTitle, subHandlerText)],
-    [Markup.button.callback('Назад в меню', ACTION_NAME.TASK)]
+    [Markup.button.callback('Назад в меню', Actions.TASK)]
   ]);
 };
 

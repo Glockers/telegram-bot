@@ -9,4 +9,5 @@ export enum SCENE {
   CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
   SKIP = 'skip',
   HELP = 'help',
+  GET_RECOMMEND_PLACE = 'GET_RECCOMD'
 }

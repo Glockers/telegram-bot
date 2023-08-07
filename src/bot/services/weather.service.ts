@@ -1,7 +1,7 @@
 import { ConfigService } from '@config/config.service';
 import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
 import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
-import { WeatherAPI } from 'infra/api/weather/weatherAPI.config';
+import { WeatherAPI } from 'infra/api/weather/weather';
 import { inject, injectable } from 'inversify';
 
 export interface IWeatherService {
