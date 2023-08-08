@@ -1,10 +1,10 @@
 import { ITaskEntity } from '@infra/database/entities/task.entity';
 import { ITaskSubscribeEntity } from '../../../infra/database/entities/taskSubscribe.entity';
 
-export type ISceneAddTask = Omit<ITaskEntity, 'id'>;
+export type SessionAddTask = Omit<ITaskEntity, 'id'>;
 
-export interface ISceneIdTask {
+export interface SessionTaskId {
   id: number;
 }
 
-export type ISubscribeTaskSession = Omit<ITaskSubscribeEntity, 'id' | 'taskEntity'> & { taskID: number }
+export type SessionSubscribeTask = Omit<ITaskSubscribeEntity, 'id' | 'taskEntity'> & { taskID: number }

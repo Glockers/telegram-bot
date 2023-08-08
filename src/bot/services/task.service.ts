@@ -1,4 +1,4 @@
-import { ISceneAddTask, ISceneIdTask } from '@bot/scenes/task/task.interface';
+import { SessionAddTask, SessionTaskId } from '@bot/scenes/task/task.interface';
 import { UserError } from '@common/exceptions/userError';
 import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
 import { ITaskEntity } from '@infra/database/entities/task.entity';
@@ -7,8 +7,8 @@ import { inject, injectable } from 'inversify';
 
 export interface ITaskService {
   getTasks: (userID: number) => Promise<ITaskEntity[]>;
-  deleteTaskById: (data: ISceneIdTask, userID: number) => Promise<boolean>;
-  addTask: (data: ISceneAddTask) => Promise<void>;
+  deleteTaskById: (data: SessionTaskId, userID: number) => Promise<boolean>;
+  addTask: (data: SessionAddTask) => Promise<void>;
   getTaskById: (taskID: number) => Promise<ITaskEntity>;
 
 }
@@ -27,7 +27,7 @@ export class TaskService implements ITaskService {
     return this.taskRepository.getAll(userID);
   }
 
-  async deleteTaskById(data: ISceneIdTask, userID: number): Promise<boolean> {
+  async deleteTaskById(data: SessionTaskId, userID: number): Promise<boolean> {
     const selectedTask = await this.getTaskById(data.id);
     if (selectedTask?.userID !== userID) throw UserError.sendMessage('Задача с таким ID не найдена');
     this.taskRepository.delete(selectedTask);

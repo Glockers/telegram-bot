@@ -6,7 +6,7 @@ import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 import { IBotContext } from '@bot/interfaces/context.interface';
 import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers/contextHelpers';
-import { ISceneAddTask } from './task.interface';
+import { SessionAddTask } from './task.interface';
 import { backMenuTask } from '@bot/buttons/task.button';
 
 @injectable()
@@ -30,7 +30,7 @@ export class AddTaskScene implements ISceneBehave {
   }
 
   askTitle = async (ctx: IBotContext): Promise<void> => {
-    ctx.scene.session.addTask = {} as ISceneAddTask;
+    ctx.scene.session.addTask = {} as SessionAddTask;
     ctx.reply('Введите заголовок задачи');
     ctx.wizard.next();
   };

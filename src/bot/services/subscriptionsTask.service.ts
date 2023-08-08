@@ -1,4 +1,4 @@
-import { ISubscribeTaskSession } from '@bot/scenes/task/task.interface';
+import { SessionSubscribeTask } from '@bot/scenes/task/task.interface';
 import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
 import { ITaskSubscribeEntity } from '@infra/database/entities/taskSubscribe.entity';
 import { ITaskSubscribe, TaskSubscribeRepository } from '@infra/database/repository/taskSubscribe.repository';
@@ -8,7 +8,7 @@ import { TaskRepository } from '@infra/database/repository/task.repository';
 
 export interface ISubscribeTaskService {
   getSubscriptionTaskById: (taskID: number) => Promise<ITaskSubscribeEntity | null>;
-  subscribeOnTask: (data: ISubscribeTaskSession) => Promise<void>;
+  subscribeOnTask: (data: SessionSubscribeTask) => Promise<void>;
   unSubFromTask(subID: number): Promise<void>;
 }
 
@@ -32,7 +32,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
     return await this.taskSubscribeRepository.findOneByTaskID(taskID);
   }
 
-  async subscribeOnTask(data: ISubscribeTaskSession): Promise<void> {
+  async subscribeOnTask(data: SessionSubscribeTask): Promise<void> {
     const sub = await this.getTaskById(data.taskID);
     const newSub: ITaskSubscribe = {
       ...data,

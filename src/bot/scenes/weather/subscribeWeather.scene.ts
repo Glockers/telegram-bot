@@ -6,7 +6,7 @@ import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 import { IBotContext } from '@bot/interfaces/context.interface';
 import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers/contextHelpers';
-import { ISceneSubscribeWeather } from './weather.interface';
+import { SessionSubscribeWeather } from './weather.interface';
 import { convertStringToDate } from '@common/utils/dateUtils';
 import { UserError } from '@common/exceptions/userError';
 
@@ -39,7 +39,7 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
 
   askCity = async (ctx: IBotContext): Promise<void> => {
     ctx.reply('Введите город');
-    ctx.scene.session.subscribeWeather = {} as ISceneSubscribeWeather;
+    ctx.scene.session.subscribeWeather = {} as SessionSubscribeWeather;
     ctx.wizard.next();
   };
 

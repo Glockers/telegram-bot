@@ -5,7 +5,7 @@ import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
 import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 import { IBotContext } from '@bot/interfaces/context.interface';
-import { ISceneUnsubscribeWeather } from './weather.interface';
+import { SessionUnsubscribeWeather } from './weather.interface';
 import { extractMessageFromChat } from '@common/helpers/contextHelpers';
 import { catchAsyncFunction } from '@common/helpers/catchAsync';
 
@@ -38,7 +38,7 @@ export class UnsubscribeOnWeatherScene implements ISceneBehave {
 
   private askID = async (ctx: IBotContext) => {
     ctx.reply('Введите ID подписки');
-    ctx.scene.session.unsubscribeWeather = {} as ISceneUnsubscribeWeather;
+    ctx.scene.session.unsubscribeWeather = {} as SessionUnsubscribeWeather;
     return ctx.wizard.next();
   };
 

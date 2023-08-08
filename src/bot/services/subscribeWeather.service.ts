@@ -1,4 +1,4 @@
-import { ISceneSubscribeWeather, ISceneUnsubscribeWeather } from '@bot/scenes/weather/weather.interface';
+import { SessionSubscribeWeather, SessionUnsubscribeWeather } from '@bot/scenes/weather/weather.interface';
 import { UserError } from '@common/exceptions/userError';
 import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
 import { TWeatherSubscribeEntity } from '@infra/database/entities/weatherSubscribe.entity';
@@ -6,8 +6,8 @@ import { WeatherSubscribeRepository } from '@infra/database/repository/weatherSu
 import { inject, injectable } from 'inversify';
 
 export interface ISubscribeWeatherService {
-  deleteWeather: (data: ISceneUnsubscribeWeather) => Promise<boolean>;
-  subscibeOnWeather: (data: ISceneSubscribeWeather, id: number) => boolean;
+  deleteWeather: (data: SessionUnsubscribeWeather) => Promise<boolean>;
+  subscibeOnWeather: (data: SessionSubscribeWeather, id: number) => boolean;
   getWeatherSubscriptions(userID: number): Promise<TWeatherSubscribeEntity[]>
 }
 
@@ -31,14 +31,14 @@ export class SubscribeWeatherService implements ISubscribeWeatherService {
     return await this.weatherSubscribeRepository.findSubscriptionsByUserID(userID);
   }
 
-  async deleteWeather(data: ISceneUnsubscribeWeather): Promise<boolean> {
+  async deleteWeather(data: SessionUnsubscribeWeather): Promise<boolean> {
     const selectedSubscribe = await this.getSubscription(data.id);
     if (!selectedSubscribe) throw UserError.sendMessage('Такой ID не найден');
     this.weatherSubscribeRepository.delete(selectedSubscribe);
     return true;
   }
 
-  subscibeOnWeather(data: ISceneSubscribeWeather, userID: number): boolean {
+  subscibeOnWeather(data: SessionSubscribeWeather, userID: number): boolean {
     const formedData = {
       ...data,
       userID
