@@ -1,13 +1,12 @@
 import { Scenes } from 'telegraf';
-import { ISceneBehave } from '../scene.type';
-import { AppScenes } from '@bot/constants/scenes.enum';
-import { ITaskService } from '@bot/services/task.service';
 import { inject, injectable } from 'inversify';
+import { ISceneBehave, SessionAddTask } from '@bot/scenes';
+import { AppScenes } from '@bot/constants';
+import { ITaskService } from '@bot/services';
 import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers/contextHelpers';
-import { SessionAddTask } from './task.interface';
-import { backMenuTask } from '@bot/buttons/task.button';
+import { IBotContext } from '@bot/interfaces';
+import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers';
+import { backMenuTask } from '@bot/buttons';
 
 @injectable()
 export class AddTaskScene implements ISceneBehave {

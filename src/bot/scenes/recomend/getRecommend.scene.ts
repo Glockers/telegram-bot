@@ -1,12 +1,12 @@
+import { ISceneBehave } from '@bot/scenes';
 import { inject, injectable } from 'inversify';
-import { ISceneBehave } from '../scene.type';
-import { IBotContext } from '@bot/interfaces/context.interface';
+import { IBotContext } from '@bot/interfaces';
 import { Scenes } from 'telegraf';
-import { AppScenes } from '@bot/constants/scenes.enum';
-import { extractMessageFromChat } from '@common/helpers/contextHelpers';
-import { TYPE_RECOMMEND_CONTAINERS } from '@container/bot/recommend/recommend.type';
-import { IRecommendService } from '@bot/services/recommend.service';
-import { formatRecommendPlace } from '@common/utils/replyUtil';
+import { AppScenes } from '@bot/constants';
+import { extractMessageFromChat } from '@common/helpers';
+import { TYPE_RECOMMEND_CONTAINERS } from '@container/bot/recommend';
+import { IRecommendService } from '@bot/services';
+import { formatRecommendPlace } from '@common/utils';
 
 @injectable()
 export class RecommendScene implements ISceneBehave {

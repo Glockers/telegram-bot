@@ -1,5 +1,5 @@
-import { IBotContext } from '@bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
+import { IBotContext } from '@bot/interfaces';
 
 export type SceneReturnType = Scenes.WizardScene<IBotContext> | Scenes.BaseScene<IBotContext>
 

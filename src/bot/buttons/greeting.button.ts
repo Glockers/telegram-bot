@@ -1,6 +1,6 @@
-import { Actions } from '@bot/constants/actions.enum';
 import { Markup } from 'telegraf';
 import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
+import { Actions } from '@bot/constants';
 
 export const helpMenu = Markup.inlineKeyboard([
   [

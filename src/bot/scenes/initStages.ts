@@ -1,13 +1,11 @@
 import { Scenes } from 'telegraf';
-import { TYPE_SCENES_CONTAINERS } from '@container/bot/scenes/scenes.type';
+import { TYPE_SCENES_CONTAINERS } from '@container/bot/scenes';
 import { InversifyContainer } from '@container/inversifyContainer';
 import { ISceneBehave, SceneReturnType } from './scene.type';
-import { IBotContext, ISceneStage } from '@bot/interfaces/context.interface';
-import { getCommand } from '@common/helpers/commandUtil';
-import { CommandName } from '@bot/constants/command.enum';
-import { extractMessageFromChat } from '@common/helpers/contextHelpers';
-import { isCommand } from '@common/utils/isCommand';
-import { TTL } from '@bot/constants/number.constants';
+import { IBotContext, ISceneStage } from '@bot/interfaces';
+import { getCommand, extractMessageFromChat } from '@common/helpers';
+import { CommandName, TTL } from '@bot/constants';
+import { isCommand } from '@common/utils';
 
 export class Stage {
   private scenes: SceneReturnType[] = [];

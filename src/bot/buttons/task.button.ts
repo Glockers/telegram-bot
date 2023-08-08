@@ -1,7 +1,7 @@
-import { Actions } from '@bot/constants/actions.enum';
-import { ITaskEntity } from '@infra/database/entities/task.entity';
 import { Markup } from 'telegraf';
 import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
+import { ITaskEntity } from '@infra/database';
+import { Actions } from '@bot/constants';
 
 export const taskMenu = Markup.inlineKeyboard([
   [

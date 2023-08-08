@@ -1,9 +1,9 @@
-import { chooseAnimalPanel } from './../buttons/animal.button';
-import { Actions } from '@bot/constants/actions.enum';
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { IAnimalService } from '@bot/services/animals.service';
-import { TYPE_ANIMAL_CONTAINERS } from '@container/bot/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
+import { Actions } from '@bot/constants';
+import { IBotContext } from '@bot/interfaces';
+import { IAnimalService } from '@bot/services';
+import { TYPE_ANIMAL_CONTAINERS } from '@container/bot/animals';
+import { chooseAnimalPanel } from '@bot/buttons';
 
 export interface IAnimalController {
   getRandomCat: (ctx: IBotContext) => Promise<void>;

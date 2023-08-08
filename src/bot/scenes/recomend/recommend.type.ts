@@ -1,4 +1,4 @@
-import { KindsPlace } from '@infra/api/recommend/place.type';
+import { KindsPlace } from '@infra/api';
 
 export interface SessionPlace {
   kinds: KindsPlace;

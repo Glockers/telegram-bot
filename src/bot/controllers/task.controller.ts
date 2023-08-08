@@ -1,11 +1,10 @@
-import { buttonInfoTask } from './../buttons/task.button';
-import { backMenuTask, setTaskPanel } from '@bot/buttons/task.button';
-import { AppScenes } from '@bot/constants/scenes.enum';
-import { CallbackQueryData, IBotContext } from '@bot/interfaces/context.interface';
-import { SubscribeTaskService } from '@bot/services/subscriptionsTask.service';
-import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers/contextHelpers';
-import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 import { inject, injectable } from 'inversify';
+import { backMenuTask, setTaskPanel, buttonInfoTask } from '@bot/buttons';
+import { AppScenes } from '@bot/constants';
+import { CallbackQueryData, IBotContext } from '@bot/interfaces';
+import { SubscribeTaskService } from '@bot/services';
+import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 
 export interface ITaskController {
   getMyTask: (ctx: IBotContext) => Promise<void>;

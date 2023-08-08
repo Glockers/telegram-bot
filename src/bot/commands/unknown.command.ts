@@ -1,7 +1,5 @@
-import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
-import { CommandHandlers } from '@bot/interfaces/command.interface';
-import { IBotContext } from '@bot/interfaces/context.interface';
+import { CommandHandlers, IBotContext, AbstactCommand } from '@bot/interfaces';
 
 @injectable()
 export class UnknownCommand extends AbstactCommand {

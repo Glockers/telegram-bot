@@ -1,9 +1,8 @@
-import { TYPE_BOT_CONTAINERS } from '../../container/bot/botContainer.type';
-import { IBot } from '@bot/bot';
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { CommandHandlers } from '@bot/interfaces/command.interface';
-import { InversifyContainer } from '@container/inversifyContainer';
 import { Telegraf } from 'telegraf';
+import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
+import { IBot } from '@bot/bot';
+import { IBotContext, CommandHandlers } from '@bot/interfaces';
+import { InversifyContainer } from '@container/inversifyContainer';
 
 export abstract class AbstactCommand {
   protected readonly bot: Telegraf<IBotContext>;

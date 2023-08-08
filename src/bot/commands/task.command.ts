@@ -1,11 +1,8 @@
 import { inject, injectable } from 'inversify';
-import { AbstactCommand } from '../interfaces/command.class';
-import { CommandName } from '@bot/constants/command.enum';
-import { AppScenes } from '@bot/constants/scenes.enum';
-import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
-import { ITaskController } from '../controllers/task.controller';
-import { CommandHandlers } from '@bot/interfaces/command.interface';
-import { IBotContext } from '@bot/interfaces/context.interface';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task';
+import { AbstactCommand, CommandHandlers, IBotContext } from '@bot/interfaces';
+import { AppScenes, CommandName } from '@bot/constants';
+import { ITaskController } from '@bot/controllers';
 
 @injectable()
 export class TaskCommand extends AbstactCommand {

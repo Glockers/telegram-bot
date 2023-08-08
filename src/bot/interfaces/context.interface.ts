@@ -1,6 +1,6 @@
 import { Context, NarrowedContext, Scenes } from 'telegraf';
-import { IBotWizardSessionData } from './sceneSessionData.interface';
 import { CallbackQuery, Update } from 'telegraf/typings/core/types/typegram';
+import { IBotWizardSessionData } from './sceneSessionData.interface';
 
 export interface IBotContext extends Context {
   scene: Scenes.SceneContextScene<IBotContext, IBotWizardSessionData>;

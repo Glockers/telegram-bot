@@ -1,5 +1,4 @@
-import { ITaskEntity } from '@infra/database/entities/task.entity';
-import { ITaskSubscribeEntity } from '../../../infra/database/entities/taskSubscribe.entity';
+import { ITaskSubscribeEntity, ITaskEntity } from '@infra/database';
 
 export type SessionAddTask = Omit<ITaskEntity, 'id'>;
 

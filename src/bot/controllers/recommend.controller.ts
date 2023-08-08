@@ -1,8 +1,8 @@
-import { AppScenes } from '@bot/constants/scenes.enum';
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { SessionPlace } from '@bot/scenes/recomend/recommend.type';
-import { KindsPlace } from '@infra/api/recommend/place.type';
 import { injectable } from 'inversify';
+import { AppScenes } from '@bot/constants';
+import { IBotContext } from '@bot/interfaces';
+import { SessionPlace } from '@bot/scenes';
+import { KindsPlace } from '@infra/api';
 
 export interface IRecommendController {
   getRecommendPlaces: (ctx: IBotContext, kind: KindsPlace) => Promise<void>
