@@ -1,5 +1,5 @@
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { UserError } from 'common/exceptions/userError';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { UserError } from '@common/exceptions/userError';
 import { Logger } from '../utils/logger';
 
 export async function catchAsyncFunction(ctx: IBotContext, asyncFunction: Function): Promise<unknown> {

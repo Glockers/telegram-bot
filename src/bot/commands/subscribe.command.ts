@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { AbstactCommand } from '../interfaces/command.class';
-import { CommandName } from 'bot/constants/command.enum';
-import { AppScenes } from 'bot/constants/scenes.enum';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
+import { CommandName } from '@bot/constants/command.enum';
+import { AppScenes } from '@bot/constants/scenes.enum';
+import { CommandHandlers } from '@bot/interfaces/command.interface';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { catchAsyncFunction } from '@common/helpers/catchAsync';
 
 @injectable()
 export class SubscribeCommand extends AbstactCommand {

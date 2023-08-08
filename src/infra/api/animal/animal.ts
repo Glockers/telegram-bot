@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import axios, { AxiosInstance } from 'axios';
-import { API } from 'infra/api/api.class';
-import { getRandomNumber } from 'common/utils/random';
+import { API } from '@infra/api/api.class';
+import { getRandomNumber } from '@common/utils/random';
 
 export enum Animals {
   CAT = 'cat',

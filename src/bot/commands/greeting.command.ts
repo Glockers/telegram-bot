@@ -1,9 +1,9 @@
-import { CommandName } from 'bot/constants/command.enum';
+import { CommandName } from '@bot/constants/command.enum';
 import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { helpMenu } from 'bot/buttons/greeting.button';
+import { CommandHandlers } from '@bot/interfaces/command.interface';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { helpMenu } from '@bot/buttons/greeting.button';
 
 @injectable()
 export class GreetingCommand extends AbstactCommand {

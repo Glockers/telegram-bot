@@ -1,13 +1,13 @@
-import { AppScenes } from 'bot/constants/scenes.enum';
+import { AppScenes } from '@bot/constants/scenes.enum';
 import { ISceneBehave } from '../scene.type';
 import { Scenes } from 'telegraf';
 import { inject, injectable } from 'inversify';
-import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { extractMessageFromChat } from 'common/helpers/contextHelpers';
-import { convertStringToDate } from 'common/utils/dateUtils';
-import { backMenuTask } from 'bot/buttons/task.button';
-import { SubscribeTaskService } from 'bot/services/subscriptionsTask.service';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { extractMessageFromChat } from '@common/helpers/contextHelpers';
+import { convertStringToDate } from '@common/utils/dateUtils';
+import { backMenuTask } from '@bot/buttons/task.button';
+import { SubscribeTaskService } from '@bot/services/subscriptionsTask.service';
 import { Message } from 'telegraf/typings/core/types/typegram';
 
 @injectable()

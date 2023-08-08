@@ -1,9 +1,9 @@
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { getCurrentDate } from 'common/utils/dateUtils';
-import { Logger } from 'common/utils/logger';
-import { InversifyContainer } from 'container/inversifyContainer';
-import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
-import { TaskSubscribeRepository } from 'infra/database/repository/taskSubscribe.repository';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { getCurrentDate } from '@common/utils/dateUtils';
+import { Logger } from '@common/utils/logger';
+import { InversifyContainer } from '@container/inversifyContainer';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
+import { TaskSubscribeRepository } from '@infra/database/repository/taskSubscribe.repository';
 import { Telegraf } from 'telegraf';
 
 export const taskShedulerHandler = async (bot: Telegraf<IBotContext>): Promise<void> => {

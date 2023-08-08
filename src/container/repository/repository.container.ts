@@ -1,8 +1,8 @@
-import { IContainer, InversifyContainer } from 'container/inversifyContainer';
+import { IContainer, InversifyContainer } from '@container/inversifyContainer';
 import { TYPE_REPOSITORY_CONTAINERS } from './repository.type';
-import { TaskRepository } from 'infra/database/repository/task.repository';
-import { TaskSubscribeRepository } from 'infra/database/repository/taskSubscribe.repository';
-import { WeatherSubscribeRepository } from 'infra/database/repository/weatherSubscribe.repository';
+import { TaskRepository } from '@infra/database/repository/task.repository';
+import { TaskSubscribeRepository } from '@infra/database/repository/taskSubscribe.repository';
+import { WeatherSubscribeRepository } from '@infra/database/repository/weatherSubscribe.repository';
 
 export class RepositoryContainer implements IContainer {
   initContainer(): void {

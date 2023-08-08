@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
-import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { ITaskController } from 'bot/controllers/task.controller';
-import { AbstactAction } from 'bot/interfaces/actions.class';
-import { Actions } from 'bot/constants/actions.enum';
-import { getCommand } from 'common/helpers/commandUtil';
-import { CommandName } from 'bot/constants/command.enum';
-import { taskMenu } from 'bot/buttons/task.button';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
+import { ITaskController } from '@bot/controllers/task.controller';
+import { AbstactAction } from '@bot/interfaces/actions.class';
+import { Actions } from '@bot/constants/actions.enum';
+import { getCommand } from '@common/helpers/commandUtil';
+import { CommandName } from '@bot/constants/command.enum';
+import { taskMenu } from '@bot/buttons/task.button';
+import { catchAsyncFunction } from '@common/helpers/catchAsync';
 
 @injectable()
 export class TaskAction extends AbstactAction {

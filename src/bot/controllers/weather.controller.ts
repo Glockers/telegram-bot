@@ -1,8 +1,8 @@
-import { weatherInfoTask, weatherMenu } from 'bot/buttons/weather.button';
-import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
-import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service';
-import { exctractUserIdFromChat, exctractcallbackQueryData } from 'common/helpers/contextHelpers';
-import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
+import { weatherInfoTask, weatherMenu } from '@bot/buttons/weather.button';
+import { CallbackQueryData, IBotContext } from '@bot/interfaces/context.interface';
+import { ISubscribeWeatherService } from '@bot/services/subscribeWeather.service';
+import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers/contextHelpers';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 import { inject, injectable } from 'inversify';
 
 export interface IWeatherlController {

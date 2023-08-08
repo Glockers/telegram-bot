@@ -1,14 +1,14 @@
-import { AppScenes } from 'bot/constants/scenes.enum';
+import { AppScenes } from '@bot/constants/scenes.enum';
 import { Scenes } from 'telegraf';
-import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service';
+import { ISubscribeWeatherService } from '@bot/services/subscribeWeather.service';
 import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
-import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
+import { IBotContext } from '@bot/interfaces/context.interface';
+import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers/contextHelpers';
 import { ISceneSubscribeWeather } from './weather.interface';
-import { convertStringToDate } from 'common/utils/dateUtils';
-import { UserError } from 'common/exceptions/userError';
+import { convertStringToDate } from '@common/utils/dateUtils';
+import { UserError } from '@common/exceptions/userError';
 
 export interface SubscribeWeatherData {
   city: string,

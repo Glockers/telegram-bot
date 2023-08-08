@@ -1,10 +1,10 @@
-import { ISubscribeTaskSession } from 'bot/scenes/task/task.interface';
-import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
-import { ITaskSubscribeEntity } from 'infra/database/entities/taskSubscribe.entity';
-import { ITaskSubscribe, TaskSubscribeRepository } from 'infra/database/repository/taskSubscribe.repository';
+import { ISubscribeTaskSession } from '@bot/scenes/task/task.interface';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
+import { ITaskSubscribeEntity } from '@infra/database/entities/taskSubscribe.entity';
+import { ITaskSubscribe, TaskSubscribeRepository } from '@infra/database/repository/taskSubscribe.repository';
 import { inject, injectable } from 'inversify';
 import { TaskService } from './task.service';
-import { TaskRepository } from 'infra/database/repository/task.repository';
+import { TaskRepository } from '@infra/database/repository/task.repository';
 
 export interface ISubscribeTaskService {
   getSubscriptionTaskById: (taskID: number) => Promise<ITaskSubscribeEntity | null>;

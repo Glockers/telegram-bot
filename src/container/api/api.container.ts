@@ -1,9 +1,9 @@
-import { IContainer, InversifyContainer } from 'container/inversifyContainer';
-import { API } from 'infra/api/api.class';
-import { PixelsAPI } from 'infra/api/animal/animal';
+import { IContainer, InversifyContainer } from '@container/inversifyContainer';
+import { API } from '@infra/api/api.class';
+import { PixelsAPI } from '@infra/api/animal/animal';
 import { TYPE_API_CONTAINERS } from './apiContainer.type';
-import { WeatherAPI } from 'infra/api/weather/weather';
-import { RecommendAPI } from 'infra/api/recommend/place';
+import { WeatherAPI } from '@infra/api/weather/weather';
+import { RecommendAPI } from '@infra/api/recommend/place';
 
 export class APIContainer implements IContainer {
   initContainer(): void {

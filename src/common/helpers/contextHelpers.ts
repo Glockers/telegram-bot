@@ -1,5 +1,5 @@
-import { AppUpdate } from 'bot/interfaces/callbackData.interface';
-import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
+import { AppUpdate } from '@bot/interfaces/callbackData.interface';
+import { CallbackQueryData, IBotContext } from '@bot/interfaces/context.interface';
 import { Message } from 'telegraf/typings/core/types/typegram';
 
 export function extractMessageFromChat(ctx: IBotContext): string {

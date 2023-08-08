@@ -1,8 +1,8 @@
-import { ISceneSubscribeWeather, ISceneUnsubscribeWeather } from 'bot/scenes/weather/weather.interface';
-import { UserError } from 'common/exceptions/userError';
-import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
-import { TWeatherSubscribeEntity } from 'infra/database/entities/weatherSubscribe.entity';
-import { WeatherSubscribeRepository } from 'infra/database/repository/weatherSubscribe.repository';
+import { ISceneSubscribeWeather, ISceneUnsubscribeWeather } from '@bot/scenes/weather/weather.interface';
+import { UserError } from '@common/exceptions/userError';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
+import { TWeatherSubscribeEntity } from '@infra/database/entities/weatherSubscribe.entity';
+import { WeatherSubscribeRepository } from '@infra/database/repository/weatherSubscribe.repository';
 import { inject, injectable } from 'inversify';
 
 export interface ISubscribeWeatherService {

@@ -1,4 +1,4 @@
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { IBotContext } from '@bot/interfaces/context.interface';
 import { Telegraf } from 'telegraf';
 import schedule from 'node-schedule';
 import { shedulerConfig } from './sheduler.config';

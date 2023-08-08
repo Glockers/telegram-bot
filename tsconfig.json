@@ -10,11 +10,13 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "baseUrl": "./src",
     "types": ["reflect-metadata"],
     "paths": {
-      "@config/*": ["config/*"],
-      "@commands/*": ["commands/*"]
+      "@bot/*": ["./src/bot/*"],
+      "@common/*": ["./src/common/*"],
+      "@container/*": ["./src/container/*"],
+      "@config/*": ["./src/config/*"],
+      "@infra/*": ["./src/infra/*"]
     }
   },
   "lib": ["ES2020"],

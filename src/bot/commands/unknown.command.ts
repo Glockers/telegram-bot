@@ -1,7 +1,7 @@
 import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { CommandHandlers } from '@bot/interfaces/command.interface';
+import { IBotContext } from '@bot/interfaces/context.interface';
 
 @injectable()
 export class UnknownCommand extends AbstactCommand {
@@ -12,7 +12,8 @@ export class UnknownCommand extends AbstactCommand {
   }
 
   initCommands(): void {
-    this.bot.on('message', (ctx: IBotContext) => {
+    // TODO DELE ANY
+    this.bot.on('message', (ctx: any): void => {
       this.uknownHandle(ctx);
     });
   }

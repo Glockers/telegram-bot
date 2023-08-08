@@ -1,4 +1,4 @@
-import { Logger } from 'common/utils/logger';
+import { Logger } from '@common/utils/logger';
 import { Database } from './typeorm';
 
 export function initDatabase(): void {

@@ -1,10 +1,10 @@
 import { buttonInfoTask } from './../buttons/task.button';
-import { backMenuTask, setTaskPanel } from 'bot/buttons/task.button';
-import { AppScenes } from 'bot/constants/scenes.enum';
-import { CallbackQueryData, IBotContext } from 'bot/interfaces/context.interface';
-import { SubscribeTaskService } from 'bot/services/subscriptionsTask.service';
-import { exctractUserIdFromChat, exctractcallbackQueryData } from 'common/helpers/contextHelpers';
-import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
+import { backMenuTask, setTaskPanel } from '@bot/buttons/task.button';
+import { AppScenes } from '@bot/constants/scenes.enum';
+import { CallbackQueryData, IBotContext } from '@bot/interfaces/context.interface';
+import { SubscribeTaskService } from '@bot/services/subscriptionsTask.service';
+import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers/contextHelpers';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 import { inject, injectable } from 'inversify';
 
 export interface ITaskController {

@@ -1,4 +1,4 @@
-import { Actions } from 'bot/constants/actions.enum';
+import { Actions } from '@bot/constants/actions.enum';
 import { Markup } from 'telegraf';
 import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
 

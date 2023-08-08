@@ -1,4 +1,4 @@
-import { API } from 'infra/api/api.class';
+import { API } from '@infra/api/api.class';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { injectable } from 'inversify';
 import { WeatherAPIData } from './weather.type';

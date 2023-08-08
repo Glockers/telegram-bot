@@ -1,9 +1,9 @@
 import { injectable } from 'inversify';
 import { AbstactCommand } from '../interfaces/command.class';
-import { CommandName } from 'bot/constants/command.enum';
-import { AppScenes } from 'bot/constants/scenes.enum';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { CommandName } from '@bot/constants/command.enum';
+import { AppScenes } from '@bot/constants/scenes.enum';
+import { CommandHandlers } from '@bot/interfaces/command.interface';
+import { IBotContext } from '@bot/interfaces/context.interface';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {

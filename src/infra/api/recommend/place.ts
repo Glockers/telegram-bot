@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import axios, { AxiosInstance } from 'axios';
-import { API } from 'infra/api/api.class';
+import { API } from '@infra/api/api.class';
 import { FeatureCollection, ICountryData, KindsPlace } from './place.type';
 
 @injectable()

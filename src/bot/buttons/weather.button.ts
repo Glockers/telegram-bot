@@ -1,5 +1,5 @@
-import { Actions } from 'bot/constants/actions.enum';
-import { TWeatherSubscribeEntity } from 'infra/database/entities/weatherSubscribe.entity';
+import { Actions } from '@bot/constants/actions.enum';
+import { TWeatherSubscribeEntity } from '@infra/database/entities/weatherSubscribe.entity';
 import { Markup } from 'telegraf';
 import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
 
