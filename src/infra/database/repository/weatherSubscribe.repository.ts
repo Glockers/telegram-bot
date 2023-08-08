@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm';
-import { TWeatherSubscribeEntity, WeatherSubscribeEntity } from '../entities/weatherSubscribe.entity';
 import { injectable } from 'inversify';
-import { Database } from '../typeorm';
+import { Database, TWeatherSubscribeEntity, WeatherSubscribeEntity } from '@infra/database';
 
 export type IWeatherSubscribe = Omit<TWeatherSubscribeEntity, 'id'>;
 

@@ -1,10 +1,9 @@
 import { AddTaskScene } from '@bot/scenes/task/addTask.scene';
-import { ITaskService, TaskService } from '@bot/services/task.service';
+import { ITaskService, TaskService, SubscribeTaskService } from '@bot/services';
 import { IContainer, InversifyContainer } from '@container/inversifyContainer';
 import { TYPE_SCENES_CONTAINERS } from '@container/bot/scenes/scenes.type';
 import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 import { ITaskController, TaskController } from '@bot/controllers/task.controller';
-import { SubscribeTaskService } from '@bot/services/subscriptionsTask.service';
 
 export class TaskContainer implements IContainer {
   initContainer(): void {

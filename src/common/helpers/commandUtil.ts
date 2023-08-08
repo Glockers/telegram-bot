@@ -1,8 +1,6 @@
-import { AbstactCommand } from '@bot/interfaces/command.class';
-import { CommandName } from '@bot/constants/command.enum';
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { CommandHandlers } from '@bot/interfaces/command.interface';
-import { TYPE_COMMAND_CONTAINERS } from '@container/bot/commands/command.type';
+import { AbstactCommand, IBotContext, CommandHandlers } from '@bot/interfaces';
+import { CommandName } from '@bot/constants';
+import { TYPE_COMMAND_CONTAINERS } from '@container/bot/commands';
 import { InversifyContainer } from '@container/inversifyContainer';
 
 export const getCommand = (command: CommandName, ctx: IBotContext): void => {

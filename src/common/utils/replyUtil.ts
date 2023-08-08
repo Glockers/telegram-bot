@@ -1,7 +1,6 @@
-import { Feature } from '@infra/api/recommend/place.type';
-import { convertDateToString } from './dateUtils';
+import { Feature, WeatherData } from '@infra/api';
 import { CELSUS } from '@bot/constants/number.constants';
-import { WeatherData } from '@infra/api/weather/weather.type';
+import { convertDateToString } from './dateUtils';
 
 export const formWeatherReport = (res: WeatherData): string => {
   const celsus = (res.temp - CELSUS).toFixed(2);

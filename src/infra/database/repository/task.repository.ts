@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm';
-import { ITaskEntity, TaskEntity } from '../entities/task.entity';
 import { injectable } from 'inversify';
-import { Database } from '../typeorm';
+import { Database, ITaskEntity, TaskEntity } from '@infra/database';
 
 export type TAddTask = Omit<ITaskEntity, 'id'>;
 

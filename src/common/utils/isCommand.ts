@@ -1,4 +1,4 @@
-import { CommandName } from '@bot/constants/command.enum';
+import { CommandName } from '@bot/constants';
 
 export function isCommand(text: string): boolean {
   const keys = Object.keys(CommandName);

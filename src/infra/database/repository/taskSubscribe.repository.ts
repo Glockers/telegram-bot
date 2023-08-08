@@ -1,6 +1,5 @@
 import { Repository } from 'typeorm';
-import { Database } from '../typeorm';
-import { ITaskSubscribeEntity, TaskSubscribeEntity } from '../entities/taskSubscribe.entity';
+import { Database, ITaskSubscribeEntity, TaskSubscribeEntity } from '@infra/database';
 import { injectable } from 'inversify';
 
 export type ITaskSubscribe = Omit<ITaskSubscribeEntity, 'id'>;

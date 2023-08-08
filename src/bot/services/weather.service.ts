@@ -1,10 +1,9 @@
-import { ConfigService } from '@config/config.service';
-import { UserError } from '@common/exceptions/userError';
-import { TYPE_API_CONTAINERS } from '@container/api/apiContainer.type';
-import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
-import { WeatherAPI } from '@infra/api/weather/weather';
-import { WeatherAPIData, WeatherData } from '@infra/api/weather/weather.type';
 import { inject, injectable } from 'inversify';
+import { ConfigService } from '@config/index';
+import { UserError } from '@common/exceptions';
+import { TYPE_API_CONTAINERS } from '@container/api';
+import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
+import { WeatherAPI, WeatherAPIData, WeatherData } from '@infra/api';
 
 export interface IWeatherService {
   getWeatherByCity: (city: string) => Promise<WeatherData | null>

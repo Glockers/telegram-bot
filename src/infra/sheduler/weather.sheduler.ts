@@ -1,13 +1,11 @@
-import { IBotContext } from '@bot/interfaces/context.interface';
-import { IWeatherService } from '@bot/services/weather.service';
+import { IBotContext } from '@bot/interfaces';
+import { IWeatherService } from '@bot/services';
 import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 import { InversifyContainer } from '@container/inversifyContainer';
-import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
-import { WeatherSubscribeRepository } from '@infra/database/repository/weatherSubscribe.repository';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository';
+import { WeatherSubscribeRepository } from '@infra/database';
 import { Telegraf } from 'telegraf';
-import { getCurrentDate } from '@common/utils/dateUtils';
-import { Logger } from '@common/utils/logger';
-import { formWeatherReport } from '@common/utils/replyUtil';
+import { getCurrentDate, Logger, formWeatherReport } from '@common/utils';
 
 export const weatherShedulerHandler = async (bot: Telegraf<IBotContext>): Promise<void> => {
   const repository = InversifyContainer.get<WeatherSubscribeRepository>(TYPE_REPOSITORY_CONTAINERS.WeatherSubscribeRepository);

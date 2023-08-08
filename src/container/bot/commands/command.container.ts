@@ -1,12 +1,11 @@
 import { IContainer, InversifyContainer } from '@container/inversifyContainer';
 import { TYPE_COMMAND_CONTAINERS } from './command.type';
-import { AnimalCommand } from '@bot/commands/animal.command';
-import { AbstactCommand } from '@bot/interfaces/command.class';
-import { GreetingCommand } from '@bot/commands/greeting.command';
-import { UnknownCommand } from '@bot/commands/unknown.command';
-import { WeatherCommand } from '@bot/commands/weather.command';
-import { SubscribeCommand } from '@bot/commands/subscribe.command';
-import { TaskCommand } from '@bot/commands/task.command';
+import {
+  AnimalCommand, GreetingCommand,
+  UnknownCommand, WeatherCommand,
+  SubscribeCommand, TaskCommand
+} from '@bot/commands';
+import { AbstactCommand } from '@bot/interfaces';
 
 export class CommandContainer implements IContainer {
   initContainer(): void {

@@ -1,7 +1,7 @@
 import { IContainer, InversifyContainer } from '@container/inversifyContainer';
 import { TYPE_RECOMMEND_CONTAINERS } from './recommend.type';
-import { IRecommendController, RecommendController } from '../../../bot/controllers/recommend.controller';
-import { IRecommendService, RecommendService } from '@bot/services/recommend.service';
+import { IRecommendService, RecommendService } from '@bot/services';
+import { IRecommendController, RecommendController } from '@bot/controllers/recommend.controller';
 
 export class RecommendContainer implements IContainer {
   initContainer(): void {

@@ -1,8 +1,7 @@
-import { SessionPlace } from '@bot/scenes/recomend/recommend.type';
-import { TYPE_API_CONTAINERS } from '@container/api/apiContainer.type';
-import { RecommendAPI } from '@infra/api/recommend/place';
-import { Feature } from '@infra/api/recommend/place.type';
 import { inject, injectable } from 'inversify';
+import { SessionPlace } from '@bot/scenes';
+import { TYPE_API_CONTAINERS } from '@container/api';
+import { RecommendAPI, Feature } from '@infra/api';
 
 export interface IRecommendService {
   getPlace: (sessionPlace: SessionPlace) => Promise<Feature[]>

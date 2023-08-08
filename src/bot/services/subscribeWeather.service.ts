@@ -1,9 +1,8 @@
-import { SessionSubscribeWeather, SessionUnsubscribeWeather } from '@bot/scenes/weather/weather.interface';
-import { UserError } from '@common/exceptions/userError';
-import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository/repository.type';
-import { TWeatherSubscribeEntity } from '@infra/database/entities/weatherSubscribe.entity';
-import { WeatherSubscribeRepository } from '@infra/database/repository/weatherSubscribe.repository';
 import { inject, injectable } from 'inversify';
+import { SessionSubscribeWeather, SessionUnsubscribeWeather } from '@bot/scenes';
+import { UserError } from '@common/exceptions';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository';
+import { TWeatherSubscribeEntity, WeatherSubscribeRepository } from '@infra/database';
 
 export interface ISubscribeWeatherService {
   deleteWeather: (data: SessionUnsubscribeWeather) => Promise<boolean>;

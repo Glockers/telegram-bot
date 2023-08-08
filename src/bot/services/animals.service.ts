@@ -1,5 +1,5 @@
-import { TYPE_API_CONTAINERS } from '@container/api/apiContainer.type';
-import { Animals, PixelsAPI } from '@infra/api/animal/animal';
+import { TYPE_API_CONTAINERS } from '@container/api';
+import { Animals, PixelsAPI } from '@infra/api';
 import { inject, injectable } from 'inversify';
 
 export interface IAnimalService {
