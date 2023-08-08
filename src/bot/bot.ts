@@ -7,13 +7,13 @@ import { AbstactCommand } from './interfaces/command.class';
 import { InversifyContainer } from '@container/inversifyContainer';
 import { IBotContext } from './interfaces/context.interface';
 import { Stage } from './scenes/initStages';
-// import { ratelimitConfig } from '@config/ratelimit.config';
+import { ratelimitConfig } from '@config/ratelimit.config';
 import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
 import { initSheduler } from '@infra/sheduler/sheduler.service';
 import { TYPE_ACTION_CONTAINERS } from '@container/bot/actions/actions.type';
 import { AbstactAction } from './interfaces/actions.class';
 // @ts-ignore
-// import rateLimit from 'telegraf-ratelimit';
+import rateLimit from 'telegraf-ratelimit';
 
 export interface IBot {
   init: () => void;
@@ -73,7 +73,7 @@ export class Bot implements IBot {
   private initMiddlewares() {
     this.bot.use(session());
     this.bot.use(new Stage().getInstance().middleware());
-    // this.bot.use(rateLimit(ratelimitConfig));
+    this.bot.use(rateLimit(ratelimitConfig));
     this.handleError();
   }
 

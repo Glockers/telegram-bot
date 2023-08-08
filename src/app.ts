@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { IBot } from '@bot/bot';
 import { InversifyContainer } from '@container/inversifyContainer';
-import { Logger } from '@common/utils/logger';
+import { Logger } from '@common/utils';
 import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
 import { initDatabase } from '@infra/database/init';
 
