@@ -1,11 +1,11 @@
-import { menuRecomend } from '@bot/buttons/recomend.button';
-import { Actions } from '@bot/constants/actions.enum';
-import { RecommendController } from '@bot/controllers/recommend.controller';
-import { AbstactAction } from '@bot/interfaces/actions.class';
-import { catchAsyncFunction } from '@common/helpers/catchAsync';
-import { TYPE_RECOMMEND_CONTAINERS } from '@container/bot/recommend/recommend.type';
-import { KindsPlace } from '@infra/api/recommend/place.type';
 import { inject, injectable } from 'inversify';
+import { menuRecomend } from '@bot/buttons';
+import { Actions } from '@bot/constants';
+import { RecommendController } from '@bot/controllers';
+import { AbstactAction } from '@bot/interfaces';
+import { catchAsyncFunction } from '@common/helpers';
+import { TYPE_RECOMMEND_CONTAINERS } from '@container/bot';
+import { KindsPlace } from '@infra/api';
 
 @injectable()
 export class RecommendAction extends AbstactAction {

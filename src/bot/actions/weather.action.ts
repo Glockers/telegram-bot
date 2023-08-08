@@ -1,12 +1,10 @@
-import { weatherMenu } from '@bot/buttons/weather.button';
-import { Actions } from '@bot/constants/actions.enum';
-import { CommandName } from '@bot/constants/command.enum';
-import { IWeatherlController } from '@bot/controllers/weather.controller';
-import { AbstactAction } from '@bot/interfaces/actions.class';
-import { catchAsyncFunction } from '@common/helpers/catchAsync';
-import { getCommand } from '@common/helpers/commandUtil';
-import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 import { inject, injectable } from 'inversify';
+import { weatherMenu } from '@bot/buttons';
+import { Actions, CommandName } from '@bot/constants';
+import { IWeatherlController } from '@bot/controllers';
+import { AbstactAction } from '@bot/interfaces';
+import { catchAsyncFunction, getCommand } from '@common/helpers';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot';
 
 @injectable()
 export class WeatherAction extends AbstactAction {
