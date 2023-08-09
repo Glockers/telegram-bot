@@ -9,7 +9,7 @@ export function convertStringToDate(time: string): Date | null {
   if (timeRegex.test(time)) {
     const [hours, minutes] = time.split(':').map(Number);
     const date = new Date();
-    date.setHours(hours - 3);
+    date.setHours(hours + 3);
     date.setMinutes(minutes);
     date.setSeconds(0);
     date.setMilliseconds(0);
