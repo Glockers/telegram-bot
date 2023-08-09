@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  pg:
+    container_name: local_pgdb
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=${TYPEORM_DATABASE}
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - '8888:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: ${PGADMIN_CONFIG_CONSOLE_LOG_LEVEL}
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: ${PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION}
+      PGADMIN_CONFIG_DEBUG: ${PGADMIN_CONFIG_DEBUG}
+  bot:
+    env_file:
+      - .env
+    depends_on:
+      - pg
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+    volumes:
+      - ./:/usr/src/app
+    container_name: bot
+    expose:
+      - '8080'
+    ports:
+      - '8080:8080'
+    command: npm run server:watch
+    restart: on-failure
+volumes:
+  postgres_data:
+  docker:
