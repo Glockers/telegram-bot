@@ -1,55 +1,52 @@
-import { SCENE } from 'bot/constants/scenes.enum';
-import { IBotContext } from 'bot/interfaces/context.interface';
 import { Scenes } from 'telegraf';
-import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
-import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { IWeatherService } from 'bot/services/weather.service';
-import { formWeatherReport } from 'common/utils/replyUtil';
+import { ISceneBehave } from '@bot/scenes';
+import { AppScenes, CITY_NOT_FOUND, WRITE_CITY } from '@bot/constants';
+import { IBotContext } from '@bot/interfaces';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather';
+import { IWeatherService } from '@bot/services';
+import { formWeatherReport } from '@common/utils';
 
 @injectable()
 export class WeatherScene implements ISceneBehave {
-  scene: Scenes.BaseScene<IBotContext>;
+  private readonly scene: Scenes.BaseScene<IBotContext>;
 
-  private weatherService: IWeatherService;
+  private readonly weatherService: IWeatherService;
 
   constructor(
-    // @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeService
     @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
-
   ) {
     this.weatherService = weatherService;
-    this.scene = new Scenes.BaseScene<IBotContext>(SCENE.WEATHER);
+    this.scene = new Scenes.BaseScene<IBotContext>(AppScenes.WEATHER);
     this.init();
   }
 
-  getInstance() {
+  getInstance(): Scenes.BaseScene<IBotContext> {
     return this.scene;
   };
 
-  async getWeather(ctx: IBotContext) {
-    await ctx.scene.enter('weather');
+  async getWeather(ctx: IBotContext): Promise<void> {
+    await ctx.scene.enter(AppScenes.WEATHER);
   }
 
-  init() {
+  init(): void {
     this.askAboutCity();
     this.handleWeather();
   }
 
-  private askAboutCity() {
+  private askAboutCity(): void {
     this.scene.enter((ctx) => {
-      ctx.reply('Пришли мне название города');
+      ctx.reply(WRITE_CITY);
     });
   }
 
-  private async handleWeather() {
+  private async handleWeather(): Promise<void> {
     this.scene.on('text', async (ctx) => {
       const res = await this.weatherService.getWeatherByCity(ctx.message.text);
       if (!res) {
-        ctx.reply('Такого города нет! Попробуй еще');
+        ctx.reply(CITY_NOT_FOUND);
       } else {
-        const message = formWeatherReport(res);
-        ctx.reply(message);
+        ctx.reply(formWeatherReport(res));
         ctx.scene.leave();
       }
     });

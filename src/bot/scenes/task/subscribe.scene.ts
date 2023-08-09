@@ -1,20 +1,20 @@
-import { SCENE } from 'bot/constants/scenes.enum';
-import { ISceneBehave } from '../scene.type';
 import { Scenes } from 'telegraf';
 import { inject, injectable } from 'inversify';
-import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { extractMessageFromChat } from 'common/helpers/contextHelpers';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
-import { convertStringToDate } from 'common/utils/dateUtils';
-import { backMenuTask } from 'bot/buttons/task.button';
-import { SubscribeTaskService } from 'bot/services/subscriptionsTask.service';
+import { ISceneBehave } from '@bot/scenes';
+import { AppScenes, INVALID_TIME_FORMAT, NOTIFICATION_TASK_SET, WRITE_TIME } from '@bot/constants';
+import { TYPE_TASK_CONTAINERS } from '@container/bot/task';
+import { IBotContext } from '@bot/interfaces';
+import { extractMessageFromChat } from '@common/helpers';
+import { convertStringToDate } from '@common/utils';
+import { backMenuTask } from '@bot/buttons';
+import { SubscribeTaskService } from '@bot/services';
+import { Message } from 'telegraf/typings/core/types/typegram';
 
 @injectable()
 export class SubscribeTaskScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private scene: Scenes.WizardScene<IBotContext>;
 
-  subscribeTaskService: SubscribeTaskService;
+  private subscribeTaskService: SubscribeTaskService;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.SubscribeTaskService) subscribeTaskService: SubscribeTaskService
@@ -23,32 +23,31 @@ export class SubscribeTaskScene implements ISceneBehave {
     this.subscribeTaskService = subscribeTaskService;
 
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.SET_NOTIFICATION_TASK,
+      AppScenes.SET_NOTIFICATION_TASK,
       this.askTime,
       this.extractTime
     );
   }
 
-  getInstance() {
+  getInstance(): Scenes.WizardScene<IBotContext> {
     return this.scene;
   }
 
-  askTime(ctx: IBotContext) {
-    ctx.editMessageText('Введите время (формат: 15:59)');
+  askTime(ctx: IBotContext): void {
+    ctx.editMessageText(WRITE_TIME);
     ctx.wizard.next();
   };
 
-  extractTime = (ctx: IBotContext) => {
+  extractTime = (ctx: IBotContext): Promise<Message.TextMessage> | undefined => {
     const time = convertStringToDate(extractMessageFromChat(ctx));
-    if (!time) return ctx.reply('Неверно введена дата. Формат даты: 15:59');
+    if (!time) return ctx.reply(INVALID_TIME_FORMAT);
     ctx.scene.session.subscribeTask.time = time;
     this.handle(ctx);
   };
 
-  handle = async (ctx: IBotContext) =>
-    catchAsyncFunction(ctx, async () => {
-      await this.subscribeTaskService.subscribeOnTask(ctx.scene.session.subscribeTask);
-      ctx.reply('Вы установили уведомление на задачу', backMenuTask);
-      return ctx.scene.leave();
-    });
+  handle = async (ctx: IBotContext) => {
+    await this.subscribeTaskService.subscribeOnTask(ctx.scene.session.subscribeTask);
+    ctx.reply(NOTIFICATION_TASK_SET, backMenuTask);
+    return ctx.scene.leave();
+  };
 }

@@ -1,25 +1,31 @@
+import { ISceneBehave } from '@bot/scenes';
 import { inject, injectable } from 'inversify';
-import { ISceneBehave } from '../scene.type';
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { IBotContext } from '@bot/interfaces';
 import { Scenes } from 'telegraf';
-import { SCENE } from 'bot/constants/scenes.enum';
-import { extractMessageFromChat } from 'common/helpers/contextHelpers';
-import { TYPE_RECOMMEND_CONTAINERS } from 'container/bot/recommend/recommend.type';
-import { IRecommendService } from 'bot/services/recommend.service';
-import { formatRecommendPlace } from 'common/utils/replyUtil';
+import { AppScenes, CITY_NOT_FOUND, WRITE_CITY } from '@bot/constants';
+import { extractMessageFromChat } from '@common/helpers';
+import { TYPE_RECOMMEND_CONTAINERS } from '@container/bot/recommend';
+import { IRecommendService, IWeatherService } from '@bot/services';
+import { formatRecommendPlace } from '@common/utils';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather/weather.type';
 
 @injectable()
 export class RecommendScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private scene: Scenes.WizardScene<IBotContext>;
 
-  recommendService: IRecommendService;
+  private readonly recommendService: IRecommendService;
+
+  private readonly weatherService: IWeatherService;
 
   constructor(
-    @inject(TYPE_RECOMMEND_CONTAINERS.RecommendService) recommendService: IRecommendService
+    @inject(TYPE_RECOMMEND_CONTAINERS.RecommendService) recommendService: IRecommendService,
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
+
   ) {
     this.recommendService = recommendService;
+    this.weatherService = weatherService;
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.GET_RECOMMEND_PLACE,
+      AppScenes.GET_RECOMMEND_PLACE,
       this.askCity,
       this.askRate
     );
@@ -30,14 +36,18 @@ export class RecommendScene implements ISceneBehave {
   }
 
   askCity = async (ctx: IBotContext): Promise<void> => {
-    ctx.reply('Введите название города');
+    ctx.reply(WRITE_CITY);
     ctx.wizard.next();
   };
 
   askRate = async (ctx: IBotContext): Promise<void> => {
     const city = extractMessageFromChat(ctx);
+    const checkedCity = await this.weatherService.getWeatherByCity(city);
+    if (!checkedCity) {
+      ctx.reply(CITY_NOT_FOUND);
+      return;
+    }
     ctx.scene.session.places.city = city;
-
     this.handle(ctx);
   };
 

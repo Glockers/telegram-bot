@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
-import axios from 'axios';
-import { API } from 'infra/api/api.class';
-import { FeatureCollection, ICountryData, Kinds } from './place.type';
+import axios, { AxiosInstance } from 'axios';
+import { API } from '@infra/api/api.class';
+import { FeatureCollection, ICountryData, KindsPlace } from './place.type';
 
 @injectable()
 export class RecommendAPI extends API {
@@ -21,24 +21,26 @@ export class RecommendAPI extends API {
     });
   }
 
-  private getСordByCity(city: string) {
-    return this.getInstance().get<ICountryData>(this.URL_CORD, {
+  private async getСordByCity(city: string): Promise<ICountryData> {
+    const data = await this.getInstance().get<ICountryData>(this.URL_CORD, {
       params: {
         apikey: this.configService.get('RECOMMEND_TOKEN'),
         format: 'json',
         name: city
       }
     });
+
+    return data.data;
   };
 
-  async getPlaces(city: string, kind: Kinds): Promise<FeatureCollection> {
+  async getPlaces(city: string, kind: KindsPlace): Promise<FeatureCollection> {
     const result = await this.getСordByCity(city);
     const places = await this.getInstance().get<FeatureCollection>(this.URL_PLACES, {
       params: {
         apikey: this.configService.get('RECOMMEND_TOKEN'),
         kinds: kind,
-        lat: result.data.lat,
-        lon: result.data.lon,
+        lat: result.lat,
+        lon: result.lon,
         radius: 50000,
         rate: 1,
         limit: 5
@@ -48,7 +50,7 @@ export class RecommendAPI extends API {
     return places.data;
   }
 
-  getInstance() {
+  getInstance(): AxiosInstance {
     return this.axiosInstance;
   }
 }

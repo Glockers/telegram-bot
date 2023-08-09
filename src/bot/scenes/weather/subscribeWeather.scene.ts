@@ -1,15 +1,17 @@
-import { SCENE } from 'bot/constants/scenes.enum';
 import { Scenes } from 'telegraf';
-import { ISubscribeWeatherService } from 'bot/services/subscribeWeather.service';
-import { ISceneBehave } from '../scene.type';
 import { inject, injectable } from 'inversify';
-import { TYPE_WEATHER_CONTAINERS } from 'container/bot/weather/weather.type';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { exctractUserIdFromChat, extractMessageFromChat } from 'common/helpers/contextHelpers';
-import { ISceneSubscribeWeather } from './weather.interface';
-import { convertStringToDate } from 'common/utils/dateUtils';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
-import { UserError } from 'common/exceptions/userError';
+import { ISceneBehave, SessionSubscribeWeather } from '@bot/scenes';
+import {
+  AppScenes, CITY_NOT_FOUND,
+  INVALID_TIME_FORMAT, SUCCESSFUL_WEATHER_SUB,
+  WRITE_CITY, WRITE_TIME
+} from '@bot/constants';
+import { ISubscribeWeatherService, IWeatherService } from '@bot/services';
+import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather';
+import { IBotContext } from '@bot/interfaces';
+import { exctractUserIdFromChat, extractMessageFromChat } from '@common/helpers';
+import { convertStringToDate } from '@common/utils';
+import { backToWeatherMenu } from '@bot/buttons';
 
 export interface SubscribeWeatherData {
   city: string,
@@ -18,49 +20,60 @@ export interface SubscribeWeatherData {
 
 @injectable()
 export class SubscribeOnWeatherScene implements ISceneBehave {
-  scene: Scenes.WizardScene<IBotContext>;
+  private readonly scene: Scenes.WizardScene<IBotContext>;
 
-  subscribeService: ISubscribeWeatherService;
+  private readonly subscribeService: ISubscribeWeatherService;
+
+  private readonly weatherService: IWeatherService;
 
   constructor(
-    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeWeatherService
+    @inject(TYPE_WEATHER_CONTAINERS.SubscribeService) subscribeService: ISubscribeWeatherService,
+    @inject(TYPE_WEATHER_CONTAINERS.WeatherService) weatherService: IWeatherService
   ) {
     this.subscribeService = subscribeService;
+    this.weatherService = weatherService;
     this.scene = new Scenes.WizardScene<IBotContext>(
-      SCENE.SUBSCRIBE_ON_WEATHER,
+      AppScenes.SUBSCRIBE_ON_WEATHER,
       this.askCity,
       this.askTime,
       this.exctractData
     );
   }
 
-  getInstance() {
+  getInstance(): Scenes.WizardScene<IBotContext> {
     return this.scene;
   }
 
-  askCity = async (ctx: IBotContext) => {
-    ctx.reply('Введите город');
-    ctx.scene.session.subscribeWeather = {} as ISceneSubscribeWeather;
-    return ctx.wizard.next();
+  askCity = async (ctx: IBotContext): Promise<void> => {
+    ctx.reply(WRITE_CITY);
+    ctx.scene.session.subscribeWeather = {} as SessionSubscribeWeather;
+    ctx.wizard.next();
   };
 
-  askTime = async (ctx: IBotContext) => {
+  askTime = async (ctx: IBotContext): Promise<void> => {
     const city = extractMessageFromChat(ctx);
+    const checkedCity = await this.weatherService.getWeatherByCity(city);
+    if (!checkedCity) {
+      ctx.reply(CITY_NOT_FOUND);
+      return;
+    }
     ctx.scene.session.subscribeWeather.city = city;
-    ctx.reply('Введите время');
-    return ctx.wizard.next();
+    ctx.reply(WRITE_TIME);
+    ctx.wizard.next();
   };
 
-  exctractData = async (ctx: IBotContext) =>
-    catchAsyncFunction(ctx, () => {
-      const time = extractMessageFromChat(ctx);
-      const convertedTime = convertStringToDate(time);
-      if (!convertedTime) throw UserError.sendMessage('Введена неккоректо дата!');
-      ctx.scene.session.subscribeWeather.time = convertedTime;
+  exctractData = async (ctx: IBotContext): Promise<void> => {
+    const time = extractMessageFromChat(ctx);
+    const convertedTime = convertStringToDate(time);
+    if (!convertedTime) {
+      ctx.reply(INVALID_TIME_FORMAT);
+      return;
+    }
+    ctx.scene.session.subscribeWeather.time = convertedTime;
 
-      const userID = exctractUserIdFromChat(ctx);
-      const resOperation = this.subscribeService.subscibeOnWeather(ctx.scene.session.subscribeWeather, userID);
-      if (resOperation) ctx.reply('Вы успешно подписались!');
-      return ctx.scene.leave();
-    });
+    const userID = exctractUserIdFromChat(ctx);
+    const resOperation = this.subscribeService.subscibeOnWeather(ctx.scene.session.subscribeWeather, userID);
+    if (resOperation) ctx.reply(SUCCESSFUL_WEATHER_SUB, backToWeatherMenu);
+    ctx.scene.leave();
+  };
 }

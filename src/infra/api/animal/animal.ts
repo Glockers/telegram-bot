@@ -1,10 +1,9 @@
 import { injectable } from 'inversify';
-import axios from 'axios';
-import { API } from 'infra/api/api.class';
-import { getRandomNumber } from 'common/utils/random';
+import axios, { AxiosInstance } from 'axios';
+import { API } from '@infra/api/api.class';
+import { getRandomNumber } from '@common/utils/random';
 
-/* eslint-disable no-unused-vars */
-export enum EAnimal {
+export enum Animals {
   CAT = 'cat',
   DOG = 'dog'
 }
@@ -24,17 +23,19 @@ export class PixelsAPI extends API {
     });
   }
 
-  getAnimal(animal: EAnimal) {
-    return this.getInstance().get('search', {
+  async getAnimal(animal: Animals) {
+    const result = await this.getInstance().get('search', {
       params: {
         query: animal,
         page: getRandomNumber(1, 15),
         per_page: getRandomNumber(1, 15)
       }
     });
+
+    return result.data;
   };
 
-  getInstance() {
+  getInstance(): AxiosInstance {
     return this.axiosInstance;
   }
 }

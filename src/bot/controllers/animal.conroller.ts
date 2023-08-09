@@ -1,18 +1,18 @@
-import { chooseAnimalPanel } from './../buttons/animal.button';
-import { Actions } from 'bot/constants/actions.enum';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { IAnimalService } from 'bot/services/animals.service';
-import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
 import { inject, injectable } from 'inversify';
+import { Actions, FETCHING_IMAGE } from '@bot/constants';
+import { IBotContext } from '@bot/interfaces';
+import { IAnimalService } from '@bot/services';
+import { TYPE_ANIMAL_CONTAINERS } from '@container/bot/animals';
+import { chooseAnimalPanel } from '@bot/buttons';
 
 export interface IAnimalController {
-  getRandomCat: (ctx: IBotContext) => void;
-  getRandomDog: (ctx: IBotContext) => void;
+  getRandomCat: (ctx: IBotContext) => Promise<void>;
+  getRandomDog: (ctx: IBotContext) => Promise<void>;
 }
 
 @injectable()
 export class AnimalController implements IAnimalController {
-  animalService: IAnimalService;
+  private readonly animalService: IAnimalService;
 
   constructor(
     @inject(TYPE_ANIMAL_CONTAINERS.AnimalService) animalService: IAnimalService
@@ -20,20 +20,20 @@ export class AnimalController implements IAnimalController {
     this.animalService = animalService;
   }
 
-  async getRandomCat(ctx: IBotContext) {
+  async getRandomCat(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.CAT);
     if (result) {
-      const replyMessage = await ctx.reply('Получаем картинку...');
+      const replyMessage = await ctx.reply(FETCHING_IMAGE);
       return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.CAT)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });
     }
   }
 
-  async getRandomDog(ctx: IBotContext) {
+  async getRandomDog(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.DOG);
     if (result) {
-      const replyMessage = await ctx.reply('Получаем картинку...');
+      const replyMessage = await ctx.reply(FETCHING_IMAGE);
       return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.DOG)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });

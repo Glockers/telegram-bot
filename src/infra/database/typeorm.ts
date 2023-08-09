@@ -1,9 +1,9 @@
 import { IConfigService } from '@config/config.service';
-import { InversifyContainer } from 'container/inversifyContainer';
+import { InversifyContainer } from '@container/inversifyContainer';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { TaskEntity } from './entities/task.entity';
 import { WeatherSubscribeEntity } from './entities/weatherSubscribe.entity';
-import { TYPE_BOT_CONTAINERS } from 'container/bot/botContainer.type';
+import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
 import { TaskSubscribeEntity } from './entities/taskSubscribe.entity';
 
 export class Database {

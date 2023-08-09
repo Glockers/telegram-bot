@@ -1,6 +1,7 @@
-import { Actions } from 'bot/constants/actions.enum';
-import { ITaskEntity } from 'infra/database/entities/task.entity';
 import { Markup } from 'telegraf';
+import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
+import { ITaskEntity } from '@infra/database';
+import { Actions } from '@bot/constants';
 
 export const taskMenu = Markup.inlineKeyboard([
   [
@@ -20,7 +21,7 @@ export const backMenuTask = Markup.inlineKeyboard([
   ]
 ]);
 
-export const setTaskPanel = (isSubscribe: boolean, taskID: number) => {
+export const setTaskPanel = (isSubscribe: boolean, taskID: number): Markup.Markup<InlineKeyboardMarkup> => {
   const serializedTaskInfo = JSON.stringify({ id: taskID });
   const deleteHandlerText = `${Actions.DELETE_TASK}?${serializedTaskInfo}`;
   let selecteTitle = '';
@@ -40,7 +41,7 @@ export const setTaskPanel = (isSubscribe: boolean, taskID: number) => {
   ]);
 };
 
-export const buttonInfoTask = (tasks: ITaskEntity[]) => {
+export const buttonInfoTask = (tasks: ITaskEntity[]): Markup.Markup<InlineKeyboardMarkup> => {
   const buttonTasks = [];
   for (const element of tasks) {
     const text = 'task_detail?' + JSON.stringify({ id: element.id });

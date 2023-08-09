@@ -1,32 +1,23 @@
 import { injectable } from 'inversify';
-import { AbstactCommand } from '../interfaces/command.class';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { SCENE } from 'bot/constants/scenes.enum';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { CommandName, AppScenes } from '@bot/constants';
+import { CommandHandlers, IBotContext, AbstactCommand } from '@bot/interfaces';
 
 @injectable()
 export class WeatherCommand extends AbstactCommand {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(
-  ) {
-    super();
-  }
-
   initCommands(): void {
-    this.bot.command(COMMAND_NAME.WEATHER, (ctx) =>
-      this.getCommands()[COMMAND_NAME.WEATHER]!(ctx)
+    this.bot.command(CommandName.WEATHER, (ctx) =>
+      this.getCommands()[CommandName.WEATHER]!(ctx)
     );
   }
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [COMMAND_NAME.WEATHER]: this.weatherHandler
+      [CommandName.WEATHER]: this.weatherHandler
     };
     return commandHandlers;
   }
 
   private weatherHandler(ctx: IBotContext): void {
-    ctx.scene.enter(SCENE.WEATHER);
+    ctx.scene.enter(AppScenes.WEATHER);
   }
 }

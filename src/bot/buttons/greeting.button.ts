@@ -1,5 +1,6 @@
-import { Actions } from 'bot/constants/actions.enum';
 import { Markup } from 'telegraf';
+import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
+import { Actions } from '@bot/constants';
 
 export const helpMenu = Markup.inlineKeyboard([
   [
@@ -18,7 +19,7 @@ export const helpMenu = Markup.inlineKeyboard([
 ]
 );
 
-export const backToMainMenu = (choose: Actions.HELP_MENU | Actions.HELP_MENU_SCEBE) => {
+export const backToMainMenu = (choose: Actions.HELP_MENU | Actions.HELP_MENU_SCEBE): Markup.Markup<InlineKeyboardMarkup> => {
   return Markup.inlineKeyboard([
     [
       Markup.button.callback('Назад в меню', choose)

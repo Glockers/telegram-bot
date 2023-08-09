@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-export enum SCENE {
+export enum AppScenes {
   SUBSCRIBE_ON_WEATHER = 'subcribe_on_weather',
   UNSUBSCRIBE_FROM_WEATHER = 'unsubscribe_from_weather',
   WEATHER = 'weather',
@@ -9,5 +8,5 @@ export enum SCENE {
   CANCEL_NOTIFICATION_TASK = 'cancel_notification_task',
   SKIP = 'skip',
   HELP = 'help',
-  GET_RECOMMEND_PLACE = 'GET_RECCOMD'
+  GET_RECOMMEND_PLACE = 'get_recommend_place'
 }

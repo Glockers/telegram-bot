@@ -1,14 +1,12 @@
-import { AbstactCommand } from '../interfaces/command.class';
 import { inject, injectable } from 'inversify';
-import { TYPE_ANIMAL_CONTAINERS } from 'container/bot/animals/animalContainer.type';
-import { IAnimalController } from 'bot/controllers/animal.conroller';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
+import { TYPE_ANIMAL_CONTAINERS } from '@container/bot/animals';
+import { IAnimalController } from '@bot/controllers';
+import { IBotContext, AbstactCommand, CommandHandlers } from '@bot/interfaces';
+import { CommandName } from '@bot/constants';
 
 @injectable()
 export class AnimalCommand extends AbstactCommand {
-  private animalController: IAnimalController;
+  private readonly animalController: IAnimalController;
 
   constructor(
     @inject(TYPE_ANIMAL_CONTAINERS.AnimalController) animalController: IAnimalController
@@ -21,14 +19,14 @@ export class AnimalCommand extends AbstactCommand {
     this.catHandler = this.catHandler.bind(this);
     this.dogHandler = this.dogHandler.bind(this);
 
-    this.bot.command([COMMAND_NAME.CAT], (ctx) => this.getCommands()[COMMAND_NAME.CAT]!(ctx));
-    this.bot.command([COMMAND_NAME.DOG], (ctx) => this.getCommands()[COMMAND_NAME.DOG]!(ctx));
+    this.bot.command([CommandName.CAT], (ctx) => this.getCommands()[CommandName.CAT]!(ctx));
+    this.bot.command([CommandName.DOG], (ctx) => this.getCommands()[CommandName.DOG]!(ctx));
   }
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [COMMAND_NAME.CAT]: this.catHandler,
-      [COMMAND_NAME.DOG]: this.dogHandler
+      [CommandName.CAT]: this.catHandler,
+      [CommandName.DOG]: this.dogHandler
     };
     return commandHandlers;
   }

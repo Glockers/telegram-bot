@@ -1,20 +1,22 @@
-import { ISubscribeTaskSession } from 'bot/scenes/task/task.interface';
-import { TYPE_REPOSITORY_CONTAINERS } from 'container/repository/repository.type';
-import { ITaskSubscribeEntity } from 'infra/database/entities/taskSubscribe.entity';
-import { ITaskSubscribe, TaskSubscribeRepository } from 'infra/database/repository/taskSubscribe.repository';
 import { inject, injectable } from 'inversify';
+import { SessionSubscribeTask } from '@bot/scenes';
+import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository';
+import {
+  ITaskSubscribeEntity, ITaskSubscribe,
+  TaskSubscribeRepository, TaskRepository
+} from '@infra/database';
 import { TaskService } from './task.service';
-import { TaskRepository } from 'infra/database/repository/task.repository';
+import { SUB_TASK_NOT_FOUND } from '@bot/constants';
 
 export interface ISubscribeTaskService {
   getSubscriptionTaskById: (taskID: number) => Promise<ITaskSubscribeEntity | null>;
-  subscribeOnTask: (data: ISubscribeTaskSession) => Promise<void>;
+  subscribeOnTask: (data: SessionSubscribeTask) => Promise<void>;
   unSubFromTask(subID: number): Promise<void>;
 }
 
 @injectable()
 export class SubscribeTaskService extends TaskService implements ISubscribeTaskService {
-  taskSubscribeRepository: TaskSubscribeRepository;
+  private readonly taskSubscribeRepository: TaskSubscribeRepository;
 
   constructor(
     @inject(TYPE_REPOSITORY_CONTAINERS.TaskSubscribeRepository) taskSubscribeRepository: TaskSubscribeRepository,
@@ -24,7 +26,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
     this.taskSubscribeRepository = taskSubscribeRepository;
   }
 
-  async getSubs() {
+  async getSubs(): Promise<ITaskSubscribeEntity[]> {
     return await this.taskSubscribeRepository.getAll();
   }
 
@@ -32,7 +34,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
     return await this.taskSubscribeRepository.findOneByTaskID(taskID);
   }
 
-  async subscribeOnTask(data: ISubscribeTaskSession): Promise<void> {
+  async subscribeOnTask(data: SessionSubscribeTask): Promise<void> {
     const sub = await this.getTaskById(data.taskID);
     const newSub: ITaskSubscribe = {
       ...data,
@@ -43,7 +45,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
 
   async unSubFromTask(subID: number): Promise<void> {
     const sub = await this.getSubscriptionTaskById(subID);
-    if (!sub) throw new Error('Такой подписки нет!');
+    if (!sub) throw new Error(SUB_TASK_NOT_FOUND);
     await this.taskSubscribeRepository.delete(sub);
   }
 }

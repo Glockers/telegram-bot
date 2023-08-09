@@ -1,15 +1,10 @@
-import { AbstactCommand } from '../interfaces/command.class';
 import { injectable } from 'inversify';
-import { CommandHandlers } from 'bot/interfaces/command.interface';
-import { IBotContext } from 'bot/interfaces/context.interface';
+import { CommandHandlers, IBotContext, AbstactCommand } from '@bot/interfaces';
+import { Actions, UNKNOWN_COMMAND } from '@bot/constants';
+import { backToMainMenu } from '@bot/buttons';
 
 @injectable()
 export class UnknownCommand extends AbstactCommand {
-  // eslint-disable-next-line no-useless-constructor
-  constructor() {
-    super();
-  }
-
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
     };
@@ -17,13 +12,12 @@ export class UnknownCommand extends AbstactCommand {
   }
 
   initCommands(): void {
-    this.bot.on('message', (ctx: IBotContext) => {
+    this.bot.on('message', (ctx: IBotContext): void => {
       this.uknownHandle(ctx);
     });
   }
 
   private uknownHandle(ctx: IBotContext): void {
-    const unknownCommandText = 'Неизвестная команда. Введите /help для получения списка доступных команд.'; // TODO вынести в константу
-    ctx.reply(unknownCommandText);
+    ctx.reply(UNKNOWN_COMMAND, backToMainMenu(Actions.HELP_MENU));
   }
 }

@@ -1,16 +1,14 @@
 import { inject, injectable } from 'inversify';
-import { TYPE_TASK_CONTAINERS } from 'container/bot/task/task.type';
-import { ITaskController } from 'bot/controllers/task.controller';
-import { AbstactAction } from 'bot/interfaces/actions.class';
-import { Actions } from 'bot/constants/actions.enum';
-import { getCommand } from 'common/helpers/commandUtil';
-import { COMMAND_NAME } from 'bot/constants/command.enum';
-import { taskMenu } from 'bot/buttons/task.button';
-import { catchAsyncFunction } from 'common/helpers/catchAsync';
+import { TYPE_TASK_CONTAINERS } from '@container/bot';
+import { ITaskController } from '@bot/controllers';
+import { AbstactAction } from '@bot/interfaces';
+import { Actions, CommandName, TASK_MENU } from '@bot/constants';
+import { getCommand, catchAsyncFunction } from '@common/helpers';
+import { taskMenu } from '@bot/buttons';
 
 @injectable()
 export class TaskAction extends AbstactAction {
-  private taskController: ITaskController;
+  private readonly taskController: ITaskController;
 
   constructor(
     @inject(TYPE_TASK_CONTAINERS.TaskController) taskController: ITaskController
@@ -19,17 +17,17 @@ export class TaskAction extends AbstactAction {
     this.taskController = taskController;
   }
 
-  init() {
+  init(): void {
     this.bot.action(Actions.MY_TASK, (ctx) => {
-      catchAsyncFunction(ctx, () => getCommand(COMMAND_NAME.GET_MY_TASKS, ctx));
+      catchAsyncFunction(ctx, () => getCommand(CommandName.GET_MY_TASKS, ctx));
     });
 
     this.bot.action(Actions.TASK, (ctx) => {
-      ctx.editMessageText('Меню задачи', taskMenu);
+      ctx.editMessageText(TASK_MENU, taskMenu);
     });
 
     this.bot.action(Actions.ADD_TASK, (ctx) => {
-      getCommand(COMMAND_NAME.ADD_TASK, ctx);
+      getCommand(CommandName.ADD_TASK, ctx);
     });
 
     this.bot.action(/task_detail\?(.*)/, (ctx) => {

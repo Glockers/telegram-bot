@@ -1,5 +1,5 @@
-import { TYPE_API_CONTAINERS } from 'container/api/apiContainer.type';
-import { EAnimal, PixelsAPI } from 'infra/api/animal/animal';
+import { TYPE_API_CONTAINERS } from '@container/api';
+import { Animals, PixelsAPI } from '@infra/api';
 import { inject, injectable } from 'inversify';
 
 export interface IAnimalService {
@@ -8,7 +8,7 @@ export interface IAnimalService {
 
 @injectable()
 export class AnimalService implements IAnimalService {
-  private pixelAPI: PixelsAPI;
+  private readonly pixelAPI: PixelsAPI;
 
   constructor(@inject(TYPE_API_CONTAINERS.PixelsAPI) pixelAPI: PixelsAPI) {
     this.pixelAPI = pixelAPI;
@@ -16,8 +16,8 @@ export class AnimalService implements IAnimalService {
 
   async getRandmonAnimal(message: string): Promise<string | null> {
     const selectedCommand = message;
-    const animal = await this.pixelAPI.getAnimal(selectedCommand as EAnimal);
-    const animalImage: string = animal.data!.photos[0]!.url;
+    const animal = await this.pixelAPI.getAnimal(selectedCommand as Animals);
+    const animalImage: string = animal.photos[0]!.url;
     return animalImage ?? null;
   };
 }

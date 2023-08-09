@@ -1,8 +1,8 @@
-import { IBotContext } from 'bot/interfaces/context.interface';
-import { UserError } from 'common/exceptions/userError';
-import { Logger } from '../utils/logger';
+import { IBotContext } from '@bot/interfaces';
+import { UserError } from '@common/exceptions';
+import { Logger } from '@common/utils';
 
-export async function catchAsyncFunction(ctx: IBotContext, asyncFunction: Function) {
+export async function catchAsyncFunction(ctx: IBotContext, asyncFunction: Function): Promise<unknown> {
   try {
     return await asyncFunction(ctx);
   } catch (error) {

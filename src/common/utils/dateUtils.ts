@@ -1,4 +1,4 @@
-export function convertDateToString(date: Date) {
+export function convertDateToString(date: Date): string {
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
@@ -18,13 +18,13 @@ export function convertStringToDate(time: string): Date | null {
   return null;
 }
 
-export function getCurrentDate() {
+export function getCurrentDate(): Date {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
   return new Date(0, 0, 0, hours, minutes);
 }
 
-export function compareTime(date1: Date, date2: Date) {
+export function compareTime(date1: Date, date2: Date): boolean {
   return date1.getHours() === date2.getHours() && date1.getMinutes() === date2.getMinutes();
 }
