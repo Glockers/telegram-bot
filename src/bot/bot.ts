@@ -10,7 +10,6 @@ import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
 import { initSheduler } from '@infra/sheduler';
 import { TYPE_ACTION_CONTAINERS } from '@container/bot/actions/actions.type';
 import { Stage } from './scenes/initStages';
-// @ts-ignore
 import rateLimit from 'telegraf-ratelimit';
 import { ERROR_TRY_AGAIN_LATER } from './constants';
 
