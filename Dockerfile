@@ -2,7 +2,7 @@ FROM node:lts-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install
 
@@ -14,10 +14,10 @@ FROM node:lts-alpine AS server
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package.json .
 
-RUN npm install --production
+RUN npm install
 
 COPY --from=builder /usr/src/app/dist ./dist
 
-CMD ["npm", "start"]
+CMD ["npm", "run" , "start"]
