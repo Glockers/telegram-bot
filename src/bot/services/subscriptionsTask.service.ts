@@ -6,6 +6,7 @@ import {
   TaskSubscribeRepository, TaskRepository
 } from '@infra/database';
 import { TaskService } from './task.service';
+import { SUB_TASK_NOT_FOUND } from '@bot/constants';
 
 export interface ISubscribeTaskService {
   getSubscriptionTaskById: (taskID: number) => Promise<ITaskSubscribeEntity | null>;
@@ -44,7 +45,7 @@ export class SubscribeTaskService extends TaskService implements ISubscribeTaskS
 
   async unSubFromTask(subID: number): Promise<void> {
     const sub = await this.getSubscriptionTaskById(subID);
-    if (!sub) throw new Error('Такой подписки нет!');
+    if (!sub) throw new Error(SUB_TASK_NOT_FOUND);
     await this.taskSubscribeRepository.delete(sub);
   }
 }

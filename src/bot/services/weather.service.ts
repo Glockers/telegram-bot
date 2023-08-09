@@ -4,6 +4,7 @@ import { UserError } from '@common/exceptions';
 import { TYPE_API_CONTAINERS } from '@container/api';
 import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
 import { WeatherAPI, WeatherAPIData, WeatherData } from '@infra/api';
+import { EMPTY_CITY_FIELD_ERROR } from '@bot/constants';
 
 export interface IWeatherService {
   getWeatherByCity: (city: string) => Promise<WeatherData | null>
@@ -24,7 +25,7 @@ export class WeatherService implements IWeatherService {
   }
 
   async getWeatherByCity(city: string): Promise<WeatherData | null> {
-    if (!city) throw UserError.sendMessage('Поле для города не может быть пустым!');
+    if (!city) throw UserError.sendMessage(EMPTY_CITY_FIELD_ERROR);
     const result = await this.weatherAPI.getWeatherByCity(city, this.configService.get('WEATHER_TOKEN'));
     if (!result) return null;
     return this.parseWeather(result);

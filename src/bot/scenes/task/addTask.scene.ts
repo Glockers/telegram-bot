@@ -1,7 +1,7 @@
 import { Scenes } from 'telegraf';
 import { inject, injectable } from 'inversify';
 import { ISceneBehave, SessionAddTask } from '@bot/scenes';
-import { AppScenes } from '@bot/constants';
+import { AppScenes, TASK_ADDED, MISSING_TASK_DESCRIPTION, MISSING_TASK_TITLE } from '@bot/constants';
 import { ITaskService } from '@bot/services';
 import { TYPE_TASK_CONTAINERS } from '@container/bot/task/task.type';
 import { IBotContext } from '@bot/interfaces';
@@ -30,14 +30,14 @@ export class AddTaskScene implements ISceneBehave {
 
   askTitle = async (ctx: IBotContext): Promise<void> => {
     ctx.scene.session.addTask = {} as SessionAddTask;
-    ctx.reply('Введите заголовок задачи');
+    ctx.reply(MISSING_TASK_TITLE);
     ctx.wizard.next();
   };
 
   askDescription = async (ctx: IBotContext): Promise<void> => {
     const title = extractMessageFromChat(ctx);
     ctx.scene.session.addTask.title = title;
-    ctx.reply('Введите описание');
+    ctx.reply(MISSING_TASK_DESCRIPTION);
     ctx.wizard.next();
   };
 
@@ -50,7 +50,7 @@ export class AddTaskScene implements ISceneBehave {
   };
 
   handle = async (ctx: IBotContext): Promise<void> => {
-    ctx.reply('Задача была добавлена', backMenuTask);
+    ctx.reply(TASK_ADDED, backMenuTask);
     this.taskService.addTask(ctx.scene.session.addTask);
     return ctx.scene.leave();
   };

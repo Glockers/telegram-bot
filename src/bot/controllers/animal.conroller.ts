@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Actions } from '@bot/constants';
+import { Actions, FETCHING_IMAGE } from '@bot/constants';
 import { IBotContext } from '@bot/interfaces';
 import { IAnimalService } from '@bot/services';
 import { TYPE_ANIMAL_CONTAINERS } from '@container/bot/animals';
@@ -23,7 +23,7 @@ export class AnimalController implements IAnimalController {
   async getRandomCat(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.CAT);
     if (result) {
-      const replyMessage = await ctx.reply('Получаем картинку...');
+      const replyMessage = await ctx.reply(FETCHING_IMAGE);
       return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.CAT)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });
@@ -33,7 +33,7 @@ export class AnimalController implements IAnimalController {
   async getRandomDog(ctx: IBotContext): Promise<void> {
     const result = await this.animalService.getRandmonAnimal(Actions.DOG);
     if (result) {
-      const replyMessage = await ctx.reply('Получаем картинку...');
+      const replyMessage = await ctx.reply(FETCHING_IMAGE);
       return await ctx.replyWithPhoto(result, chooseAnimalPanel(Actions.DOG)).then(() => {
         ctx.deleteMessage(replyMessage.message_id);
       });

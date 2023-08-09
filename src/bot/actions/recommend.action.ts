@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { menuRecomend } from '@bot/buttons';
-import { Actions } from '@bot/constants';
+import { Actions, MENU_RECOMMEND } from '@bot/constants';
 import { RecommendController } from '@bot/controllers';
 import { AbstactAction } from '@bot/interfaces';
 import { catchAsyncFunction } from '@common/helpers';
@@ -20,7 +20,7 @@ export class RecommendAction extends AbstactAction {
 
   init(): void {
     this.bot.action(Actions.RECOMMEND_MENU, (ctx) => {
-      ctx.editMessageText('this is reccomend Menu', menuRecomend);
+      ctx.editMessageText(MENU_RECOMMEND, menuRecomend);
     });
 
     this.bot.action(Actions.RECOMMEND_CAFE, (ctx) => {

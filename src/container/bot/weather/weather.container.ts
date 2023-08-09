@@ -8,7 +8,7 @@ import {
 } from '@bot/services';
 import {
   ISceneBehave, SubscribeOnWeatherScene,
-  UnsubscribeOnWeatherScene, WeatherScene
+  WeatherScene
 } from '@bot/scenes';
 
 export class WeatherContainer implements IContainer {
@@ -16,7 +16,6 @@ export class WeatherContainer implements IContainer {
     InversifyContainer.bind<IWeatherService>(TYPE_WEATHER_CONTAINERS.WeatherService).to(WeatherService);
     InversifyContainer.bind<ISubscribeWeatherService>(TYPE_WEATHER_CONTAINERS.SubscribeService).to(SubscribeWeatherService);
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.SubscribeOnWeatherScene).to(SubscribeOnWeatherScene);
-    InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.UnsubscribeOnWeatherScene).to(UnsubscribeOnWeatherScene);
     InversifyContainer.bind<ISceneBehave>(TYPE_SCENES_CONTAINERS.WeatherScene).to(WeatherScene);
     InversifyContainer.bind<IWeatherlController>(TYPE_WEATHER_CONTAINERS.WeatherController).to(WeatherController);
   }

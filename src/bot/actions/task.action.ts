@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { TYPE_TASK_CONTAINERS } from '@container/bot';
 import { ITaskController } from '@bot/controllers';
 import { AbstactAction } from '@bot/interfaces';
-import { Actions, CommandName } from '@bot/constants';
+import { Actions, CommandName, TASK_MENU } from '@bot/constants';
 import { getCommand, catchAsyncFunction } from '@common/helpers';
 import { taskMenu } from '@bot/buttons';
 
@@ -23,7 +23,7 @@ export class TaskAction extends AbstactAction {
     });
 
     this.bot.action(Actions.TASK, (ctx) => {
-      ctx.editMessageText('Меню задачи', taskMenu);
+      ctx.editMessageText(TASK_MENU, taskMenu);
     });
 
     this.bot.action(Actions.ADD_TASK, (ctx) => {

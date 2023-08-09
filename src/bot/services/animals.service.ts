@@ -17,7 +17,7 @@ export class AnimalService implements IAnimalService {
   async getRandmonAnimal(message: string): Promise<string | null> {
     const selectedCommand = message;
     const animal = await this.pixelAPI.getAnimal(selectedCommand as Animals);
-    const animalImage: string = animal.data!.photos[0]!.url;
+    const animalImage: string = animal.photos[0]!.url;
     return animalImage ?? null;
   };
 }

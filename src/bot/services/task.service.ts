@@ -3,6 +3,7 @@ import { SessionAddTask, SessionTaskId } from '@bot/scenes';
 import { UserError } from '@common/exceptions';
 import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository';
 import { ITaskEntity, TaskRepository } from '@infra/database';
+import { TASK_NOT_FOUND_ERROR } from '@bot/constants';
 
 export interface ITaskService {
   getTasks: (userID: number) => Promise<ITaskEntity[]>;
@@ -28,19 +29,18 @@ export class TaskService implements ITaskService {
 
   async deleteTaskById(data: SessionTaskId, userID: number): Promise<boolean> {
     const selectedTask = await this.getTaskById(data.id);
-    if (selectedTask?.userID !== userID) throw UserError.sendMessage('Задача с таким ID не найдена');
+    if (selectedTask?.userID !== userID) throw UserError.sendMessage(TASK_NOT_FOUND_ERROR);
     this.taskRepository.delete(selectedTask);
     return true;
   }
 
   async getTaskById(idTask: number): Promise<ITaskEntity> {
     const result = await this.taskRepository.findOneById(idTask);
-    if (!result) throw UserError.sendMessage('Задача с таким ID не найдена');
+    if (!result) throw UserError.sendMessage(TASK_NOT_FOUND_ERROR);
     return result;
   }
 
-  // TODO ANY
-  async addTask(data: any): Promise<void> {
+  async addTask(data: ITaskEntity): Promise<void> {
     await this.taskRepository.add(data);
   }
 }

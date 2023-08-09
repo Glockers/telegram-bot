@@ -3,6 +3,7 @@ import { SessionSubscribeWeather, SessionUnsubscribeWeather } from '@bot/scenes'
 import { UserError } from '@common/exceptions';
 import { TYPE_REPOSITORY_CONTAINERS } from '@container/repository';
 import { TWeatherSubscribeEntity, WeatherSubscribeRepository } from '@infra/database';
+import { SUB_WEATHER_NOT_FOUND } from '@bot/constants';
 
 export interface ISubscribeWeatherService {
   deleteWeather: (data: SessionUnsubscribeWeather) => Promise<boolean>;
@@ -32,7 +33,7 @@ export class SubscribeWeatherService implements ISubscribeWeatherService {
 
   async deleteWeather(data: SessionUnsubscribeWeather): Promise<boolean> {
     const selectedSubscribe = await this.getSubscription(data.id);
-    if (!selectedSubscribe) throw UserError.sendMessage('Такой ID не найден');
+    if (!selectedSubscribe) throw UserError.sendMessage(SUB_WEATHER_NOT_FOUND);
     this.weatherSubscribeRepository.delete(selectedSubscribe);
     return true;
   }

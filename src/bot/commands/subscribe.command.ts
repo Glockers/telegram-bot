@@ -17,17 +17,12 @@ export class SubscribeCommand extends AbstactCommand {
 
   getCommands(): CommandHandlers {
     const commandHandlers: CommandHandlers = {
-      [CommandName.SUBSCRIBE]: this.subscribeOnWeather,
-      [CommandName.UNSUBSCRIBE]: this.unsubscribeFromWeather
+      [CommandName.SUBSCRIBE]: this.subscribeOnWeather
     };
     return commandHandlers;
   }
 
   private subscribeOnWeather(ctx: IBotContext): void {
     catchAsyncFunction(ctx, () => ctx.scene.enter(AppScenes.SUBSCRIBE_ON_WEATHER));
-  }
-
-  private unsubscribeFromWeather(ctx: IBotContext): void {
-    catchAsyncFunction(ctx, () => ctx.scene.enter(AppScenes.UNSUBSCRIBE_FROM_WEATHER));
   }
 }

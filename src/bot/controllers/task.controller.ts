@@ -1,6 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { backMenuTask, setTaskPanel, buttonInfoTask } from '@bot/buttons';
-import { AppScenes } from '@bot/constants';
+import {
+  AppScenes, DELETED_TASK,
+  NO_TASKS, TASK_LIST,
+  TASK_NOT_REMOVED, UNSUBSCRIBED_FROM_TASK
+} from '@bot/constants';
 import { CallbackQueryData, IBotContext } from '@bot/interfaces';
 import { SubscribeTaskService } from '@bot/services';
 import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers';
@@ -28,8 +32,8 @@ export class TaskController implements ITaskController {
     const userID = exctractUserIdFromChat(ctx);
     const tasks = await this.subscribeTaskService.getTasks(userID);
     tasks.length === 0
-      ? ctx.reply('У вас нет задач')
-      : ctx.editMessageText('Список задач', buttonInfoTask(tasks));
+      ? ctx.reply(NO_TASKS)
+      : ctx.reply(TASK_LIST, buttonInfoTask(tasks));
   }
 
   async getTask(ctx: CallbackQueryData): Promise<void> {
@@ -44,7 +48,9 @@ export class TaskController implements ITaskController {
   async deleteTask(ctx: CallbackQueryData): Promise<void> {
     const taskID = exctractcallbackQueryData(ctx);
     const userID = exctractUserIdFromChat(ctx);
-    await this.subscribeTaskService.deleteTaskById(taskID, userID) ? ctx.editMessageText('Задача удалена', backMenuTask) : ctx.reply('Задача не была удалена!', backMenuTask);
+    await this.subscribeTaskService.deleteTaskById(taskID, userID)
+      ? ctx.editMessageText(DELETED_TASK, backMenuTask)
+      : ctx.reply(TASK_NOT_REMOVED, backMenuTask);
   }
 
   async subsribeOnTask(ctx: IBotContext): Promise<void> {
@@ -62,6 +68,6 @@ export class TaskController implements ITaskController {
   async unSubscribeFromTask(ctx: CallbackQueryData): Promise<void> {
     const { id } = exctractcallbackQueryData(ctx);
     this.subscribeTaskService.unSubFromTask(id);
-    ctx.editMessageText('Вы отписались от уведомления задачи', backMenuTask);
+    ctx.editMessageText(UNSUBSCRIBED_FROM_TASK, backMenuTask);
   };
 }

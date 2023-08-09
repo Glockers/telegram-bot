@@ -1,7 +1,7 @@
 import { Scenes } from 'telegraf';
 import { inject, injectable } from 'inversify';
 import { ISceneBehave } from '@bot/scenes';
-import { AppScenes } from '@bot/constants';
+import { AppScenes, CITY_NOT_FOUND, WRITE_CITY } from '@bot/constants';
 import { IBotContext } from '@bot/interfaces';
 import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather';
 import { IWeatherService } from '@bot/services';
@@ -26,7 +26,7 @@ export class WeatherScene implements ISceneBehave {
   };
 
   async getWeather(ctx: IBotContext): Promise<void> {
-    await ctx.scene.enter('weather');
+    await ctx.scene.enter(AppScenes.WEATHER);
   }
 
   init(): void {
@@ -36,7 +36,7 @@ export class WeatherScene implements ISceneBehave {
 
   private askAboutCity(): void {
     this.scene.enter((ctx) => {
-      ctx.reply('Пришли мне название города');
+      ctx.reply(WRITE_CITY);
     });
   }
 
@@ -44,7 +44,7 @@ export class WeatherScene implements ISceneBehave {
     this.scene.on('text', async (ctx) => {
       const res = await this.weatherService.getWeatherByCity(ctx.message.text);
       if (!res) {
-        ctx.reply('Такого города нет! Попробуй еще');
+        ctx.reply(CITY_NOT_FOUND);
       } else {
         ctx.reply(formWeatherReport(res));
         ctx.scene.leave();

@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { AbstactAction } from '@bot/interfaces';
-import { Actions, CommandName } from '@bot/constants';
+import { Actions, CommandName, HELP_MESSAGE } from '@bot/constants';
 import { getCommand } from '@common/helpers';
 import { helpMenu } from '@bot/buttons';
 
@@ -16,7 +16,7 @@ export class GreetingAction extends AbstactAction {
     });
 
     this.bot.action(Actions.HELP_MENU, ctx => {
-      ctx.editMessageText('This is help message!', helpMenu);
+      ctx.editMessageText(HELP_MESSAGE, helpMenu);
     });
 
     this.bot.action(Actions.HELP_MENU_SCEBE, ctx => {

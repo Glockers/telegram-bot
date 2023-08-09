@@ -12,6 +12,7 @@ import { TYPE_ACTION_CONTAINERS } from '@container/bot/actions/actions.type';
 import { Stage } from './scenes/initStages';
 // @ts-ignore
 import rateLimit from 'telegraf-ratelimit';
+import { ERROR_TRY_AGAIN_LATER } from './constants';
 
 export interface IBot {
   init: () => void;
@@ -89,7 +90,7 @@ export class Bot implements IBot {
       }
 
       if (ctx) {
-        ctx.reply('Произошла ошибка. Пожалуйста, попробуйте еще раз позже.'); // TOD вынести в константу
+        ctx.reply(ERROR_TRY_AGAIN_LATER);
       }
     });
   }

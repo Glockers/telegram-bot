@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { CommandName } from '@bot/constants';
+import { CommandName, GREETING_MESSAGE, HELP_MESSAGE } from '@bot/constants';
 import { AbstactCommand, CommandHandlers, IBotContext } from '@bot/interfaces';
 import { helpMenu } from '@bot/buttons';
 
@@ -23,10 +23,10 @@ export class GreetingCommand extends AbstactCommand {
   }
 
   private startHandle(ctx: IBotContext): void {
-    ctx.reply('Welcome!');
+    ctx.reply(GREETING_MESSAGE);
   }
 
   private helpHandle(ctx: IBotContext): void {
-    ctx.reply('This is help message!', helpMenu);
+    ctx.reply(HELP_MESSAGE, helpMenu);
   }
 }

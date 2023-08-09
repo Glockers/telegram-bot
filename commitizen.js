@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  // Добавим описание на русском языке ко всем типам
   types: [
     { value: 'feat', name: 'feat:      Добавление нового функционала' },
     { value: 'update', name: 'update:    Обновление функционала' },
@@ -28,7 +27,6 @@ module.exports = {
     { value: 'test', name: 'test:      Добавление тестов' }
   ],
 
-  // Область. Она характеризует фрагмент кода, которую затронули изменения
   scopes: [
     { name: 'project' },
     { name: 'commands' },
@@ -39,11 +37,9 @@ module.exports = {
     { name: 'db' }
   ],
 
-  // Поменяем дефолтные вопросы
   messages: {
     type: 'Какие изменения вы вносите?',
     scope: '\nВыберите ОБЛАСТЬ, которую вы изменили (опционально):',
-    // Спросим если allowCustomScopes в true
     customScope: 'Укажите свою ОБЛАСТЬ:',
     subject: 'Напишите КОРОТКОЕ описание в ПОВЕЛИТЕЛЬНОМ наклонении:\n',
     body: 'Напишите ПОДРОБНОЕ описание (опционально). Используйте "|" для новой строки:\n',
@@ -53,15 +49,9 @@ module.exports = {
     confirmCommit: 'Вас устраивает получившийся коммит?'
   },
 
-  // Разрешим собственную ОБЛАСТЬ
   allowCustomScopes: true,
 
-  // Запрет на Breaking Changes
   allowBreakingChanges: false,
 
-  // // Префикс для нижнего колонтитула
-  // footerPrefix: 'МЕТА ДАННЫЕ:',
-
-  // limit subject length
   subjectLimit: 100
 };

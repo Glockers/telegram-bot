@@ -4,6 +4,10 @@ import { CallbackQueryData, IBotContext } from '@bot/interfaces';
 import { ISubscribeWeatherService } from '@bot/services';
 import { exctractUserIdFromChat, exctractcallbackQueryData } from '@common/helpers';
 import { TYPE_WEATHER_CONTAINERS } from '@container/bot/weather';
+import {
+  NO_SUBSCRIPTIONS, SUBSCRIPTION_CANCELLED,
+  TASK_NOT_REMOVED, TASK_SUB_LIST
+} from '@bot/constants';
 
 export interface IWeatherlController {
   getAllWeatherSubscribs: (ctx: IBotContext) => Promise<void>;
@@ -24,12 +28,14 @@ export class WeatherController implements IWeatherlController {
     const userID = exctractUserIdFromChat(ctx);
     const subscriptions = await this.subscribeService.getWeatherSubscriptions(userID);
     subscriptions.length !== 0
-      ? ctx.reply('Список подписок ', weatherInfoTask(subscriptions))
-      : ctx.reply('У вас нет подписок');
+      ? ctx.reply(TASK_SUB_LIST, weatherInfoTask(subscriptions))
+      : ctx.reply(NO_SUBSCRIPTIONS);
   };
 
   deleteSubscribe = async (ctx: CallbackQueryData): Promise<void> => {
     const subscribe = exctractcallbackQueryData(ctx);
-    await this.subscribeService.deleteWeather(subscribe) ? ctx.editMessageText('Подписка отменена', weatherMenu) : ctx.reply('Задача не была удалена!', weatherMenu);
+    await this.subscribeService.deleteWeather(subscribe)
+      ? ctx.editMessageText(SUBSCRIPTION_CANCELLED, weatherMenu)
+      : ctx.reply(TASK_NOT_REMOVED, weatherMenu);
   };
 }

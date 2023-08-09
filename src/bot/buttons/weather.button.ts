@@ -2,6 +2,7 @@ import { Markup } from 'telegraf';
 import { InlineKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
 import { Actions } from '@bot/constants';
 import { TWeatherSubscribeEntity } from '@infra/database';
+import { convertDateToString } from '@common/utils';
 
 export const weatherMenu = Markup.inlineKeyboard([
   [
@@ -22,9 +23,15 @@ export const weatherInfoTask = (subscriptions: TWeatherSubscribeEntity[]): Marku
   const buttonTasks = [];
   for (const element of subscriptions) {
     const text = 'unsubscribe_weather?' + JSON.stringify({ id: element.id });
-    const title = element.city;
+    const title = `${element.city} ${convertDateToString(element.time)}`;
     buttonTasks.push([Markup.button.callback(title, text)]);
   }
 
   return Markup.inlineKeyboard(buttonTasks);
 };
+
+export const backToWeatherMenu = Markup.inlineKeyboard([
+  [
+    Markup.button.callback('Назад', Actions.WEATHER)
+  ]
+]);

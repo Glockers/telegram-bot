@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { weatherMenu } from '@bot/buttons';
-import { Actions, CommandName } from '@bot/constants';
+import { Actions, CommandName, MENU_WEATHER } from '@bot/constants';
 import { IWeatherlController } from '@bot/controllers';
 import { AbstactAction } from '@bot/interfaces';
 import { catchAsyncFunction, getCommand } from '@common/helpers';
@@ -19,7 +19,7 @@ export class WeatherAction extends AbstactAction {
 
   init(): void {
     this.bot.action(Actions.WEATHER, (ctx) => {
-      catchAsyncFunction(ctx, () => ctx.editMessageText('Меню погода', weatherMenu));
+      catchAsyncFunction(ctx, () => ctx.editMessageText(MENU_WEATHER, weatherMenu));
     });
 
     this.bot.action(Actions.GET_WEATHER, ctx => {
