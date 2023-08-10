@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 export function convertDateToString(date: Date): string {
   const hours = (date.getHours() + 3).toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -7,10 +6,12 @@ export function convertDateToString(date: Date): string {
 
 export function convertStringToDate(time: string, timeStamp?: number): Date | null {
   const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+  console.log(new Date(timeStamp));
   if (timeRegex.test(time)) {
     const [hours, minutes] = time.split(':').map(Number);
     const date = new Date();
     const timeDifferenceInHours = (timeStamp - Date.now()) / 3600000;
+    console.log(timeDifferenceInHours);
     date.setHours(hours + timeDifferenceInHours);
     date.setMinutes(minutes);
     date.setSeconds(0);
