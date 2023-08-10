@@ -6,11 +6,11 @@ export function convertDateToString(date: Date): string {
 
 export function convertStringToDate(time: string, timeStamp?: number): Date | null {
   const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
-  console.log(new Date(timeStamp));
+  console.log(new Date(timeStamp * 1000));
   if (timeRegex.test(time)) {
     const [hours, minutes] = time.split(':').map(Number);
     const date = new Date();
-    const timeDifferenceInHours = (timeStamp - Date.now()) / 3600000;
+    const timeDifferenceInHours = (timeStamp * 1000 - Date.now()) / 3600000;
     console.log(timeDifferenceInHours);
     date.setHours(hours + timeDifferenceInHours);
     date.setMinutes(minutes);
