@@ -65,7 +65,6 @@ export class SubscribeOnWeatherScene implements ISceneBehave {
   exctractData = async (ctx: IBotContext): Promise<void> => {
     const time = extractMessageFromChat(ctx);
     const convertedTime = convertStringToDate(time, ctx.message.date);
-    console.log(convertedTime);
     if (!convertedTime) {
       ctx.reply(INVALID_TIME_FORMAT);
       return;
