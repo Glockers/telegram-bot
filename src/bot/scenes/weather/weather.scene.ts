@@ -42,6 +42,7 @@ export class WeatherScene implements ISceneBehave {
 
   private async handleWeather(): Promise<void> {
     this.scene.on('text', async (ctx) => {
+      console.log(new Date(ctx.message.date * 1000));
       const res = await this.weatherService.getWeatherByCity(ctx.message.text);
       if (!res) {
         ctx.reply(CITY_NOT_FOUND);
