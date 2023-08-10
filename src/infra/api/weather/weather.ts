@@ -2,17 +2,14 @@ import { API } from '@infra/api/api.class';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { injectable } from 'inversify';
 import { WeatherAPIData } from './weather.type';
+import { OPENWEATHER_BASE_URL, OPENWEATHER_WEATHER_URL } from '@config/api.config';
 
 @injectable()
 export class WeatherAPI extends API {
-  private readonly BASE_URL = 'https://api.openweathermap.org/data/2.5/';
-
-  private readonly WEATHER_URL = 'weather';
-
   constructor() {
     super();
     this.axiosInstance = axios.create({
-      baseURL: this.BASE_URL
+      baseURL: OPENWEATHER_BASE_URL
     });
   }
 
@@ -22,7 +19,7 @@ export class WeatherAPI extends API {
 
   async getWeatherByCity(city: string, token: string): Promise<WeatherAPIData | null> {
     try {
-      const result = await this.getInstance().get<WeatherAPIData>(this.WEATHER_URL, {
+      const result = await this.getInstance().get<WeatherAPIData>(OPENWEATHER_WEATHER_URL, {
         params: {
           q: city,
           appid: token

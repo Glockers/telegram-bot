@@ -2,19 +2,14 @@ import { injectable } from 'inversify';
 import axios, { AxiosInstance } from 'axios';
 import { API } from '@infra/api/api.class';
 import { FeatureCollection, ICountryData, KindsPlace } from './place.type';
+import { OPEN_TRIPMAP_BASE_URL, OPEN_TRIPMAP_CORD, OPEN_TRIPMAP_PLACES } from '@config/api.config';
 
 @injectable()
 export class RecommendAPI extends API {
-  private readonly BASE_URL = 'https://api.opentripmap.com';
-
-  private readonly URL_CORD = '/0.1/en/places/geoname';
-
-  private readonly URL_PLACES = '/0.1/en/places/radius';
-
   constructor() {
     super();
     this.axiosInstance = axios.create({
-      baseURL: this.BASE_URL,
+      baseURL: OPEN_TRIPMAP_BASE_URL,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -22,7 +17,7 @@ export class RecommendAPI extends API {
   }
 
   private async getСordByCity(city: string): Promise<ICountryData> {
-    const data = await this.getInstance().get<ICountryData>(this.URL_CORD, {
+    const data = await this.getInstance().get<ICountryData>(OPEN_TRIPMAP_CORD, {
       params: {
         apikey: this.configService.get('RECOMMEND_TOKEN'),
         format: 'json',
@@ -35,7 +30,7 @@ export class RecommendAPI extends API {
 
   async getPlaces(city: string, kind: KindsPlace): Promise<FeatureCollection> {
     const result = await this.getСordByCity(city);
-    const places = await this.getInstance().get<FeatureCollection>(this.URL_PLACES, {
+    const places = await this.getInstance().get<FeatureCollection>(OPEN_TRIPMAP_PLACES, {
       params: {
         apikey: this.configService.get('RECOMMEND_TOKEN'),
         kinds: kind,

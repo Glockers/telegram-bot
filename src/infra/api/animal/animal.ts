@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import axios, { AxiosInstance } from 'axios';
 import { API } from '@infra/api/api.class';
 import { getRandomNumber } from '@common/utils/random';
+import { PEXELS_BASE_URL } from '@config/api.config';
 
 export enum Animals {
   CAT = 'cat',
@@ -10,12 +11,10 @@ export enum Animals {
 
 @injectable()
 export class PixelsAPI extends API {
-  private readonly BASE_URL = 'https://api.pexels.com/v1/';
-
   constructor() {
     super();
     this.axiosInstance = axios.create({
-      baseURL: this.BASE_URL,
+      baseURL: PEXELS_BASE_URL,
       headers: {
         Authorization: this.configService.get('PEXEL_TOKEN'),
         'Content-Type': 'application/json'
