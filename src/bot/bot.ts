@@ -7,7 +7,7 @@ import { TYPE_COMMAND_CONTAINERS } from '@container/bot/commands';
 import { InversifyContainer } from '@container/inversifyContainer';
 import { ratelimitConfig } from '@config/ratelimit.config';
 import { TYPE_BOT_CONTAINERS } from '@container/bot/botContainer.type';
-import { initSheduler } from '@infra/sheduler';
+import { initSheduler } from '@infra/schedule';
 import { TYPE_ACTION_CONTAINERS } from '@container/bot/actions/actions.type';
 import { Stage } from './scenes/initStages';
 import rateLimit from 'telegraf-ratelimit';
