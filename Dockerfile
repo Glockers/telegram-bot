@@ -1,3 +1,4 @@
+# Node v20.0.0
 FROM node:lts-alpine AS builder
 
 WORKDIR /usr/src/app
