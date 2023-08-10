@@ -7,6 +7,7 @@ export function convertDateToString(date: Date): string {
 export function convertStringToDate(time: string, timestamp?: number): Date | null {
   const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
   const serverTime = new Date(timestamp * 1000);
+  console.log(serverTime, new Date());
   if (timeRegex.test(time)) {
     const [hours, minutes] = time.split(':').map(Number);
     const date = new Date(serverTime.getTime());
